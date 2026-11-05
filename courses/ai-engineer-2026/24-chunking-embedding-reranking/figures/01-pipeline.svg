@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="936pt" height="540pt" viewBox="0 0 936 540" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-04T23:42:28.592785</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 540 
+L 936 540 
+L 936 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 64.26576 207.0792 
+L 249.94944 207.0792 
+Q 265.28112 207.0792 265.28112 199.8864 
+L 265.28112 116.7696 
+Q 265.28112 109.5768 249.94944 109.5768 
+L 64.26576 109.5768 
+Q 48.93408 109.5768 48.93408 116.7696 
+L 48.93408 199.8864 
+Q 48.93408 207.0792 64.26576 207.0792 
+z
+" clip-path="url(#pca2a661c3e)" style="fill: #f1f5f9; stroke: #2563eb; stroke-width: 1.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 370.89936 207.0792 
+L 556.58304 207.0792 
+Q 571.91472 207.0792 571.91472 199.8864 
+L 571.91472 116.7696 
+Q 571.91472 109.5768 556.58304 109.5768 
+L 370.89936 109.5768 
+Q 355.56768 109.5768 355.56768 116.7696 
+L 355.56768 199.8864 
+Q 355.56768 207.0792 370.89936 207.0792 
+z
+" clip-path="url(#pca2a661c3e)" style="fill: #f1f5f9; stroke: #0f766e; stroke-width: 1.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 677.53296 207.0792 
+L 863.21664 207.0792 
+Q 878.54832 207.0792 878.54832 199.8864 
+L 878.54832 116.7696 
+Q 878.54832 109.5768 863.21664 109.5768 
+L 677.53296 109.5768 
+Q 662.20128 109.5768 662.20128 116.7696 
+L 662.20128 199.8864 
+Q 662.20128 207.0792 677.53296 207.0792 
+z
+" clip-path="url(#pca2a661c3e)" style="fill: #f1f5f9; stroke: #0f766e; stroke-width: 1.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 64.26576 370.9152 
+L 249.94944 370.9152 
+Q 265.28112 370.9152 265.28112 363.7224 
+L 265.28112 284.6016 
+Q 265.28112 277.4088 249.94944 277.4088 
+L 64.26576 277.4088 
+Q 48.93408 277.4088 48.93408 284.6016 
+L 48.93408 363.7224 
+Q 48.93408 370.9152 64.26576 370.9152 
+z
+" clip-path="url(#pca2a661c3e)" style="fill: #f1f5f9; stroke: #2563eb; stroke-width: 1.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 370.89936 370.9152 
+L 556.58304 370.9152 
+Q 571.91472 370.9152 571.91472 363.7224 
+L 571.91472 284.6016 
+Q 571.91472 277.4088 556.58304 277.4088 
+L 370.89936 277.4088 
+Q 355.56768 277.4088 355.56768 284.6016 
+L 355.56768 363.7224 
+Q 355.56768 370.9152 370.89936 370.9152 
+z
+" clip-path="url(#pca2a661c3e)" style="fill: #f1f5f9; stroke: #2563eb; stroke-width: 1.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 677.53296 370.9152 
+L 863.21664 370.9152 
+Q 878.54832 370.9152 878.54832 363.7224 
+L 878.54832 284.6016 
+Q 878.54832 277.4088 863.21664 277.4088 
+L 677.53296 277.4088 
+Q 662.20128 277.4088 662.20128 284.6016 
+L 662.20128 363.7224 
+Q 662.20128 370.9152 677.53296 370.9152 
+z
+" clip-path="url(#pca2a661c3e)" style="fill: #f1f5f9; stroke: #c2410c; stroke-width: 1.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 677.53296 478.8072 
+L 863.21664 478.8072 
+Q 878.54832 478.8072 878.54832 471.6144 
+L 878.54832 412.4736 
+Q 878.54832 405.2808 863.21664 405.2808 
+L 677.53296 405.2808 
+Q 662.20128 405.2808 662.20128 412.4736 
+L 662.20128 471.6144 
+Q 662.20128 478.8072 677.53296 478.8072 
+z
+" clip-path="url(#pca2a661c3e)" style="fill: #f1f5f9; stroke: #c2410c; stroke-width: 1.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(107.0826 151.9605)">Nguồn + section</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(107.632913 172.3605)">version + quyền</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(433.5387 151.588313)">Chia đoạn</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(410.8512 173.00175)">text + offset + ID</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(737.994488 152.60175)">Bi-encoder</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(726.084488 173.00175)">vector + index</text>
+   </g>
+   <g id="patch_9">
+    <path d="M 257.058652 158.328 
+Q 301.905731 158.328 344.852152 158.328 
+" style="fill: none; stroke: #475569; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 340.052152 155.928 
+L 344.852152 158.328 
+L 340.052152 160.728 
+" style="fill: none; stroke: #475569; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 563.692252 158.328 
+Q 608.539331 158.328 651.485752 158.328 
+" style="fill: none; stroke: #475569; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 646.685752 155.928 
+L 651.485752 158.328 
+L 646.685752 160.728 
+" style="fill: none; stroke: #475569; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(125.782913 317.51325)">Query mới</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(117.798225 337.91325)">encode riêng</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(419.850263 318.43575)">BM25 + dense</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(420.303075 339.354188)">RRF → tối đa 6</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(714.521441 318.067313)">Query + từng chunk</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(731.734722 337.612938)">cross-encoder</text>
+   </g>
+   <g id="patch_11">
+    <path d="M 257.058652 326.16 
+Q 301.905731 326.16 344.852152 326.16 
+" style="fill: none; stroke: #475569; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 340.052152 323.76 
+L 344.852152 326.16 
+L 340.052152 328.56 
+" style="fill: none; stroke: #475569; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 563.692252 326.16 
+Q 608.539331 326.16 651.485752 326.16 
+" style="fill: none; stroke: #475569; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 646.685752 323.76 
+L 651.485752 326.16 
+L 646.685752 328.56 
+" style="fill: none; stroke: #475569; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 764.164916 206.712246 
+Q 612.802291 240.245315 463.29533 273.367279 
+" style="fill: none; stroke: #475569; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 468.500815 274.67224 
+L 463.29533 273.367279 
+L 467.46259 269.985867 
+" style="fill: none; stroke: #475569; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(728.4098 436.207125)">Top-3 có nguồn</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(729.209878 455.073844)">đo bằng chứng</text>
+   </g>
+   <g id="patch_14">
+    <path d="M 766.116 372.117902 
+Q 766.116 386.100496 766.116 398.182432 
+" style="fill: none; stroke: #475569; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 768.516 393.382432 
+L 766.116 398.182432 
+L 763.716 393.382432 
+" style="fill: none; stroke: #475569; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #475569" transform="translate(59.1552 432.432)">Ba lỗi: chunk đứt span · retriever bỏ sót · reranker xếp sai.</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #475569" transform="translate(59.1552 454.032)">Cần đo riêng mỗi tầng để biết sửa ở đâu.</text>
+   </g>
+  </g>
+  <g id="text_9">
+   <text style="font-weight: 700; font-size: 20px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172033" x="51.48" y="35.976875" transform="rotate(-0 51.48 35.976875)">01 · Chunk → embedding → ứng viên → rerank</text>
+  </g>
+  <g id="text_10">
+   <text style="font-size: 11.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #475569" x="51.48" y="52.92" transform="rotate(-0 51.48 52.92)">Lab: snapshot public, neural model nhỏ học từ đầu; chưa có bước sinh câu trả lời RAG.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pca2a661c3e">
+   <rect x="42.12" y="86.4" width="851.76" height="399.6"/>
+  </clipPath>
+ </defs>
+</svg>

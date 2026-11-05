@@ -1,0 +1,85 @@
+{
+  "additionalProperties": false,
+  "oneOf": [
+    {
+      "properties": {
+        "decision": {
+          "const": "route"
+        },
+        "team": {
+          "enum": [
+            "AUTH",
+            "DATA",
+            "NET"
+          ]
+        },
+        "evidence_ids": {
+          "minItems": 1
+        }
+      }
+    },
+    {
+      "properties": {
+        "decision": {
+          "const": "abstain"
+        },
+        "team": {
+          "type": "null"
+        },
+        "evidence_ids": {
+          "maxItems": 0
+        }
+      }
+    }
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1",
+      "title": "Schema Version",
+      "type": "string"
+    },
+    "decision": {
+      "enum": [
+        "route",
+        "abstain"
+      ],
+      "title": "Decision",
+      "type": "string"
+    },
+    "team": {
+      "anyOf": [
+        {
+          "enum": [
+            "AUTH",
+            "DATA",
+            "NET"
+          ],
+          "type": "string"
+        },
+        {
+          "type": "null"
+        }
+      ],
+      "title": "Team"
+    },
+    "evidence_ids": {
+      "items": {
+        "pattern": "^L[1-9][0-9]*$",
+        "type": "string"
+      },
+      "maxItems": 8,
+      "title": "Evidence Ids",
+      "type": "array",
+      "uniqueItems": true
+    }
+  },
+  "required": [
+    "schema_version",
+    "decision",
+    "team",
+    "evidence_ids"
+  ],
+  "title": "Proposal",
+  "type": "object",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

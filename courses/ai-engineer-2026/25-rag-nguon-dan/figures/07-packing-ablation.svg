@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="936pt" height="540pt" viewBox="0 0 936 540" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-05T00:11:52.877072</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 540 
+L 936 540 
+L 936 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 93.6 394.2 
+L 861.12 394.2 
+L 861.12 113.4 
+L 93.6 113.4 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 128.487273 394.2 
+L 218.935758 394.2 
+L 218.935758 293.112 
+L 128.487273 293.112 
+z
+" clip-path="url(#p55c0b26386)" style="fill: #0f766e"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 386.911515 394.2 
+L 477.36 394.2 
+L 477.36 169.56 
+L 386.911515 169.56 
+z
+" clip-path="url(#p55c0b26386)" style="fill: #0f766e"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 645.335758 394.2 
+L 735.784242 394.2 
+L 735.784242 169.56 
+L 645.335758 169.56 
+z
+" clip-path="url(#p55c0b26386)" style="fill: #0f766e"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 218.935758 394.2 
+L 309.384242 394.2 
+L 309.384242 319.32 
+L 218.935758 319.32 
+z
+" clip-path="url(#p55c0b26386)" style="fill: #c2410c"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 477.36 394.2 
+L 567.808485 394.2 
+L 567.808485 207 
+L 477.36 207 
+z
+" clip-path="url(#p55c0b26386)" style="fill: #c2410c"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 735.784242 394.2 
+L 826.232727 394.2 
+L 826.232727 207 
+L 735.784242 207 
+z
+" clip-path="url(#p55c0b26386)" style="fill: #c2410c"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="mdc0157405b" d="M 0 0 
+L 0 3.5 
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#mdc0157405b" x="218.935758" y="394.2" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="218.935758" y="410.317187" transform="rotate(-0 218.935758 410.317187)">40</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#mdc0157405b" x="477.36" y="394.2" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="477.36" y="410.317187" transform="rotate(-0 477.36 410.317187)">110</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#mdc0157405b" x="735.784242" y="394.2" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="735.784242" y="410.317187" transform="rotate(-0 735.784242 410.317187)">180</text>
+     </g>
+    </g>
+    <g id="text_4">
+     <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="477.36" y="426.318125" transform="rotate(-0 477.36 426.318125)">Cap serialized context (word-level token)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2">
+    <g id="ytick_1">
+     <g id="line2d_4">
+      <defs>
+       <path id="m23fe3a2d3e" d="M 0 0 
+L -3.5 0 
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#m23fe3a2d3e" x="93.6" y="394.2" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: end" x="86.6" y="398.758594" transform="rotate(-0 86.6 398.758594)">0.0</text>
+     </g>
+    </g>
+    <g id="ytick_2">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#m23fe3a2d3e" x="93.6" y="349.272" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: end" x="86.6" y="353.830594" transform="rotate(-0 86.6 353.830594)">0.2</text>
+     </g>
+    </g>
+    <g id="ytick_3">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#m23fe3a2d3e" x="93.6" y="304.344" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_7">
+      <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: end" x="86.6" y="308.902594" transform="rotate(-0 86.6 308.902594)">0.4</text>
+     </g>
+    </g>
+    <g id="ytick_4">
+     <g id="line2d_7">
+      <g>
+       <use xlink:href="#m23fe3a2d3e" x="93.6" y="259.416" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_8">
+      <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: end" x="86.6" y="263.974594" transform="rotate(-0 86.6 263.974594)">0.6</text>
+     </g>
+    </g>
+    <g id="ytick_5">
+     <g id="line2d_8">
+      <g>
+       <use xlink:href="#m23fe3a2d3e" x="93.6" y="214.488" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_9">
+      <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: end" x="86.6" y="219.046594" transform="rotate(-0 86.6 219.046594)">0.8</text>
+     </g>
+    </g>
+    <g id="ytick_6">
+     <g id="line2d_9">
+      <g>
+       <use xlink:href="#m23fe3a2d3e" x="93.6" y="169.56" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_10">
+      <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: end" x="86.6" y="174.118594" transform="rotate(-0 86.6 174.118594)">1.0</text>
+     </g>
+    </g>
+    <g id="ytick_7">
+     <g id="line2d_10">
+      <g>
+       <use xlink:href="#m23fe3a2d3e" x="93.6" y="124.632" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_11">
+      <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: end" x="86.6" y="129.190594" transform="rotate(-0 86.6 129.190594)">1.2</text>
+     </g>
+    </g>
+    <g id="text_12">
+     <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="60.633438" y="253.8" transform="rotate(-90 60.633438 253.8)">Tỷ lệ</text>
+    </g>
+   </g>
+   <g id="patch_9">
+    <path d="M 93.6 394.2 
+L 93.6 113.4 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 93.6 394.2 
+L 861.12 394.2 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="173.711515" y="287.496" transform="rotate(-0 173.711515 287.496)">0.450</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="264.16" y="313.704" transform="rotate(-0 264.16 313.704)">0.333</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="432.135758" y="163.944" transform="rotate(-0 432.135758 163.944)">1.000</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="522.584242" y="201.384" transform="rotate(-0 522.584242 201.384)">0.833</text>
+   </g>
+   <g id="text_17">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="690.56" y="163.944" transform="rotate(-0 690.56 163.944)">1.000</text>
+   </g>
+   <g id="text_18">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="781.008485" y="201.384" transform="rotate(-0 781.008485 201.384)">0.833</text>
+   </g>
+   <g id="legend_1">
+    <g id="patch_11">
+     <path d="M 359.045156 130.398438 
+L 379.045156 130.398438 
+L 379.045156 123.398438 
+L 359.045156 123.398438 
+z
+" style="fill: #0f766e"/>
+    </g>
+    <g id="text_19">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="387.045156" y="130.398438" transform="rotate(-0 387.045156 130.398438)">Packed required recall (10 query có facts)</text>
+    </g>
+    <g id="patch_12">
+     <path d="M 359.045156 145.399219 
+L 379.045156 145.399219 
+L 379.045156 138.399219 
+L 359.045156 138.399219 
+z
+" style="fill: #c2410c"/>
+    </g>
+    <g id="text_20">
+     <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start" x="387.045156" y="145.399219" transform="rotate(-0 387.045156 145.399219)">Task success (12 query test)</text>
+    </g>
+   </g>
+  </g>
+  <g id="text_21">
+   <text style="font-weight: 700; font-size: 20px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172033" x="51.48" y="37.851875" transform="rotate(-0 51.48 37.851875)">07 · Bằng chứng bị mất ở packing thì generator chưa được đọc</text>
+  </g>
+  <g id="text_22">
+   <text style="font-size: 11.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #475569" x="51.48" y="52.92" transform="rotate(-0 51.48 52.92)">Cùng query/retriever/baseline, đổi cap context. Claim grounding vẫn bằng 1 ở cả ba cấu hình.</text>
+  </g>
+  <g id="text_23">
+   <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #475569" transform="translate(93.6 464.2275)">Cap 40 làm mất facts dù candidate đủ. Từ 110 lên 180 chưa sửa conflict/relevance của generator.</text>
+   <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #475569" transform="translate(93.6 486)">Không so các mẫu số như cùng một accuracy; số token này không thay tokenizer provider.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p55c0b26386">
+   <rect x="93.6" y="113.4" width="767.52" height="280.8"/>
+  </clipPath>
+ </defs>
+</svg>

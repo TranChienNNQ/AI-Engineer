@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="684pt" height="366.143906pt" viewBox="0 0 684 366.143906" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-04T21:31:01.661307</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 366.143906 
+L 684 366.143906 
+L 684 -0 
+L 0 -0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 23.94 176.657186 
+L 191.34 176.657186 
+Q 199.3752 176.657186 199.3752 172.665506 
+L 199.3752 112.790306 
+Q 199.3752 108.798626 191.34 108.798626 
+L 23.94 108.798626 
+Q 15.9048 108.798626 15.9048 112.790306 
+L 15.9048 172.665506 
+Q 15.9048 176.657186 23.94 176.657186 
+z
+" clip-path="url(#p3713f08a0d)" style="fill: #2563eb; fill-opacity: 0.070588; stroke: #2563eb; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 258.3 176.657186 
+L 425.7 176.657186 
+Q 433.7352 176.657186 433.7352 172.665506 
+L 433.7352 112.790306 
+Q 433.7352 108.798626 425.7 108.798626 
+L 258.3 108.798626 
+Q 250.2648 108.798626 250.2648 112.790306 
+L 250.2648 172.665506 
+Q 250.2648 176.657186 258.3 176.657186 
+z
+" clip-path="url(#p3713f08a0d)" style="fill: #2563eb; fill-opacity: 0.070588; stroke: #2563eb; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 492.66 176.657186 
+L 660.06 176.657186 
+Q 668.0952 176.657186 668.0952 172.665506 
+L 668.0952 112.790306 
+Q 668.0952 108.798626 660.06 108.798626 
+L 492.66 108.798626 
+Q 484.6248 108.798626 484.6248 112.790306 
+L 484.6248 172.665506 
+Q 484.6248 176.657186 492.66 176.657186 
+z
+" clip-path="url(#p3713f08a0d)" style="fill: #2563eb; fill-opacity: 0.070588; stroke: #2563eb; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 208.08 311.376386 
+L 475.92 311.376386 
+Q 483.9552 311.376386 483.9552 307.384706 
+L 483.9552 244.183106 
+Q 483.9552 240.191426 475.92 240.191426 
+L 208.08 240.191426 
+Q 200.0448 240.191426 200.0448 244.183106 
+L 200.0448 307.384706 
+Q 200.0448 311.376386 208.08 311.376386 
+z
+" clip-path="url(#p3713f08a0d)" style="fill: #0f766e; fill-opacity: 0.070588; stroke: #0f766e; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="107.64" y="145.585758" transform="rotate(-0 107.64 145.585758)">Random weight</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(302.391406 138.984254)">Pretraining LM</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(290.654063 152.187262)">→ base checkpoint</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(522.077578 138.763824)">SFT prompt–answer</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(534.089062 152.406832)">→ model tác vụ</text>
+   </g>
+   <g id="patch_6">
+    <path d="M 203.383727 142.727906 
+Q 224.818837 142.727906 244.576896 142.727906 
+" style="fill: none; stroke: #475569; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 240.176896 140.527906 
+L 244.576896 142.727906 
+L 240.176896 144.927906 
+" style="fill: none; stroke: #475569; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 437.743727 142.727906 
+Q 459.178837 142.727906 478.936896 142.727906 
+" style="fill: none; stroke: #475569; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 474.536896 140.527906 
+L 478.936896 142.727906 
+L 474.536896 144.927906 
+" style="fill: none; stroke: #475569; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(282.452187 272.518066)">CPT: tiếp tục LM miền</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(257.693594 285.721074)">(lựa chọn chưa chạy trong lab)</text>
+   </g>
+   <g id="patch_8">
+    <path d="M 342 177.993959 
+Q 342 207.594533 342 235.518057 
+" style="fill: none; stroke: #475569; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 344.2 231.118057 
+L 342 235.518057 
+L 339.8 231.118057 
+" style="fill: none; stroke: #475569; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 484.009229 274.350229 
+Q 529.48708 227.552053 573.796164 181.956576 
+" style="fill: none; stroke: #475569; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 569.151993 183.578821 
+L 573.796164 181.956576 
+L 572.307457 186.64526 
+" style="fill: none; stroke: #475569; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #475569" x="342" y="347.301506" transform="rotate(-0 342 347.301506)">Lab: pretraining nhỏ từ đầu → SFT; không có pretrained LLM tải ngoài hoặc RLHF.</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 15px; font-family: 'DejaVu Sans'; text-anchor: middle" x="342" y="20.303906" transform="rotate(-0 342 20.303906)">Học phân phối văn bản khác với học hành vi theo yêu cầu</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p3713f08a0d">
+   <rect x="7.2" y="26.303906" width="669.6" height="332.64"/>
+  </clipPath>
+ </defs>
+</svg>

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="684pt" height="311.5775pt" viewBox="0 0 684 311.5775" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-04T21:14:36.339800</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 311.5775 
+L 684 311.5775 
+L 684 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 40.68 201.8135 
+L 144.468 201.8135 
+Q 151.164 201.8135 151.164 199.0415 
+L 151.164 121.4255 
+Q 151.164 118.6535 144.468 118.6535 
+L 40.68 118.6535 
+Q 33.984 118.6535 33.984 121.4255 
+L 33.984 199.0415 
+Q 33.984 201.8135 40.68 201.8135 
+z
+" clip-path="url(#p8223274ba9)" style="fill: #eff6ff; stroke: #2563eb; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 161.208 201.8135 
+L 264.996 201.8135 
+Q 271.692 201.8135 271.692 199.0415 
+L 271.692 121.4255 
+Q 271.692 118.6535 264.996 118.6535 
+L 161.208 118.6535 
+Q 154.512 118.6535 154.512 121.4255 
+L 154.512 199.0415 
+Q 154.512 201.8135 161.208 201.8135 
+z
+" clip-path="url(#p8223274ba9)" style="fill: #eff6ff; stroke: #2563eb; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 281.736 201.8135 
+L 385.524 201.8135 
+Q 392.22 201.8135 392.22 199.0415 
+L 392.22 121.4255 
+Q 392.22 118.6535 385.524 118.6535 
+L 281.736 118.6535 
+Q 275.04 118.6535 275.04 121.4255 
+L 275.04 199.0415 
+Q 275.04 201.8135 281.736 201.8135 
+z
+" clip-path="url(#p8223274ba9)" style="fill: #eff6ff; stroke: #2563eb; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 402.264 201.8135 
+L 506.052 201.8135 
+Q 512.748 201.8135 512.748 199.0415 
+L 512.748 121.4255 
+Q 512.748 118.6535 506.052 118.6535 
+L 402.264 118.6535 
+Q 395.568 118.6535 395.568 121.4255 
+L 395.568 199.0415 
+Q 395.568 201.8135 402.264 201.8135 
+z
+" clip-path="url(#p8223274ba9)" style="fill: #eff6ff; stroke: #2563eb; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 522.792 201.8135 
+L 626.58 201.8135 
+Q 633.276 201.8135 633.276 199.0415 
+L 633.276 121.4255 
+Q 633.276 118.6535 626.58 118.6535 
+L 522.792 118.6535 
+Q 516.096 118.6535 516.096 121.4255 
+L 516.096 199.0415 
+Q 516.096 201.8135 522.792 201.8135 
+z
+" clip-path="url(#p8223274ba9)" style="fill: #eff6ff; stroke: #2563eb; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'" transform="translate(67.794938 155.759516)">Văn bản</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'" transform="translate(48.787125 171.544672)">API lỗi + emoji</text>
+   </g>
+   <g id="patch_7">
+    <path d="M 146.465684 160.2335 
+Q 151.162779 160.2335 154.741841 160.2335 
+" style="fill: none; stroke: #0f766e; stroke-linecap: round"/>
+    <path d="M 150.341841 158.0335 
+L 154.741841 160.2335 
+L 150.341841 162.4335 
+" style="fill: none; stroke: #0f766e; stroke-linecap: round"/>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'" transform="translate(185.05575 156.149516)">Tokenizer</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'" transform="translate(184.466063 170.552797)">byte → ID</text>
+   </g>
+   <g id="patch_8">
+    <path d="M 266.993684 160.2335 
+Q 271.690779 160.2335 275.269841 160.2335 
+" style="fill: none; stroke: #0f766e; stroke-linecap: round"/>
+    <path d="M 270.869841 158.0335 
+L 275.269841 160.2335 
+L 270.869841 162.4335 
+" style="fill: none; stroke: #0f766e; stroke-linecap: round"/>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'" transform="translate(299.596875 156.149516)">Embedding</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'" transform="translate(290.693438 170.552797)">+ Transformer</text>
+   </g>
+   <g id="patch_9">
+    <path d="M 387.521684 160.2335 
+Q 392.218779 160.2335 395.797841 160.2335 
+" style="fill: none; stroke: #0f766e; stroke-linecap: round"/>
+    <path d="M 391.397841 158.0335 
+L 395.797841 160.2335 
+L 391.397841 162.4335 
+" style="fill: none; stroke: #0f766e; stroke-linecap: round"/>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'" transform="translate(438.468 156.149516)">Head</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'" transform="translate(422.634563 170.552797)">logits → ID</text>
+   </g>
+   <g id="patch_10">
+    <path d="M 508.049684 160.2335 
+Q 512.746779 160.2335 516.325841 160.2335 
+" style="fill: none; stroke: #0f766e; stroke-linecap: round"/>
+    <path d="M 511.925841 158.0335 
+L 516.325841 160.2335 
+L 511.925841 162.4335 
+" style="fill: none; stroke: #0f766e; stroke-linecap: round"/>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'" transform="translate(551.902875 156.047328)">Decode</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'" transform="translate(526.304438 170.654984)">ID → byte → chữ</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #475569" x="342" y="274.615883" transform="rotate(-0 342 274.615883)">Tokenizer không truy cập production; xác suất cao không tự là bằng chứng sự thật.</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 16px; font-family: 'DejaVu Sans'; text-anchor: middle" x="342" y="21.1775" transform="rotate(-0 342 21.1775)">Văn bản và mô hình là hai lớp cần nối đúng hợp đồng</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p8223274ba9">
+   <rect x="7.2" y="27.1775" width="669.6" height="277.2"/>
+  </clipPath>
+ </defs>
+</svg>

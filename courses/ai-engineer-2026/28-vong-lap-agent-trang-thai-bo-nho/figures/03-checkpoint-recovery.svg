@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="936pt" height="540pt" viewBox="0 0 936 540" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-05T08:52:26.230354</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 540 
+L 936 540 
+L 936 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 67.896 225.349714 
+L 264.168 225.349714 
+Q 272.2896 225.349714 272.2896 218.314286 
+L 272.2896 153.822857 
+Q 272.2896 146.787429 264.168 146.787429 
+L 67.896 146.787429 
+Q 59.7744 146.787429 59.7744 153.822857 
+L 59.7744 218.314286 
+Q 59.7744 225.349714 67.896 225.349714 
+z
+" clip-path="url(#p65b818bd3a)" style="fill: #d89a24; fill-opacity: 0.070588; stroke: #d89a24; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 379.224 225.349714 
+L 575.496 225.349714 
+Q 583.6176 225.349714 583.6176 218.314286 
+L 583.6176 153.822857 
+Q 583.6176 146.787429 575.496 146.787429 
+L 379.224 146.787429 
+Q 371.1024 146.787429 371.1024 153.822857 
+L 371.1024 218.314286 
+Q 371.1024 225.349714 379.224 225.349714 
+z
+" clip-path="url(#p65b818bd3a)" style="fill: #2863a5; fill-opacity: 0.070588; stroke: #2863a5; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 690.552 225.349714 
+L 886.824 225.349714 
+Q 894.9456 225.349714 894.9456 218.314286 
+L 894.9456 153.822857 
+Q 894.9456 146.787429 886.824 146.787429 
+L 690.552 146.787429 
+Q 682.4304 146.787429 682.4304 153.822857 
+L 682.4304 218.314286 
+Q 682.4304 225.349714 690.552 225.349714 
+z
+" clip-path="url(#p65b818bd3a)" style="fill: #227b62; fill-opacity: 0.070588; stroke: #227b62; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 276.318097 186.068571 
+Q 321.694423 186.068571 365.393698 186.068571 
+" clip-path="url(#p65b818bd3a)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 359.393698 183.068571 
+L 365.393698 186.068571 
+L 359.393698 189.068571 
+z
+" clip-path="url(#p65b818bd3a)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 587.646097 186.068571 
+Q 633.022423 186.068571 676.721698 186.068571 
+" clip-path="url(#p65b818bd3a)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 670.721698 183.068571 
+L 676.721698 186.068571 
+L 670.721698 189.068571 
+z
+" clip-path="url(#p65b818bd3a)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(124.178719 181.2724)">RESERVE TOOL</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(103.130906 197.750915)">Persist PENDING_TOOL</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(445.234844 181.2724)">READ TOOL</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(436.174453 198.123884)">Nhận response</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(725.6305 181.2724)">COMMIT OBSERVATION</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(747.67175 198.8724)">State = READY</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #bd4949" x="314.928" y="262.285714" transform="rotate(-0 314.928 262.285714)">A: crash trước read</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #bd4949" x="633.024" y="262.285714" transform="rotate(-0 633.024 262.285714)">B: crash trước save</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start" x="84.816" y="335.997656" transform="rotate(-0 84.816 335.997656)">Bình thường</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #d89a24" x="396.144" y="335.757656" transform="rotate(-0 396.144 335.757656)">3 reservations</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #2863a5" x="700.704" y="335.757656" transform="rotate(-0 700.704 335.757656)">3 actual read attempts</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start" x="84.816" y="382.900513" transform="rotate(-0 84.816 382.900513)">A: trước read</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #d89a24" x="396.144" y="382.660513" transform="rotate(-0 396.144 382.660513)">4 reservations</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #2863a5" x="700.704" y="382.660513" transform="rotate(-0 700.704 382.660513)">3 actual read attempts</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start" x="84.816" y="429.563371" transform="rotate(-0 84.816 429.563371)">B: sau read</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #d89a24" x="396.144" y="429.563371" transform="rotate(-0 396.144 429.563371)">4 reservations</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #2863a5" x="700.704" y="429.563371" transform="rotate(-0 700.704 429.563371)">4 actual read attempts</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="477.36" y="482.142857" transform="rotate(-0 477.36 482.142857)">Không reset budget khi restart. Read replay ≠ exactly-once; write cần idempotency riêng.</text>
+   </g>
+  </g>
+  <g id="text_16">
+   <text style="font-weight: 700; font-size: 19px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172d45" x="51.48" y="38.1775" transform="rotate(-0 51.48 38.1775)">03 · Checkpoint: crash ở đâu thì biết đến đó</text>
+  </g>
+  <g id="text_17">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #596777" x="51.48" y="59.4" transform="rotate(-0 51.48 59.4)">Reservation commit trước call; read có thể chạy lại nếu observation chưa commit.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p65b818bd3a">
+   <rect x="37.44" y="86.4" width="879.84" height="410.4"/>
+  </clipPath>
+ </defs>
+</svg>

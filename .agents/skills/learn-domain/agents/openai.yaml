@@ -1,0 +1,6 @@
+interface:
+  display_name: "Agent đồng hành nghiên cứu"
+  short_description: "Tự chọn cách nghiên cứu và hướng dẫn bạn học"
+  default_prompt: "Dùng $learn-domain để tự chọn quy trình nghiên cứu và giúp tôi hiểu chủ đề đang quan tâm."
+policy:
+  allow_implicit_invocation: true

@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="936pt" height="540pt" viewBox="0 0 936 540" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-05T09:26:33.156071</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 540 
+L 936 540 
+L 936 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 67.896 360.195429 
+L 277.704 360.195429 
+Q 285.8256 360.195429 285.8256 353.16 
+L 285.8256 171.411429 
+Q 285.8256 164.376 277.704 164.376 
+L 67.896 164.376 
+Q 59.7744 164.376 59.7744 171.411429 
+L 59.7744 353.16 
+Q 59.7744 360.195429 67.896 360.195429 
+z
+" clip-path="url(#pe5d0701d48)" style="fill: #2863a5; fill-opacity: 0.070588; stroke: #2863a5; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 352.152 248.801143 
+L 521.352 248.801143 
+Q 529.4736 248.801143 529.4736 241.765714 
+L 529.4736 171.411429 
+Q 529.4736 164.376 521.352 164.376 
+L 352.152 164.376 
+Q 344.0304 164.376 344.0304 171.411429 
+L 344.0304 241.765714 
+Q 344.0304 248.801143 352.152 248.801143 
+z
+" clip-path="url(#pe5d0701d48)" style="fill: #d89a24; fill-opacity: 0.070588; stroke: #d89a24; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 352.152 395.372571 
+L 521.352 395.372571 
+Q 529.4736 395.372571 529.4736 388.337143 
+L 529.4736 317.982857 
+Q 529.4736 310.947429 521.352 310.947429 
+L 352.152 310.947429 
+Q 344.0304 310.947429 344.0304 317.982857 
+L 344.0304 388.337143 
+Q 344.0304 395.372571 352.152 395.372571 
+z
+" clip-path="url(#pe5d0701d48)" style="fill: #d89a24; fill-opacity: 0.070588; stroke: #d89a24; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 602.568 248.801143 
+L 744.696 248.801143 
+Q 752.8176 248.801143 752.8176 241.765714 
+L 752.8176 171.411429 
+Q 752.8176 164.376 744.696 164.376 
+L 602.568 164.376 
+Q 594.4464 164.376 594.4464 171.411429 
+L 594.4464 241.765714 
+Q 594.4464 248.801143 602.568 248.801143 
+z
+" clip-path="url(#pe5d0701d48)" style="fill: #227b62; fill-opacity: 0.070588; stroke: #227b62; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 602.568 395.372571 
+L 744.696 395.372571 
+Q 752.8176 395.372571 752.8176 388.337143 
+L 752.8176 317.982857 
+Q 752.8176 310.947429 744.696 310.947429 
+L 602.568 310.947429 
+Q 594.4464 310.947429 594.4464 317.982857 
+L 594.4464 388.337143 
+Q 594.4464 395.372571 602.568 395.372571 
+z
+" clip-path="url(#pe5d0701d48)" style="fill: #227b62; fill-opacity: 0.070588; stroke: #227b62; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 812.376 248.801143 
+L 886.824 248.801143 
+Q 894.9456 248.801143 894.9456 241.765714 
+L 894.9456 171.411429 
+Q 894.9456 164.376 886.824 164.376 
+L 812.376 164.376 
+Q 804.2544 164.376 804.2544 171.411429 
+L 804.2544 241.765714 
+Q 804.2544 248.801143 812.376 248.801143 
+z
+" clip-path="url(#pe5d0701d48)" style="fill: #2863a5; fill-opacity: 0.070588; stroke: #2863a5; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 812.376 395.372571 
+L 886.824 395.372571 
+Q 894.9456 395.372571 894.9456 388.337143 
+L 894.9456 317.982857 
+Q 894.9456 310.947429 886.824 310.947429 
+L 812.376 310.947429 
+Q 804.2544 310.947429 804.2544 317.982857 
+L 804.2544 388.337143 
+Q 804.2544 395.372571 812.376 395.372571 
+z
+" clip-path="url(#pe5d0701d48)" style="fill: #2863a5; fill-opacity: 0.070588; stroke: #2863a5; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 289.80907 220.822747 
+Q 314.928185 215.382817 338.408245 210.29785 
+" clip-path="url(#pe5d0701d48)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 331.909207 208.635771 
+L 338.408245 210.29785 
+L 333.179159 214.499833 
+z
+" clip-path="url(#pe5d0701d48)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 289.617398 321.86793 
+Q 314.927876 335.571361 338.76358 348.47633 
+" clip-path="url(#pe5d0701d48)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 334.915601 342.981509 
+L 338.76358 348.47633 
+L 332.058936 348.25782 
+z
+" clip-path="url(#pe5d0701d48)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 533.500444 209.52 
+Q 561.956758 209.52 588.736021 209.52 
+" clip-path="url(#pe5d0701d48)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 582.736021 206.52 
+L 588.736021 209.52 
+L 582.736021 212.52 
+z
+" clip-path="url(#pe5d0701d48)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 533.500444 350.228571 
+Q 561.956758 350.228571 588.736021 350.228571 
+" clip-path="url(#pe5d0701d48)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 582.736021 347.228571 
+L 588.736021 350.228571 
+L 582.736021 353.228571 
+z
+" clip-path="url(#pe5d0701d48)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 756.846097 209.52 
+Q 778.533821 209.52 798.544494 209.52 
+" clip-path="url(#pe5d0701d48)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 792.544494 206.52 
+L 798.544494 209.52 
+L 792.544494 212.52 
+z
+" clip-path="url(#pe5d0701d48)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_14">
+    <path d="M 756.846097 350.228571 
+Q 778.533821 350.228571 798.544494 350.228571 
+" clip-path="url(#pe5d0701d48)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 792.544494 347.228571 
+L 798.544494 350.228571 
+L 792.544494 353.228571 
+z
+" clip-path="url(#pe5d0701d48)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(150.350547 231.089542)">AI HOST</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(117.018828 247.721027)">Task · model / policy</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(128.885078 265.798839)">Quyền · context</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(129.912031 282.823917)">State / memory</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(117.574844 300.521027)">MCP client manager</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(398.1145 201.7924)">MCP CLIENT A</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(381.070516 218.423884)">Protocol + transport</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(398.103328 348.363828)">MCP CLIENT B</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(381.070516 364.995313)">Protocol + transport</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(632.924266 201.7924)">MCP SERVER A</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(628.080828 219.057243)">Tools / resources</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(632.913094 348.363828)">MCP SERVER B</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(631.867234 364.995313)">Tools / prompts</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(834.807812 202.316696)">Ticket</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(828.475781 218.316696)">backend</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(842.890625 348.805313)">KB</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(828.475781 364.888125)">backend</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="477.36" y="461.622857" transform="rotate(-0 477.36 461.622857)">MCP chuẩn hóa giao tiếp; task policy và kiểm quyền backend vẫn cần được thiết kế.</text>
+   </g>
+  </g>
+  <g id="text_9">
+   <text style="font-weight: 700; font-size: 19px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172d45" x="51.48" y="38.1775" transform="rotate(-0 51.48 38.1775)">01 · Host giữ agent; MCP nối tới backend</text>
+  </g>
+  <g id="text_10">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #596777" x="51.48" y="59.4" transform="rotate(-0 51.48 59.4)">Host/client/server là vai trò phần mềm. Server không bắt buộc có model.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pe5d0701d48">
+   <rect x="37.44" y="86.4" width="879.84" height="410.4"/>
+  </clipPath>
+ </defs>
+</svg>

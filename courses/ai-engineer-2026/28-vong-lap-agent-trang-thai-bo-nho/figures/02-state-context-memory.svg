@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="936pt" height="540pt" viewBox="0 0 936 540" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-05T08:52:26.123267</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 540 
+L 936 540 
+L 936 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 67.896 301.566857 
+L 284.472 301.566857 
+Q 292.5936 301.566857 292.5936 294.531429 
+L 292.5936 159.685714 
+Q 292.5936 152.650286 284.472 152.650286 
+L 67.896 152.650286 
+Q 59.7744 152.650286 59.7744 159.685714 
+L 59.7744 294.531429 
+Q 59.7744 301.566857 67.896 301.566857 
+z
+" clip-path="url(#p5655e70aca)" style="fill: #2863a5; fill-opacity: 0.070588; stroke: #2863a5; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 372.456 301.566857 
+L 582.264 301.566857 
+Q 590.3856 301.566857 590.3856 294.531429 
+L 590.3856 159.685714 
+Q 590.3856 152.650286 582.264 152.650286 
+L 372.456 152.650286 
+Q 364.3344 152.650286 364.3344 159.685714 
+L 364.3344 294.531429 
+Q 364.3344 301.566857 372.456 301.566857 
+z
+" clip-path="url(#p5655e70aca)" style="fill: #d89a24; fill-opacity: 0.070588; stroke: #d89a24; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 663.48 301.566857 
+L 880.056 301.566857 
+Q 888.1776 301.566857 888.1776 294.531429 
+L 888.1776 159.685714 
+Q 888.1776 152.650286 880.056 152.650286 
+L 663.48 152.650286 
+Q 655.3584 152.650286 655.3584 159.685714 
+L 655.3584 294.531429 
+Q 655.3584 301.566857 663.48 301.566857 
+z
+" clip-path="url(#p5655e70aca)" style="fill: #227b62; fill-opacity: 0.070588; stroke: #227b62; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 296.627467 227.108571 
+Q 328.465593 227.108571 358.626669 227.108571 
+" clip-path="url(#p5655e70aca)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 352.626669 224.108571 
+L 358.626669 227.108571 
+L 352.626669 230.108571 
+z
+" clip-path="url(#p5655e70aca)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 651.331556 227.108571 
+Q 622.875242 227.108571 596.095979 227.108571 
+" clip-path="url(#p5655e70aca)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 602.095979 230.108571 
+L 596.095979 227.108571 
+L 602.095979 224.108571 
+z
+" clip-path="url(#p5655e70aca)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 67.896 448.138286 
+L 284.472 448.138286 
+Q 292.5936 448.138286 292.5936 441.102857 
+L 292.5936 370.748571 
+Q 292.5936 363.713143 284.472 363.713143 
+L 67.896 363.713143 
+Q 59.7744 363.713143 59.7744 370.748571 
+L 59.7744 441.102857 
+Q 59.7744 448.138286 67.896 448.138286 
+z
+" clip-path="url(#p5655e70aca)" style="fill: #227b62; fill-opacity: 0.070588; stroke: #227b62; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 172.8 305.326042 
+Q 172.8 332.639561 172.8 358.276029 
+" clip-path="url(#p5655e70aca)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 175.8 352.276029 
+L 172.8 358.276029 
+L 169.8 352.276029 
+z
+" clip-path="url(#p5655e70aca)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(102.1815 204.7124)">WORKING STATE — RUN r1</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(102.386031 222.409509)">Task + observations + refs</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(92.408687 238.943884)">Pending + counters + revision</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(143.477906 257.885368)">Host sở hữu</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(422.989062 204.7124)">CONTEXT — TURN t</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(417.648047 221.821696)">Phần state còn hợp lệ</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(394.921875 238.943884)">Summary + memory chọn lọc</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(434.225391 256.763884)">Có cap hữu hạn</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(713.438781 204.7124)">LONG-TERM MEMORY</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(697.654641 221.337868)">Namespace (tenant, actor)</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(713.664797 238.943884)">Recall qua run r1 / r2</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(707.202297 256.543884)">TTL + version + origins</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(114.250562 401.129542)">CHECKPOINT + EVENT</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(99.220953 418.238839)">Latest state bền qua restart</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'" transform="translate(379.035937 387.27365)">Context không bằng toàn bộ DB.</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'" transform="translate(359.535 402.905056)">Ghi memory không đổi trọng số model.</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="477.36" y="485.074286" transform="rotate(-0 477.36 485.074286)">Cache tránh tính lại; checkpoint khôi phục run; memory giữ dữ liệu để recall có policy.</text>
+   </g>
+  </g>
+  <g id="text_7">
+   <text style="font-weight: 700; font-size: 19px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172d45" x="51.48" y="36.797031" transform="rotate(-0 51.48 36.797031)">02 · State, context và memory có scope khác nhau</text>
+  </g>
+  <g id="text_8">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #596777" x="51.48" y="59.4" transform="rotate(-0 51.48 59.4)">Short-term nói về phạm vi run/thread; dữ liệu vẫn có thể nằm trong file SQLite.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p5655e70aca">
+   <rect x="37.44" y="86.4" width="879.84" height="410.4"/>
+  </clipPath>
+ </defs>
+</svg>

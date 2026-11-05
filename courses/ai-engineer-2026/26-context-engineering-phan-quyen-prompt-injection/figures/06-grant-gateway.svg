@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="936pt" height="504pt" viewBox="0 0 936 504" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-05T07:41:50.869113</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 504 
+L 936 504 
+L 936 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 67.2192 221.8176 
+L 285.1488 221.8176 
+Q 293.2704 221.8176 293.2704 215.2512 
+L 293.2704 137.5488 
+Q 293.2704 130.9824 285.1488 130.9824 
+L 67.2192 130.9824 
+Q 59.0976 130.9824 59.0976 137.5488 
+L 59.0976 215.2512 
+Q 59.0976 221.8176 67.2192 221.8176 
+z
+" clip-path="url(#p2d9cfabaa3)" style="fill: #227b62; fill-opacity: 0.070588; stroke: #227b62; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 365.0112 238.2336 
+L 589.7088 238.2336 
+Q 597.8304 238.2336 597.8304 231.6672 
+L 597.8304 121.1328 
+Q 597.8304 114.5664 589.7088 114.5664 
+L 365.0112 114.5664 
+Q 356.8896 114.5664 356.8896 121.1328 
+L 356.8896 231.6672 
+Q 356.8896 238.2336 365.0112 238.2336 
+z
+" clip-path="url(#p2d9cfabaa3)" style="fill: #2863a5; fill-opacity: 0.070588; stroke: #2863a5; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 669.5712 221.8176 
+L 880.7328 221.8176 
+Q 888.8544 221.8176 888.8544 215.2512 
+L 888.8544 137.5488 
+Q 888.8544 130.9824 880.7328 130.9824 
+L 669.5712 130.9824 
+Q 661.4496 130.9824 661.4496 137.5488 
+L 661.4496 215.2512 
+Q 661.4496 221.8176 669.5712 221.8176 
+z
+" clip-path="url(#p2d9cfabaa3)" style="fill: #d89a24; fill-opacity: 0.070588; stroke: #d89a24; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 296.620444 179.136 
+Q 325.076758 179.136 351.744218 179.136 
+" clip-path="url(#p2d9cfabaa3)" style="fill: none; stroke: #227b62; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 345.744218 176.136 
+L 351.744218 179.136 
+L 345.744218 182.136 
+z
+" clip-path="url(#p2d9cfabaa3)" style="fill: #227b62; stroke: #227b62; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 477.36 241.326896 
+Q 477.36 263.952192 477.36 284.788633 
+" clip-path="url(#p2d9cfabaa3)" style="fill: none; stroke: #596777; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 480.36 278.788633 
+L 477.36 284.788633 
+L 474.36 278.788633 
+z
+" clip-path="url(#p2d9cfabaa3)" style="fill: #596777; stroke: #596777; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 773.370257 223.819018 
+Q 683.783597 269.424205 595.791117 314.217856 
+" clip-path="url(#p2d9cfabaa3)" style="fill: none; stroke: #d89a24; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 602.499146 314.169399 
+L 595.791117 314.217856 
+L 599.777169 308.822359 
+z
+" clip-path="url(#p2d9cfabaa3)" style="fill: #d89a24; stroke: #d89a24; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 351.4752 385.9776 
+L 623.5488 385.9776 
+Q 631.6704 385.9776 631.6704 379.4112 
+L 631.6704 290.7648 
+Q 631.6704 284.1984 623.5488 284.1984 
+L 351.4752 284.1984 
+Q 343.3536 284.1984 343.3536 290.7648 
+L 343.3536 379.4112 
+Q 343.3536 385.9776 351.4752 385.9776 
+z
+" clip-path="url(#p2d9cfabaa3)" style="fill: #227b62; fill-opacity: 0.070588; stroke: #227b62; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 340.001903 332.352 
+Q 318.314179 332.352 298.415309 332.352 
+" clip-path="url(#p2d9cfabaa3)" style="fill: none; stroke: #bd4949; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 304.415309 335.352 
+L 298.415309 332.352 
+L 304.415309 329.352 
+z
+" clip-path="url(#p2d9cfabaa3)" style="fill: #bd4949; stroke: #bd4949; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 635.022097 332.352 
+Q 656.709821 332.352 676.608691 332.352 
+" clip-path="url(#p2d9cfabaa3)" style="fill: none; stroke: #227b62; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 670.608691 329.352 
+L 676.608691 332.352 
+L 670.608691 335.352 
+z
+" clip-path="url(#p2d9cfabaa3)" style="fill: #227b62; stroke: #227b62; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(111.447281 162.803828)">TRUSTED CONTROLLER</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(99.911891 179.655313)">Review đúng ticket / reason</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(110.526031 197.679844)">Sinh grant bằng secrets</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(438.037578 154.003828)">GRANT STORE</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(400.999375 170.635313)">Subject + tenant + revision</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(384.351562 188.235313)">Hash proposal + resource version</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(401.774531 205.835313)">ACL epoch + expiry + used</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(724.020047 162.803828)">MODEL PROPOSAL</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(722.180125 179.910547)">Không tự cấp grant</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(709.513797 198.663828)">Đổi reason → hash khác</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(434.185203 321.586359)">MỘT VÙNG ATOMIC</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(395.191922 338.686203)">Kiểm quyền sống + now &lt; expiry</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(390.298641 356.286203)">Kiểm binding → consume → mutate</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #bd4949" transform="translate(122.110609 328.608348)">Thiếu / hết hạn / replay</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #bd4949" transform="translate(161.186391 342.761824)">→ từ chối</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #227b62" transform="translate(728.502984 328.86616)">Hợp lệ lần đầu</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #227b62" transform="translate(715.504937 342.509168)">→ đóng đúng ticket</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="477.36" y="441.792" transform="rotate(-0 477.36 441.792)">Cấp lúc 100, TTL 30 → expires_at 130. now=129 hợp lệ; now=130 đã hết hạn.</text>
+   </g>
+  </g>
+  <g id="text_8">
+   <text style="font-weight: 700; font-size: 19px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172d45" x="56.16" y="37.090781" transform="rotate(-0 56.16 37.090781)">06 · Grant gắn với hành động đã review</text>
+  </g>
+  <g id="text_9">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #596777" x="56.16" y="55.44" transform="rotate(-0 56.16 55.44)">Grant được giữ ngoài prompt · token dùng một lần · lock chỉ trong một process của lab.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p2d9cfabaa3">
+   <rect x="37.44" y="80.64" width="879.84" height="383.04"/>
+  </clipPath>
+ </defs>
+</svg>

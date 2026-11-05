@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="936pt" height="540pt" viewBox="0 0 936 540" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-04T23:15:04.945916</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 540 
+L 936 540 
+L 936 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 59.82912 191.0952 
+L 368.11008 191.0952 
+Q 383.61024 191.0952 383.61024 183.9024 
+L 383.61024 116.7696 
+Q 383.61024 109.5768 368.11008 109.5768 
+L 59.82912 109.5768 
+Q 44.32896 109.5768 44.32896 116.7696 
+L 44.32896 183.9024 
+Q 44.32896 191.0952 59.82912 191.0952 
+z
+" clip-path="url(#p9bad6ec6ba)" style="fill: #f1f5f9; stroke: #2563eb; stroke-width: 1.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 507.61152 191.0952 
+L 867.55968 191.0952 
+Q 883.05984 191.0952 883.05984 183.9024 
+L 883.05984 116.7696 
+Q 883.05984 109.5768 867.55968 109.5768 
+L 507.61152 109.5768 
+Q 492.11136 109.5768 492.11136 116.7696 
+L 492.11136 183.9024 
+Q 492.11136 191.0952 507.61152 191.0952 
+z
+" clip-path="url(#p9bad6ec6ba)" style="fill: #f1f5f9; stroke: #0f766e; stroke-width: 1.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 59.82912 382.9032 
+L 428.38848 382.9032 
+Q 443.88864 382.9032 443.88864 375.7104 
+L 443.88864 256.6296 
+Q 443.88864 249.4368 428.38848 249.4368 
+L 59.82912 249.4368 
+Q 44.32896 249.4368 44.32896 256.6296 
+L 44.32896 375.7104 
+Q 44.32896 382.9032 59.82912 382.9032 
+z
+" clip-path="url(#p9bad6ec6ba)" style="fill: #f1f5f9; stroke: #2563eb; stroke-width: 1.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 499.00032 382.9032 
+L 867.55968 382.9032 
+Q 883.05984 382.9032 883.05984 375.7104 
+L 883.05984 256.6296 
+Q 883.05984 249.4368 867.55968 249.4368 
+L 499.00032 249.4368 
+Q 483.50016 249.4368 483.50016 256.6296 
+L 483.50016 375.7104 
+Q 483.50016 382.9032 499.00032 382.9032 
+z
+" clip-path="url(#p9bad6ec6ba)" style="fill: #f1f5f9; stroke: #c2410c; stroke-width: 1.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(139.225459 144.516313)">Toàn corpus: P1, R1, P2, P3</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(142.438663 162.446313)">P = public · R = restricted</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(617.850756 144.774125)">Lấy top-3 rồi lọc → P1, P2</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(610.302866 162.666313)">Lọc trước top-3 → P1, P2, P3</text>
+   </g>
+   <g id="patch_6">
+    <path d="M 383.890482 150.336 
+Q 433.556048 150.336 481.43276 150.336 
+" style="fill: none; stroke: #475569; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 476.63276 147.936 
+L 481.43276 150.336 
+L 476.63276 152.736 
+" style="fill: none; stroke: #475569; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(156.530753 301.331172)">Q17: thuật toán quang tử zzz42</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(196.680753 319.838672)">Toàn OOV → rỗng</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(139.601066 337.631172)">Cả 4 phương pháp không trả ứng viên</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(615.179688 301.766016)">Q18: cache trên sao Hỏa</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(592.304844 319.838672)">Có term quen → vẫn trả ứng viên</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(578.383828 337.575312)">Nhưng qrels không có tài liệu phù hợp</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #475569" transform="translate(54.6624 436.207688)">Filter demo chưa có auth server-side; IDF/LSA còn dùng cả corpus.</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #475569" transform="translate(54.6624 458.028)">Score dương không chứng minh có nguồn đáp ứng nhu cầu.</text>
+   </g>
+  </g>
+  <g id="text_6">
+   <text style="font-weight: 700; font-size: 21px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172033" x="51.48" y="38.042812" transform="rotate(-0 51.48 38.042812)">07 · Lọc trước top-k; kiểm tra riêng câu ngoài corpus</text>
+  </g>
+  <g id="text_7">
+   <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #475569" x="51.48" y="54" transform="rotate(-0 51.48 54)">Nửa trên là ví dụ thứ hạng giả định. Nửa dưới dùng hai query no-answer đã chạy trong lab.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p9bad6ec6ba">
+   <rect x="37.44" y="86.4" width="861.12" height="399.6"/>
+  </clipPath>
+ </defs>
+</svg>

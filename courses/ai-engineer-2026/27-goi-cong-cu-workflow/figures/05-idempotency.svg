@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="936pt" height="540pt" viewBox="0 0 936 540" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-05T08:34:23.476989</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 540 
+L 936 540 
+L 936 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 67.896 248.801143 
+L 264.168 248.801143 
+Q 272.2896 248.801143 272.2896 241.765714 
+L 272.2896 153.822857 
+Q 272.2896 146.787429 264.168 146.787429 
+L 67.896 146.787429 
+Q 59.7744 146.787429 59.7744 153.822857 
+L 59.7744 241.765714 
+Q 59.7744 248.801143 67.896 248.801143 
+z
+" clip-path="url(#pc0576ac73e)" style="fill: #2863a5; fill-opacity: 0.070588; stroke: #2863a5; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 379.224 248.801143 
+L 575.496 248.801143 
+Q 583.6176 248.801143 583.6176 241.765714 
+L 583.6176 153.822857 
+Q 583.6176 146.787429 575.496 146.787429 
+L 379.224 146.787429 
+Q 371.1024 146.787429 371.1024 153.822857 
+L 371.1024 241.765714 
+Q 371.1024 248.801143 379.224 248.801143 
+z
+" clip-path="url(#pc0576ac73e)" style="fill: #227b62; fill-opacity: 0.070588; stroke: #227b62; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 690.552 248.801143 
+L 886.824 248.801143 
+Q 894.9456 248.801143 894.9456 241.765714 
+L 894.9456 153.822857 
+Q 894.9456 146.787429 886.824 146.787429 
+L 690.552 146.787429 
+Q 682.4304 146.787429 682.4304 153.822857 
+L 682.4304 241.765714 
+Q 682.4304 248.801143 690.552 248.801143 
+z
+" clip-path="url(#pc0576ac73e)" style="fill: #bd4949; fill-opacity: 0.070588; stroke: #bd4949; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 276.318097 197.794286 
+Q 321.694423 197.794286 365.393698 197.794286 
+" clip-path="url(#pc0576ac73e)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 359.393698 194.794286 
+L 365.393698 197.794286 
+L 359.393698 200.794286 
+z
+" clip-path="url(#pc0576ac73e)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 587.646097 197.794286 
+Q 633.022423 197.794286 676.721698 197.794286 
+" clip-path="url(#pc0576ac73e)" style="fill: none; stroke: #bd4949; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 670.721698 194.794286 
+L 676.721698 197.794286 
+L 670.721698 200.794286 
+z
+" clip-path="url(#pc0576ac73e)" style="fill: #bd4949; stroke: #bd4949; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 338.616 424.686857 
+L 616.104 424.686857 
+Q 624.2256 424.686857 624.2256 417.651429 
+L 624.2256 329.708571 
+Q 624.2256 322.673143 616.104 322.673143 
+L 338.616 322.673143 
+Q 330.4944 322.673143 330.4944 329.708571 
+L 330.4944 417.651429 
+Q 330.4944 424.686857 338.616 424.686857 
+z
+" clip-path="url(#pc0576ac73e)" style="fill: #d89a24; fill-opacity: 0.070588; stroke: #d89a24; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 773.275351 251.256715 
+Q 680.399297 285.737404 589.095442 319.634406 
+" clip-path="url(#pc0576ac73e)" style="fill: none; stroke: #d89a24; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 595.764443 320.358581 
+L 589.095442 319.634406 
+L 593.676182 314.73371 
+z
+" clip-path="url(#pc0576ac73e)" style="fill: #d89a24; stroke: #d89a24; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 470.592 318.917536 
+Q 470.592 285.738013 470.592 254.235541 
+" clip-path="url(#pc0576ac73e)" style="fill: none; stroke: #227b62; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 467.592 260.235541 
+L 470.592 254.235541 
+L 473.592 260.235541 
+z
+" clip-path="url(#pc0576ac73e)" style="fill: #227b62; stroke: #227b62; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(128.81075 184.198114)">CONTROLLER</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(106.742 201.049598)">Giữ cùng intent/key K</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(119.152234 218.552489)">Gửi append_note</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(426.257266 184.198114)">BACKEND COMMIT</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(429.228125 200.829598)">Note + receipt(K)</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(434.740156 218.649598)">Cùng vùng lock</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(738.412844 184.843504)">RESPONSE BỊ MẤT</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(718.904172 201.049598)">Caller không có xác nhận</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(736.280734 219.398114)">State = UNKNOWN</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(427.633984 361.658203)">ĐỐI SOÁT CÙNG K</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(398.915391 376.935313)">Receipt đúng → SUCCEEDED</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(382.829609 394.535313)">Không có receipt → giữ UNKNOWN</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #bd4949" transform="translate(107.192312 359.351211)">Không tự tạo key mới</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #bd4949" transform="translate(134.407 373.68)">để “thử lại”</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="477.36" y="476.28" transform="rotate(-0 477.36 476.28)">Cùng K + cùng action → receipt cũ, không thêm note. Cùng K + khác args → conflict.</text>
+   </g>
+  </g>
+  <g id="text_7">
+   <text style="font-weight: 700; font-size: 19px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172d45" x="51.48" y="38.1775" transform="rotate(-0 51.48 38.1775)">05 · Mất response không làm effect biến mất</text>
+  </g>
+  <g id="text_8">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #596777" x="51.48" y="59.4" transform="rotate(-0 51.48 59.4)">Một Backend/RLock trong RAM · chưa có durability hoặc distributed exactly-once.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pc0576ac73e">
+   <rect x="37.44" y="86.4" width="879.84" height="410.4"/>
+  </clipPath>
+ </defs>
+</svg>

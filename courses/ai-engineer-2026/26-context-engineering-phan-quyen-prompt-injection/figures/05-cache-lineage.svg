@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="936pt" height="504pt" viewBox="0 0 936 504" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-05T07:41:50.733581</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 504 
+L 936 504 
+L 936 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 67.2192 227.2896 
+L 278.3808 227.2896 
+Q 286.5024 227.2896 286.5024 220.7232 
+L 286.5024 148.4928 
+Q 286.5024 141.9264 278.3808 141.9264 
+L 67.2192 141.9264 
+Q 59.0976 141.9264 59.0976 148.4928 
+L 59.0976 220.7232 
+Q 59.0976 227.2896 67.2192 227.2896 
+z
+" clip-path="url(#pfa77ae4088)" style="fill: #2863a5; fill-opacity: 0.070588; stroke: #2863a5; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 67.2192 375.0336 
+L 278.3808 375.0336 
+Q 286.5024 375.0336 286.5024 368.4672 
+L 286.5024 296.2368 
+Q 286.5024 289.6704 278.3808 289.6704 
+L 67.2192 289.6704 
+Q 59.0976 289.6704 59.0976 296.2368 
+L 59.0976 368.4672 
+Q 59.0976 375.0336 67.2192 375.0336 
+z
+" clip-path="url(#pfa77ae4088)" style="fill: #bd4949; fill-opacity: 0.070588; stroke: #bd4949; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 289.45898 185.804332 
+Q 331.846786 217.439094 372.800977 248.003924 
+" clip-path="url(#pfa77ae4088)" style="fill: none; stroke: #596777; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 369.78682 242.011024 
+L 372.800977 248.003924 
+L 366.198163 246.81951 
+z
+" clip-path="url(#pfa77ae4088)" style="fill: #596777; stroke: #596777; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 289.555642 331.294939 
+Q 331.848617 304.991616 372.622556 279.633029 
+" clip-path="url(#pfa77ae4088)" style="fill: none; stroke: #bd4949; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 365.94318 280.254269 
+L 372.622556 279.633029 
+L 369.111923 285.349274 
+z
+" clip-path="url(#pfa77ae4088)" style="fill: #bd4949; stroke: #bd4949; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 385.3152 320.3136 
+L 582.9408 320.3136 
+Q 591.0624 320.3136 591.0624 313.7472 
+L 591.0624 208.6848 
+Q 591.0624 202.1184 582.9408 202.1184 
+L 385.3152 202.1184 
+Q 377.1936 202.1184 377.1936 208.6848 
+L 377.1936 313.7472 
+Q 377.1936 320.3136 385.3152 320.3136 
+z
+" clip-path="url(#pfa77ae4088)" style="fill: #d89a24; fill-opacity: 0.070588; stroke: #d89a24; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 594.415336 261.216 
+Q 619.486722 261.216 642.769254 261.216 
+" clip-path="url(#pfa77ae4088)" style="fill: none; stroke: #596777; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 636.769254 258.216 
+L 642.769254 261.216 
+L 636.769254 264.216 
+z
+" clip-path="url(#pfa77ae4088)" style="fill: #596777; stroke: #596777; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 656.0352 320.3136 
+L 873.9648 320.3136 
+Q 882.0864 320.3136 882.0864 313.7472 
+L 882.0864 208.6848 
+Q 882.0864 202.1184 873.9648 202.1184 
+L 656.0352 202.1184 
+Q 647.9136 202.1184 647.9136 208.6848 
+L 647.9136 313.7472 
+Q 647.9136 320.3136 656.0352 320.3136 
+z
+" clip-path="url(#pfa77ae4088)" style="fill: #227b62; fill-opacity: 0.070588; stroke: #227b62; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(149.346797 179.321125)">Nguồn A</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(111.695859 196.443312)">Blue public · version 1</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(149.335625 327.065125)">Nguồn B</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(104.313828 344.187313)">Green private · version 1</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(456.528312 238.819828)">SUMMARY</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(420.999172 256.792797)">Owner = Alice chưa đủ</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(441.210812 273.051313)">Origins = [A, B]</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(385.387531 291.069828)">Readers ⊆ Readers(A) ∩ Readers(B)</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(735.175391 238.819828)">CACHE HIT</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(696.919453 256.014203)">Kiểm subject + revisions</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(711.174766 273.614203)">Kiểm lại từng origin</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(691.019844 291.350844)">Thu hồi / đổi version → loại</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #bd4949" x="477.36" y="398.016" transform="rotate(-0 477.36 398.016)">Alice không đọc được B → không đưa summary A+B vào context của Alice.</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="477.36" y="441.792" transform="rotate(-0 477.36 441.792)">Epoch giúp invalidation; kiểm quyền sống là lớp dự phòng khi sự kiện invalidation bị bỏ sót.</text>
+   </g>
+  </g>
+  <g id="text_7">
+   <text style="font-weight: 700; font-size: 19px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172d45" x="56.16" y="36.758281" transform="rotate(-0 56.16 36.758281)">05 · Summary và cache phải giữ nguồn gốc</text>
+  </g>
+  <g id="text_8">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #596777" x="56.16" y="55.44" transform="rotate(-0 56.16 55.44)">Dữ liệu dẫn xuất kế thừa ràng buộc truy cập của mọi nguồn đã dùng.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pfa77ae4088">
+   <rect x="37.44" y="80.64" width="879.84" height="383.04"/>
+  </clipPath>
+ </defs>
+</svg>

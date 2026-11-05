@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="684pt" height="314.124578pt" viewBox="0 0 684 314.124578" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-04T22:26:29.353620</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 314.124578 
+L 684 314.124578 
+L 684 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 7.2 273.372 
+L 676.8 273.372 
+L 676.8 23.892 
+L 7.2 23.892 
+z
+" style="fill: #ffffff"/>
+   </g>
+   <g id="matplotlib.axis_1">
+    <g id="xtick_1">
+     <g id="line2d_1">
+      <defs>
+       <path id="mfeab857bd9" d="M 0 0 
+L 0 3.5 
+" style="stroke: #000000; stroke-width: 0.8"/>
+      </defs>
+      <g>
+       <use xlink:href="#mfeab857bd9" x="41.834483" y="273.372" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_1">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="41.834483" y="288.729422" transform="rotate(-0 41.834483 288.729422)">0</text>
+     </g>
+    </g>
+    <g id="xtick_2">
+     <g id="line2d_2">
+      <g>
+       <use xlink:href="#mfeab857bd9" x="157.282759" y="273.372" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_2">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="157.282759" y="288.729422" transform="rotate(-0 157.282759 288.729422)">50</text>
+     </g>
+    </g>
+    <g id="xtick_3">
+     <g id="line2d_3">
+      <g>
+       <use xlink:href="#mfeab857bd9" x="272.731034" y="273.372" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_3">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="272.731034" y="288.729422" transform="rotate(-0 272.731034 288.729422)">100</text>
+     </g>
+    </g>
+    <g id="xtick_4">
+     <g id="line2d_4">
+      <g>
+       <use xlink:href="#mfeab857bd9" x="388.17931" y="273.372" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_4">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="388.17931" y="288.729422" transform="rotate(-0 388.17931 288.729422)">150</text>
+     </g>
+    </g>
+    <g id="xtick_5">
+     <g id="line2d_5">
+      <g>
+       <use xlink:href="#mfeab857bd9" x="503.627586" y="273.372" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_5">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="503.627586" y="288.729422" transform="rotate(-0 503.627586 288.729422)">200</text>
+     </g>
+    </g>
+    <g id="xtick_6">
+     <g id="line2d_6">
+      <g>
+       <use xlink:href="#mfeab857bd9" x="619.075862" y="273.372" style="stroke: #000000; stroke-width: 0.8"/>
+      </g>
+     </g>
+     <g id="text_6">
+      <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="619.075862" y="288.729422" transform="rotate(-0 619.075862 288.729422)">250</text>
+     </g>
+    </g>
+    <g id="text_7">
+     <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="342" y="304.282" transform="rotate(-0 342 304.282)">ms (timestamp giả định)</text>
+    </g>
+   </g>
+   <g id="matplotlib.axis_2"/>
+   <g id="LineCollection_1">
+    <path d="M 41.834483 137.292 
+L 619.075862 137.292 
+" clip-path="url(#p0aa0f02233)" style="fill: none; stroke: #475569; stroke-width: 2"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 7.2 273.372 
+L 676.8 273.372 
+" style="fill: none; stroke: #000000; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
+   </g>
+   <g id="PathCollection_1">
+    <defs>
+     <path id="C0_0_cf887c952a" d="M 0 4.1833 
+C 1.109424 4.1833 2.173559 3.742521 2.95804 2.95804 
+C 3.742521 2.173559 4.1833 1.109424 4.1833 -0 
+C 4.1833 -1.109424 3.742521 -2.173559 2.95804 -2.95804 
+C 2.173559 -3.742521 1.109424 -4.1833 0 -4.1833 
+C -1.109424 -4.1833 -2.173559 -3.742521 -2.95804 -2.95804 
+C -3.742521 -2.173559 -4.1833 -1.109424 -4.1833 0 
+C -4.1833 1.109424 -3.742521 2.173559 -2.95804 2.95804 
+C -2.173559 3.742521 -1.109424 4.1833 0 4.1833 
+z
+"/>
+    </defs>
+    <g clip-path="url(#p0aa0f02233)">
+     <use xlink:href="#C0_0_cf887c952a" x="41.834483" y="137.292" style="fill: #475569; stroke: #475569"/>
+    </g>
+    <g clip-path="url(#p0aa0f02233)">
+     <use xlink:href="#C0_0_cf887c952a" x="318.910345" y="137.292" style="fill: #2563eb; stroke: #2563eb"/>
+    </g>
+    <g clip-path="url(#p0aa0f02233)">
+     <use xlink:href="#C0_0_cf887c952a" x="411.268966" y="137.292" style="fill: #0f766e; stroke: #0f766e"/>
+    </g>
+    <g clip-path="url(#p0aa0f02233)">
+     <use xlink:href="#C0_0_cf887c952a" x="515.172414" y="137.292" style="fill: #0f766e; stroke: #0f766e"/>
+    </g>
+    <g clip-path="url(#p0aa0f02233)">
+     <use xlink:href="#C0_0_cf887c952a" x="619.075862" y="137.292" style="fill: #0f766e; stroke: #0f766e"/>
+    </g>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(19.492452 91.840277)">Request</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(20.720498 106.332348)">bắt đầu</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="318.910345" y="107.433422" transform="rotate(-0 318.910345 107.433422)">Token 1</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="411.268966" y="107.433422" transform="rotate(-0 411.268966 107.433422)">Token 2</text>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="515.172414" y="107.433422" transform="rotate(-0 515.172414 107.433422)">Token 3</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(598.1793 92.68934)">Token 4</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(587.637346 106.332348)">hoàn thành</text>
+   </g>
+   <g id="patch_4">
+    <path d="M 44.952286 187.188 
+Q 180.371236 187.188 315.790185 187.188 
+" style="fill: none; stroke: #2563eb; stroke-linecap: round"/>
+    <path d="M 49.352286 189.388 
+L 44.952286 187.188 
+L 49.352286 184.988 
+" style="fill: none; stroke: #2563eb; stroke-linecap: round"/>
+    <path d="M 311.390185 184.988 
+L 315.790185 187.188 
+L 311.390185 189.388 
+" style="fill: none; stroke: #2563eb; stroke-linecap: round"/>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #2563eb" x="180.372414" y="218.94" transform="rotate(-0 180.372414 218.94)">TTFT = 120 ms</text>
+   </g>
+   <g id="patch_5">
+    <path d="M 322.02991 187.188 
+Q 468.995227 187.188 615.960544 187.188 
+" style="fill: none; stroke: #0f766e; stroke-linecap: round"/>
+    <path d="M 326.42991 189.388 
+L 322.02991 187.188 
+L 326.42991 184.988 
+" style="fill: none; stroke: #0f766e; stroke-linecap: round"/>
+    <path d="M 611.560544 184.988 
+L 615.960544 187.188 
+L 611.560544 189.388 
+" style="fill: none; stroke: #0f766e; stroke-linecap: round"/>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #0f766e" x="468.993103" y="218.94" transform="rotate(-0 468.993103 218.94)">TPOT = 130 / 3 ≈ 43.33 ms</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 13.2px; font-family: 'DejaVu Sans'; text-anchor: middle" x="342" y="17.892" transform="rotate(-0 342 17.892)">TTFT khác TPOT và end-to-end; đây không phải benchmark</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p0aa0f02233">
+   <rect x="7.2" y="23.892" width="669.6" height="249.48"/>
+  </clipPath>
+ </defs>
+</svg>

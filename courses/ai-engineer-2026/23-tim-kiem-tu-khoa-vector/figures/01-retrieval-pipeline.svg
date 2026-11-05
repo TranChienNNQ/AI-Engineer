@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="936pt" height="540pt" viewBox="0 0 936 540" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-04T23:16:09.527431</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 540 
+L 936 540 
+L 936 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 59.82912 187.0992 
+L 221.71968 187.0992 
+Q 237.21984 187.0992 237.21984 179.9064 
+L 237.21984 112.7736 
+Q 237.21984 105.5808 221.71968 105.5808 
+L 59.82912 105.5808 
+Q 44.32896 105.5808 44.32896 112.7736 
+L 44.32896 179.9064 
+Q 44.32896 187.0992 59.82912 187.0992 
+z
+" clip-path="url(#p401279ead1)" style="fill: #f1f5f9; stroke: #2563eb; stroke-width: 1.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 326.77632 187.0992 
+L 858.94848 187.0992 
+Q 874.44864 187.0992 874.44864 179.9064 
+L 874.44864 112.7736 
+Q 874.44864 105.5808 858.94848 105.5808 
+L 326.77632 105.5808 
+Q 311.27616 105.5808 311.27616 112.7736 
+L 311.27616 179.9064 
+Q 311.27616 187.0992 326.77632 187.0992 
+z
+" clip-path="url(#p401279ead1)" style="fill: #f1f5f9; stroke: #2563eb; stroke-width: 1.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 59.82912 370.9152 
+L 221.71968 370.9152 
+Q 237.21984 370.9152 237.21984 363.7224 
+L 237.21984 288.5976 
+Q 237.21984 281.4048 221.71968 281.4048 
+L 59.82912 281.4048 
+Q 44.32896 281.4048 44.32896 288.5976 
+L 44.32896 363.7224 
+Q 44.32896 370.9152 59.82912 370.9152 
+z
+" clip-path="url(#p401279ead1)" style="fill: #f1f5f9; stroke: #2563eb; stroke-width: 1.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 326.77632 370.9152 
+L 531.72288 370.9152 
+Q 547.22304 370.9152 547.22304 363.7224 
+L 547.22304 288.5976 
+Q 547.22304 281.4048 531.72288 281.4048 
+L 326.77632 281.4048 
+Q 311.27616 281.4048 311.27616 288.5976 
+L 311.27616 363.7224 
+Q 311.27616 370.9152 326.77632 370.9152 
+z
+" clip-path="url(#p401279ead1)" style="fill: #f1f5f9; stroke: #0f766e; stroke-width: 1.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 636.77952 370.9152 
+L 858.94848 370.9152 
+Q 874.44864 370.9152 874.44864 363.7224 
+L 874.44864 288.5976 
+Q 874.44864 281.4048 858.94848 281.4048 
+L 636.77952 281.4048 
+Q 621.27936 281.4048 621.27936 288.5976 
+L 621.27936 363.7224 
+Q 621.27936 370.9152 636.77952 370.9152 
+z
+" clip-path="url(#p401279ead1)" style="fill: #f1f5f9; stroke: #0f766e; stroke-width: 1.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 636.77952 482.8032 
+L 858.94848 482.8032 
+Q 874.44864 482.8032 874.44864 475.6104 
+L 874.44864 416.4696 
+Q 874.44864 409.2768 858.94848 409.2768 
+L 636.77952 409.2768 
+Q 621.27936 409.2768 621.27936 416.4696 
+L 621.27936 475.6104 
+Q 621.27936 482.8032 636.77952 482.8032 
+z
+" clip-path="url(#p401279ead1)" style="fill: #f1f5f9; stroke: #c2410c; stroke-width: 1.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(104.499713 140.140313)">Tài liệu + ID</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(92.360025 159.55125)">scope + version</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(455.510212 139.75125)">Fit corpus: analyzer → postings; TF-IDF → SVD</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(462.22365 159.79125)">Lưu vocabulary, IDF, components và vector</text>
+   </g>
+   <g id="patch_8">
+    <path d="M 228.887306 146.34 
+Q 265.634981 146.34 300.593801 146.34 
+" style="fill: none; stroke: #475569; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 295.793801 143.94 
+L 300.593801 146.34 
+L 295.793801 148.74 
+" style="fill: none; stroke: #475569; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(109.449713 319.81125)">Query mới</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(98.472525 339.61125)">cùng analyzer</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(359.039288 319.465312)">Term query; TF-IDF/LSA</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(373.170225 340.8375)">chỉ ở nhánh vector</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(705.843375 320.262187)">BM25 / cosine</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(685.67775 339.61125)">→ lọc → top ứng viên</text>
+   </g>
+   <g id="patch_9">
+    <path d="M 228.887306 326.16 
+Q 265.634981 326.16 300.593801 326.16 
+" style="fill: none; stroke: #475569; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 295.793801 323.76 
+L 300.593801 326.16 
+L 295.793801 328.56 
+" style="fill: none; stroke: #475569; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 538.890506 326.16 
+Q 575.638181 326.16 610.597001 326.16 
+" style="fill: none; stroke: #475569; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 605.797001 323.76 
+L 610.597001 326.16 
+L 605.797001 328.56 
+" style="fill: none; stroke: #475569; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 429.2496 188.299829 
+Q 429.2496 232.253807 429.2496 274.41893 
+" style="fill: none; stroke: #475569; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 431.6496 269.61893 
+L 429.2496 274.41893 
+L 426.8496 269.61893 
+" style="fill: none; stroke: #475569; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #475569" x="429.2496" y="218.268" transform="rotate(-0 429.2496 218.268)">dùng lại</text>
+   </g>
+   <g id="patch_12">
+    <path d="M 747.864 188.299829 
+Q 747.864 232.253807 747.864 274.41893 
+" style="fill: none; stroke: #475569; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 750.264 269.61893 
+L 747.864 274.41893 
+L 745.464 269.61893 
+" style="fill: none; stroke: #475569; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #475569" x="747.864" y="218.268" transform="rotate(-0 747.864 218.268)">dùng lại</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(697.725563 439.69125)">Gộp RRF → top-k</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(688.429313 459.921562)">ID + score + tựa đề</text>
+   </g>
+   <g id="patch_13">
+    <path d="M 747.864 372.113512 
+Q 747.864 388.095425 747.864 402.288483 
+" style="fill: none; stroke: #475569; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 750.264 397.488483 
+L 747.864 402.288483 
+L 745.464 397.488483 
+" style="fill: none; stroke: #475569; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #475569" transform="translate(54.6624 434.035203)">Fit chỉ từ corpus; query không refit SVD.</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #475569" transform="translate(54.6624 454.032)">Score truy xuất không phải xác suất câu trả lời đúng.</text>
+   </g>
+  </g>
+  <g id="text_10">
+   <text style="font-weight: 700; font-size: 21px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172033" x="51.48" y="37.2225" transform="rotate(-0 51.48 37.2225)">01 · Một corpus, hai đường truy xuất</text>
+  </g>
+  <g id="text_11">
+   <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #475569" x="51.48" y="54" transform="rotate(-0 51.48 54)">Ví dụ riêng của bài: từ khóa BM25 và vector LSA; chưa có bước sinh câu trả lời.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p401279ead1">
+   <rect x="37.44" y="86.4" width="861.12" height="399.6"/>
+  </clipPath>
+ </defs>
+</svg>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="936pt" height="540pt" viewBox="0 0 936 540" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-05T08:52:26.347253</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 540 
+L 936 540 
+L 936 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 67.896 301.566857 
+L 298.008 301.566857 
+Q 306.1296 301.566857 306.1296 294.531429 
+L 306.1296 159.685714 
+Q 306.1296 152.650286 298.008 152.650286 
+L 67.896 152.650286 
+Q 59.7744 152.650286 59.7744 159.685714 
+L 59.7744 294.531429 
+Q 59.7744 301.566857 67.896 301.566857 
+z
+" clip-path="url(#pdba2cf49e8)" style="fill: #2863a5; fill-opacity: 0.070588; stroke: #2863a5; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 385.992 301.566857 
+L 616.104 301.566857 
+Q 624.2256 301.566857 624.2256 294.531429 
+L 624.2256 159.685714 
+Q 624.2256 152.650286 616.104 152.650286 
+L 385.992 152.650286 
+Q 377.8704 152.650286 377.8704 159.685714 
+L 377.8704 294.531429 
+Q 377.8704 301.566857 385.992 301.566857 
+z
+" clip-path="url(#pdba2cf49e8)" style="fill: #227b62; fill-opacity: 0.070588; stroke: #227b62; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 310.163467 227.108571 
+Q 342.001593 227.108571 372.162669 227.108571 
+" clip-path="url(#pdba2cf49e8)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 366.162669 224.108571 
+L 372.162669 227.108571 
+L 366.162669 230.108571 
+z
+" clip-path="url(#pdba2cf49e8)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 690.552 301.566857 
+L 880.056 301.566857 
+Q 888.1776 301.566857 888.1776 294.531429 
+L 888.1776 159.685714 
+Q 888.1776 152.650286 880.056 152.650286 
+L 690.552 152.650286 
+Q 682.4304 152.650286 682.4304 159.685714 
+L 682.4304 294.531429 
+Q 682.4304 301.566857 690.552 301.566857 
+z
+" clip-path="url(#pdba2cf49e8)" style="fill: #bd4949; fill-opacity: 0.070588; stroke: #bd4949; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(140.793641 195.9124)">OBSERVATIONS</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(107.830594 213.177243)">Ticket: checkout / technical</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(108.393484 230.143884)">Retry: timeout, unavailable</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(92.807859 248.517321)">KHÔNG retry: permission_denied</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(136.868016 266.409509)">Refs: ticket + KB</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(434.245344 195.9124)">STRUCTURED SUMMARY</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(431.863156 212.543884)">Acquired: ticket, runbook</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(453.564094 229.990915)">Open: get_health</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(421.343547 247.590915)">not_retry: permission_denied</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(447.469406 265.190915)">Origins + last_error</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(746.977594 204.7124)">SUMMARY SAI</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(744.974391 221.977243)">“Retry mọi lỗi”</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(749.082203 239.419118)">Mất phủ định</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(727.819547 257.021696)">Nguồn đúng chưa đủ</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="477.36" y="385.405714" transform="rotate(-0 477.36 385.405714)">Recent chỉ giữ 2 event; latest state không bằng toàn bộ lịch sử.</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #596777" x="477.36" y="449.897143" transform="rotate(-0 477.36 449.897143)">Lab vẫn cấp cả observations + summary: không công bố tỷ lệ nén toàn context.</text>
+   </g>
+  </g>
+  <g id="text_6">
+   <text style="font-weight: 700; font-size: 19px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172d45" x="51.48" y="38.1775" transform="rotate(-0 51.48 38.1775)">04 · Working summary phải giữ phủ định và khoảng trống</text>
+  </g>
+  <g id="text_7">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #596777" x="51.48" y="59.4" transform="rotate(-0 51.48 59.4)">Summary được tạo lại từ observation còn quyền/còn mới; chưa là LLM compaction benchmark.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pdba2cf49e8">
+   <rect x="37.44" y="86.4" width="879.84" height="410.4"/>
+  </clipPath>
+ </defs>
+</svg>

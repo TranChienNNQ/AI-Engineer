@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="685.013312pt" height="367pt" viewBox="0 0 685.013312 367" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-04T22:52:30.305180</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 367 
+L 685.013312 367 
+L 685.013312 -0 
+L 0 -0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 80.856 95.3512 
+L 536.184 95.3512 
+Q 542.88 95.3512 542.88 92.0248 
+L 542.88 55.4344 
+Q 542.88 52.108 536.184 52.108 
+L 80.856 52.108 
+Q 74.16 52.108 74.16 55.4344 
+L 74.16 92.0248 
+Q 74.16 95.3512 80.856 95.3512 
+z
+" clip-path="url(#pe94aba3c93)" style="fill: #2563eb; fill-opacity: 0.070588; stroke: #2563eb; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 80.856 151.9 
+L 536.184 151.9 
+Q 542.88 151.9 542.88 148.5736 
+L 542.88 111.9832 
+Q 542.88 108.6568 536.184 108.6568 
+L 80.856 108.6568 
+Q 74.16 108.6568 74.16 111.9832 
+L 74.16 148.5736 
+Q 74.16 151.9 80.856 151.9 
+z
+" clip-path="url(#pe94aba3c93)" style="fill: #2563eb; fill-opacity: 0.070588; stroke: #2563eb; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 80.856 208.4488 
+L 536.184 208.4488 
+Q 542.88 208.4488 542.88 205.1224 
+L 542.88 168.532 
+Q 542.88 165.2056 536.184 165.2056 
+L 80.856 165.2056 
+Q 74.16 165.2056 74.16 168.532 
+L 74.16 205.1224 
+Q 74.16 208.4488 80.856 208.4488 
+z
+" clip-path="url(#pe94aba3c93)" style="fill: #2563eb; fill-opacity: 0.070588; stroke: #2563eb; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 80.856 264.9976 
+L 536.184 264.9976 
+Q 542.88 264.9976 542.88 261.6712 
+L 542.88 225.0808 
+Q 542.88 221.7544 536.184 221.7544 
+L 80.856 221.7544 
+Q 74.16 221.7544 74.16 225.0808 
+L 74.16 261.6712 
+Q 74.16 264.9976 80.856 264.9976 
+z
+" clip-path="url(#pe94aba3c93)" style="fill: #2563eb; fill-opacity: 0.070588; stroke: #2563eb; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 80.856 321.5464 
+L 536.184 321.5464 
+Q 542.88 321.5464 542.88 318.22 
+L 542.88 281.6296 
+Q 542.88 278.3032 536.184 278.3032 
+L 80.856 278.3032 
+Q 74.16 278.3032 74.16 281.6296 
+L 74.16 318.22 
+Q 74.16 321.5464 80.856 321.5464 
+z
+" clip-path="url(#pe94aba3c93)" style="fill: #c2410c; fill-opacity: 0.070588; stroke: #c2410c; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="308.52" y="76.807452" transform="rotate(-0 308.52 76.807452)">1. Finish bình thường?</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="308.52" y="133.136252" transform="rotate(-0 308.52 133.136252)">2. JSON parse được?</text>
+   </g>
+   <g id="patch_7">
+    <path d="M 308.52 97.348989 
+Q 308.52 102.002142 308.52 104.978244 
+" style="fill: none; stroke: #475569; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 310.72 100.578244 
+L 308.52 104.978244 
+L 306.32 100.578244 
+" style="fill: none; stroke: #475569; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="308.52" y="189.905052" transform="rotate(-0 308.52 189.905052)">3. Đúng schema / quan hệ field?</text>
+   </g>
+   <g id="patch_8">
+    <path d="M 308.52 153.897789 
+Q 308.52 158.550942 308.52 161.527044 
+" style="fill: none; stroke: #475569; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 310.72 157.127044 
+L 308.52 161.527044 
+L 306.32 157.127044 
+" style="fill: none; stroke: #475569; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="308.52" y="246.453852" transform="rotate(-0 308.52 246.453852)">4. Evidence ID có trong input?</text>
+   </g>
+   <g id="patch_9">
+    <path d="M 308.52 210.446589 
+Q 308.52 215.099742 308.52 218.075844 
+" style="fill: none; stroke: #475569; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 310.72 213.675844 
+L 308.52 218.075844 
+L 306.32 213.675844 
+" style="fill: none; stroke: #475569; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="308.52" y="303.416011" transform="rotate(-0 308.52 303.416011)">5. Đúng task / được dữ kiện hỗ trợ?</text>
+   </g>
+   <g id="patch_10">
+    <path d="M 308.52 266.995389 
+Q 308.52 271.648542 308.52 274.624644 
+" style="fill: none; stroke: #475569; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 310.72 270.224644 
+L 308.52 274.624644 
+L 306.32 270.224644 
+" style="fill: none; stroke: #475569; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #c2410c" transform="translate(562.968 289.808394)">Scorer/reference</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #c2410c" transform="translate(562.968 302.834566)">hoặc kiểm semantic</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #c2410c" transform="translate(562.968 315.2373)">không tự có từ schema</text>
+   </g>
+   <g id="text_7">
+    <text style="font-weight: 700; font-size: 16px; font-family: 'DejaVu Sans'; text-anchor: middle" x="342" y="21.16" transform="rotate(-0 342 21.16)">Một gate pass không tự bảo đảm gate tiếp theo</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pe94aba3c93">
+   <rect x="7.2" y="27.16" width="669.6" height="332.64"/>
+  </clipPath>
+ </defs>
+</svg>

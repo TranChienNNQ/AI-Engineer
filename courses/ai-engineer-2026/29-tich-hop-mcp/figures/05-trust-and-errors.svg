@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="936pt" height="540pt" viewBox="0 0 936 540" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-05T09:26:33.605113</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 540 
+L 936 540 
+L 936 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 67.896 242.938286 
+L 277.704 242.938286 
+Q 285.8256 242.938286 285.8256 235.902857 
+L 285.8256 142.097143 
+Q 285.8256 135.061714 277.704 135.061714 
+L 67.896 135.061714 
+Q 59.7744 135.061714 59.7744 142.097143 
+L 59.7744 235.902857 
+Q 59.7744 242.938286 67.896 242.938286 
+z
+" clip-path="url(#p2f8d3e90f8)" style="fill: #227b62; fill-opacity: 0.070588; stroke: #227b62; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 372.456 242.938286 
+L 582.264 242.938286 
+Q 590.3856 242.938286 590.3856 235.902857 
+L 590.3856 142.097143 
+Q 590.3856 135.061714 582.264 135.061714 
+L 372.456 135.061714 
+Q 364.3344 135.061714 364.3344 142.097143 
+L 364.3344 235.902857 
+Q 364.3344 242.938286 372.456 242.938286 
+z
+" clip-path="url(#p2f8d3e90f8)" style="fill: #2863a5; fill-opacity: 0.070588; stroke: #2863a5; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 677.016 242.938286 
+L 886.824 242.938286 
+Q 894.9456 242.938286 894.9456 235.902857 
+L 894.9456 142.097143 
+Q 894.9456 135.061714 886.824 135.061714 
+L 677.016 135.061714 
+Q 668.8944 135.061714 668.8944 142.097143 
+L 668.8944 235.902857 
+Q 668.8944 242.938286 677.016 242.938286 
+z
+" clip-path="url(#p2f8d3e90f8)" style="fill: #227b62; fill-opacity: 0.070588; stroke: #227b62; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 289.85988 186.068571 
+Q 325.080439 186.068571 358.623947 186.068571 
+" clip-path="url(#p2f8d3e90f8)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 352.623947 183.068571 
+L 358.623947 186.068571 
+L 352.623947 189.068571 
+z
+" clip-path="url(#p2f8d3e90f8)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 594.41988 186.068571 
+Q 629.640439 186.068571 663.183947 186.068571 
+" clip-path="url(#p2f8d3e90f8)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 657.183947 183.068571 
+L 663.183947 186.068571 
+L 657.183947 189.068571 
+z
+" clip-path="url(#p2f8d3e90f8)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 67.896 424.686857 
+L 277.704 424.686857 
+Q 285.8256 424.686857 285.8256 417.651429 
+L 285.8256 323.845714 
+Q 285.8256 316.810286 277.704 316.810286 
+L 67.896 316.810286 
+Q 59.7744 316.810286 59.7744 323.845714 
+L 59.7744 417.651429 
+Q 59.7744 424.686857 67.896 424.686857 
+z
+" clip-path="url(#p2f8d3e90f8)" style="fill: #bd4949; fill-opacity: 0.070588; stroke: #bd4949; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 372.456 424.686857 
+L 582.264 424.686857 
+Q 590.3856 424.686857 590.3856 417.651429 
+L 590.3856 323.845714 
+Q 590.3856 316.810286 582.264 316.810286 
+L 372.456 316.810286 
+Q 364.3344 316.810286 364.3344 323.845714 
+L 364.3344 417.651429 
+Q 364.3344 424.686857 372.456 424.686857 
+z
+" clip-path="url(#p2f8d3e90f8)" style="fill: #bd4949; fill-opacity: 0.070588; stroke: #bd4949; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 677.016 424.686857 
+L 886.824 424.686857 
+Q 894.9456 424.686857 894.9456 417.651429 
+L 894.9456 323.845714 
+Q 894.9456 316.810286 886.824 316.810286 
+L 677.016 316.810286 
+Q 668.8944 316.810286 668.8944 323.845714 
+L 668.8944 417.651429 
+Q 668.8944 424.686857 677.016 424.686857 
+z
+" clip-path="url(#p2f8d3e90f8)" style="fill: #bd4949; fill-opacity: 0.070588; stroke: #bd4949; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(136.298906 175.403828)">HOST POLICY</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(109.592969 193.100938)">Alias + allowlist + task</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(99.055312 209.635313)">Schema / budget / timeout</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(433.276641 175.403828)">MCP EXCHANGE</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(416.449219 192.035313)">Discovery + list + call</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(406.125547 209.664531)">Result hoặc protocol error</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(733.354141 175.403828)">BACKEND GUARD</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(721.64 192.255313)">Workspace tại lúc đọc</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(718.016875 209.855313)">URI / snapshot / dữ liệu</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(113.251328 356.720134)">HOST / LOCAL ERROR</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(138.197266 373.630915)">outside_task</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(125.710547 391.520525)">timeout tại client</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(434.142812 357.458728)">JSON-RPC ERROR</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(412.759219 374.476696)">-32601: unknown method</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(404.526406 390.083728)">-32022: version không hỗ trợ</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(728.893437 358.388415)">TOOL ERROR RESULT</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(748.109844 374.476696)">isError = true</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(697.987969 389.707946)">Không dùng như data thành công</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="477.36" y="476.28" transform="rotate(-0 477.36 476.28)">readOnlyHint / serverInfo / [SYSTEM] trong body không tự cấp quyền hay bảo đảm text đúng.</text>
+   </g>
+  </g>
+  <g id="text_8">
+   <text style="font-weight: 700; font-size: 19px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172d45" x="51.48" y="38.919688" transform="rotate(-0 51.48 38.919688)">05 · Giao thức chuẩn chưa thay policy và kiểm dữ liệu</text>
+  </g>
+  <g id="text_9">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #596777" x="51.48" y="59.4" transform="rotate(-0 51.48 59.4)">Workspace là cấu hình deployment trong lab; chưa là authentication nhiều người dùng.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p2f8d3e90f8">
+   <rect x="37.44" y="86.4" width="879.84" height="410.4"/>
+  </clipPath>
+ </defs>
+</svg>

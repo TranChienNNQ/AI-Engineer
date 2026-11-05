@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="936pt" height="540pt" viewBox="0 0 936 540" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-05T00:11:52.237924</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 540 
+L 936 540 
+L 936 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 64.26576 223.0632 
+L 343.64304 223.0632 
+Q 358.97472 223.0632 358.97472 215.8704 
+L 358.97472 124.7616 
+Q 358.97472 117.5688 343.64304 117.5688 
+L 64.26576 117.5688 
+Q 48.93408 117.5688 48.93408 124.7616 
+L 48.93408 215.8704 
+Q 48.93408 223.0632 64.26576 223.0632 
+z
+" clip-path="url(#pe7ae21e015)" style="fill: #f1f5f9; stroke: #0f766e; stroke-width: 1.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 583.83936 223.0632 
+L 863.21664 223.0632 
+Q 878.54832 223.0632 878.54832 215.8704 
+L 878.54832 124.7616 
+Q 878.54832 117.5688 863.21664 117.5688 
+L 583.83936 117.5688 
+Q 568.50768 117.5688 568.50768 124.7616 
+L 568.50768 215.8704 
+Q 568.50768 223.0632 583.83936 223.0632 
+z
+" clip-path="url(#pe7ae21e015)" style="fill: #f1f5f9; stroke: #2563eb; stroke-width: 1.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 583.83936 386.8992 
+L 863.21664 386.8992 
+Q 878.54832 386.8992 878.54832 379.7064 
+L 878.54832 292.5936 
+Q 878.54832 285.4008 863.21664 285.4008 
+L 583.83936 285.4008 
+Q 568.50768 285.4008 568.50768 292.5936 
+L 568.50768 379.7064 
+Q 568.50768 386.8992 583.83936 386.8992 
+z
+" clip-path="url(#pe7ae21e015)" style="fill: #f1f5f9; stroke: #2563eb; stroke-width: 1.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 64.26576 386.8992 
+L 394.74864 386.8992 
+Q 410.08032 386.8992 410.08032 379.7064 
+L 410.08032 292.5936 
+Q 410.08032 285.4008 394.74864 285.4008 
+L 64.26576 285.4008 
+Q 48.93408 285.4008 48.93408 292.5936 
+L 48.93408 379.7064 
+Q 48.93408 386.8992 64.26576 386.8992 
+z
+" clip-path="url(#pe7ae21e015)" style="fill: #f1f5f9; stroke: #c2410c; stroke-width: 1.7; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(164.001197 155.291547)">Source P01@2</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(148.9819 174.416938)">text + content hash</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(149.79315 191.979125)">span nguồn: [0, 57)</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(692.972922 156.266938)">Chunk C-…</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(645.334328 173.198344)">source_id, version, start/end</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(686.965891 191.976547)">text slice gốc</text>
+   </g>
+   <g id="patch_6">
+    <path d="M 350.751862 170.316 
+Q 455.22332 170.316 557.682317 170.316 
+" style="fill: none; stroke: #475569; stroke-width: 1.8; stroke-linecap: round"/>
+    <path d="M 552.882317 167.916 
+L 557.682317 170.316 
+L 552.882317 172.716 
+" style="fill: none; stroke: #475569; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(655.493859 321.311172)">Evidence E1 của request</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(654.198781 339.660547)">Citation [0, 57) tương đối</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(658.17425 357.555313)">quote khớp nguyên văn</text>
+   </g>
+   <g id="patch_7">
+    <path d="M 723.528 228.257512 
+Q 723.528 254.231442 723.528 278.192911 
+" style="fill: none; stroke: #475569; stroke-width: 1.8; stroke-linecap: round"/>
+    <path d="M 725.928 273.392911 
+L 723.528 278.192911 
+L 721.128 273.392911 
+" style="fill: none; stroke: #475569; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(112.710403 330.386172)">Theo policy phiên bản 2, idempotency key</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172033" transform="translate(185.265716 348.480312)">được lưu 72 giờ.</text>
+   </g>
+   <g id="patch_8">
+    <path d="M 559.691829 338.148 
+Q 489.293237 338.148 420.907106 338.148 
+" style="fill: none; stroke: #475569; stroke-width: 1.8; stroke-linecap: round"/>
+    <path d="M 425.707106 340.548 
+L 420.907106 338.148 
+L 425.707106 335.748 
+" style="fill: none; stroke: #475569; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #475569" transform="translate(59.1552 444.509063)">Nếu chunk bắt đầu ở 200 và citation [10,40): span nguồn là [210,240).</text>
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; fill: #475569" transform="translate(59.1552 466.02)">Header file hiển thị không được tính vào offset body.</text>
+   </g>
+  </g>
+  <g id="text_6">
+   <text style="font-weight: 700; font-size: 20px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172033" x="51.48" y="37.43" transform="rotate(-0 51.48 37.43)">02 · Một citation phải nối lại đúng snapshot và span</text>
+  </g>
+  <g id="text_7">
+   <text style="font-size: 11.5px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #475569" x="51.48" y="52.92" transform="rotate(-0 51.48 52.92)">Ví dụ policy tự tạo: quote đầu của P01@2; end là exclusive, offset tính theo ký tự Python/NFC.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pe7ae21e015">
+   <rect x="42.12" y="86.4" width="851.76" height="399.6"/>
+  </clipPath>
+ </defs>
+</svg>
