@@ -49,7 +49,8 @@
 - [Bài 26 — Context engineering, phân quyền và prompt injection](26-context-engineering-phan-quyen-prompt-injection/README.md): đã biên soạn; chạy lọc quyền trước retrieval, memory lineage/cache revalidation, grant một lần và gateway CPU; 22 proposal fixture, 6 confidentiality check và residual riêng; 16 bài tập, lời giải, phụ lục và 7 hình. Chưa gọi LLM hoặc triển khai authentication thật.
 - [Bài 27 — Gọi công cụ và workflow](27-goi-cong-cu-workflow/README.md): đã biên soạn; protocol/registry/correlation, state machine, retry/budget, review và write receipt/idempotency; 22 fault scenario, demo asyncio fan-out, 16 bài tập, lời giải, phụ lục và 6 hình. Chưa gọi LLM/API hoặc có durable workflow engine.
 - [Bài 28 — Vòng lặp agent, trạng thái và bộ nhớ](28-vong-lap-agent-trang-thai-bo-nho/README.md): đã biên soạn; policy chọn action từ observation, stop/budget, latest SQLite checkpoint/events, CAS và read recovery; working summary, memory namespace/TTL/version/lineage/forget; 25 scenario, 16 bài tập, lời giải, phụ lục và 7 hình. Chưa dùng LLM, LangGraph hoặc distributed workflow engine.
-- Bài 29 trở đi: đề cương, chưa được biên soạn thành bài học. Tài liệu kỹ thuật và phiên bản sẽ được đối chiếu khi viết từng bài.
+- [Bài 29 — Tích hợp MCP](29-tich-hop-mcp/README.md): đã biên soạn; MCP SDK 2.3.0, protocol 2026-07-28/forced legacy, tools/resources/prompts, stdio child process và HTTP-ASGI; adapter alias/schema/catalog/source/budget, 33 kiểm tra, 16 bài tập, lời giải, phụ lục và 6 hình. Host Python cố định, chưa gọi LLM hoặc triển khai OAuth/remote server.
+- Bài 30 trở đi: đề cương, chưa được biên soạn thành bài học. Tài liệu kỹ thuật và phiên bản sẽ được đối chiếu khi viết từng bài.
 
 ## Nguyên tắc tổ chức
 

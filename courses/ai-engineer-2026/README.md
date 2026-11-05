@@ -1,6 +1,6 @@
 # AI Engineer 2026 — Từ nền tảng đến hệ thống ứng dụng
 
-Phiên bản: 0.28 · Cập nhật: 05/11/2026 — bổ sung bài 28 về vòng lặp agent, trạng thái và bộ nhớ.
+Phiên bản: 0.29 · Cập nhật: 05/11/2026 — bổ sung bài 29 về tích hợp MCP.
 
 Bộ tài liệu tiếng Việt dành cho người có nền lập trình backend, đã nghe các khái niệm Deep Learning nhưng chưa học sâu. Mục tiêu là xây, đánh giá và vận hành ứng dụng AI, đồng thời hiểu cơ chế mô hình đủ để tìm nguyên nhân lỗi và lựa chọn kỹ thuật phù hợp.
 
@@ -44,21 +44,23 @@ Bộ tài liệu tiếng Việt dành cho người có nền lập trình backen
 | [27. Gọi công cụ và workflow](27-goi-cong-cu-workflow/README.md) | Tool contract/correlation, chaining/routing/fan-out, retry/budget, review, idempotency và UNKNOWN; 6 hình, 16 bài tập, phụ lục | [Bài tập](27-goi-cong-cu-workflow/exercises.md) · [Lời giải](27-goi-cong-cu-workflow/solutions.md) |
 | [28. Vòng lặp agent, trạng thái và bộ nhớ](28-vong-lap-agent-trang-thai-bo-nho/README.md) | Feedback loop, stop/budget, SQLite checkpoint/CAS/recovery, working summary và memory namespace/TTL/lineage; 7 hình, 16 bài tập, phụ lục | [Bài tập](28-vong-lap-agent-trang-thai-bo-nho/exercises.md) · [Lời giải](28-vong-lap-agent-trang-thai-bo-nho/solutions.md) |
 
+| [29. Tích hợp MCP](29-tich-hop-mcp/README.md) | Host/client/server, tools/resources/prompts, JSON-RPC, stdio/HTTP-ASGI, version và policy adapter; 6 hình, 16 bài tập, phụ lục | [Bài tập](29-tich-hop-mcp/exercises.md) · [Lời giải](29-tich-hop-mcp/solutions.md) |
+
 ## Trạng thái thực tế
 
 | Thành phần | Trạng thái |
 |---|---|
 | Đề cương từ nền tảng đến nâng cao | Đã lập; có thể điều chỉnh theo bài thực hành |
-| Bài 1–28, bài tập và lời giải | Đã biên soạn; code đã chạy kiểm tra |
-| Hình minh họa bài 2–28 | Đã tạo từ công thức/dữ liệu minh họa; có PNG, SVG và mã tái tạo |
-| Bài 29 trở đi | Mới là đề cương, chưa có nội dung bài hoàn chỉnh |
+| Bài 1–29, bài tập và lời giải | Đã biên soạn; code đã chạy kiểm tra |
+| Hình minh họa bài 2–29 | Đã tạo từ công thức/dữ liệu minh họa; có PNG, SVG và mã tái tạo |
+| Bài 30 trở đi | Mới là đề cương, chưa có nội dung bài hoàn chỉnh |
 | Mức hiểu của độc giả | Không được suy ra từ trạng thái tài liệu |
 
 ## Cách sử dụng
 
 Đọc theo thứ tự khi gặp kiến thức mới. Mỗi bài có mục tiêu, giải thích, ví dụ, thực hành và tiêu chí tự đánh giá. Không cần trò chuyện với agent để xem lời giải. Dự đoán kết quả trước khi chạy, sau đó giải thích sự khác biệt giữa dự đoán và kết quả thực tế.
 
-Markdown là bản nguồn. Có thể đọc trong trình xem hỗ trợ Markdown; công thức dùng cú pháp toán LaTeX, kèm diễn giải bằng lời. Code thực hành bài 1–2 chỉ cần Python 3 và thư viện chuẩn; bài 3–10 cần thêm NumPy; bài 11–21 cần PyTorch và NumPy; riêng bài 14 thêm Pillow để đọc/ghi ảnh. Bài 22 dùng FastAPI, Pydantic, jsonschema, httpx và Uvicorn; không cần PyTorch. Bài 23 chỉ cần NumPy cho tìm kiếm, không cần PyTorch; vector dày dùng LSA từ corpus, chưa dùng model embedding pretrained. Bài 24 dùng PyTorch và NumPy để học embedding/reranker nhỏ từ đầu. Bài 25 dùng jsonschema cho pipeline RAG với baseline trích xuất và fixture citation; không gọi LLM. Bài 26 dùng jsonschema cho context builder, policy và gateway trong bộ nhớ; proposal được lập trình sẵn, chưa là benchmark LLM. Bài 27 dùng jsonschema cho workflow ticket, fault/receipt trong RAM và demo asyncio đọc song song; chưa gọi model thật. Bài 28 dùng jsonschema và sqlite3 cho agent policy mô phỏng, checkpoint/memory và resume qua process; không gọi LLM. Không cần GPU hay tài khoản dịch vụ AI. Phiên bản môi trường đã kiểm tra được ghi trong từng bài. Hình được lưu sẵn; chỉ khi muốn tái tạo hình mới cần thư viện vẽ theo hướng dẫn riêng.
+Markdown là bản nguồn. Có thể đọc trong trình xem hỗ trợ Markdown; công thức dùng cú pháp toán LaTeX, kèm diễn giải bằng lời. Code thực hành bài 1–2 chỉ cần Python 3 và thư viện chuẩn; bài 3–10 cần thêm NumPy; bài 11–21 cần PyTorch và NumPy; riêng bài 14 thêm Pillow để đọc/ghi ảnh. Bài 22 dùng FastAPI, Pydantic, jsonschema, httpx và Uvicorn; không cần PyTorch. Bài 23 chỉ cần NumPy cho tìm kiếm, không cần PyTorch; vector dày dùng LSA từ corpus, chưa dùng model embedding pretrained. Bài 24 dùng PyTorch và NumPy để học embedding/reranker nhỏ từ đầu. Bài 25 dùng jsonschema cho pipeline RAG với baseline trích xuất và fixture citation; không gọi LLM. Bài 26 dùng jsonschema cho context builder, policy và gateway trong bộ nhớ; proposal được lập trình sẵn, chưa là benchmark LLM. Bài 27 dùng jsonschema cho workflow ticket, fault/receipt trong RAM và demo asyncio đọc song song; chưa gọi model thật. Bài 28 dùng jsonschema và sqlite3 cho agent policy mô phỏng, checkpoint/memory và resume qua process; không gọi LLM. Bài 29 dùng MCP Python SDK 2.3.0, Pydantic và jsonschema cho server/client thật qua stdio và HTTP-ASGI trong process; host Python được lập trình sẵn, không gọi LLM. Không cần GPU hay tài khoản dịch vụ AI. Phiên bản môi trường đã kiểm tra được ghi trong từng bài. Hình được lưu sẵn; chỉ khi muốn tái tạo hình mới cần thư viện vẽ theo hướng dẫn riêng.
 
 ## Chia sẻ và cập nhật
 

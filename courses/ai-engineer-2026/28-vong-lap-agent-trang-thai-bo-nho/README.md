@@ -349,4 +349,4 @@ Start từ chối trùng run ID; hãy chọn run/database mới nếu đã chạ
 
 Làm [16 bài tập](exercises.md), đối chiếu [lời giải](solutions.md), rồi đọc [phụ lục](deep-dive.md). Bạn cần giải thích vì sao state không bằng transcript, vì sao restart không reset budget, khi nào read phải chạy lại, và vì sao memory hợp quyền vẫn không có thẩm quyền điều khiển.
 
-**Bài 29 dự kiến:** tích hợp MCP, hiện mới là đề cương. [Nguồn và phạm vi kiểm](../SOURCES.md).
+**Bài tiếp theo:** [Bài 29 — Tích hợp MCP](../29-tich-hop-mcp/README.md). [Nguồn và phạm vi kiểm](../SOURCES.md).

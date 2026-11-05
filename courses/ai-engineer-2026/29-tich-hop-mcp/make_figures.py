@@ -65,7 +65,7 @@ def main():
     fig,ax=canvas('02 · Ba primitive: tool, resource, prompt',
                   'List để khám phá, call/read/get để sử dụng. Host quyết định cách đưa kết quả vào task.')
     entries=[(4.7,'TOOLS','get_ticket\nsearch_runbooks','tools/list → tools/call',BLUE),
-             (2.8,'RESOURCES','kb://catalog\nkb://runbooks/{doc_id}','resources/list hoặc templates/list\n→ resources/read URI cụ thể',GREEN),
+             (2.8,'RESOURCES','kb://catalog\nkb://runbooks/{doc_id}','resources/list hoặc\nresources/templates/list\n→ resources/read URI cụ thể',GREEN),
              (.9,'PROMPTS','triage_ticket(ticket_id)','prompts/list → prompts/get\nRender template, chưa gọi tool',GOLD)]
     for y,title,example,method,color in entries:
         box(ax,.4,y,2.1,1.4,title,color);box(ax,3.4,y,3.4,1.4,example,color)
@@ -101,9 +101,9 @@ def main():
 
     fig,ax=canvas('05 · Giao thức chuẩn chưa thay policy và kiểm dữ liệu',
                   'Workspace là cấu hình deployment trong lab; chưa là authentication nhiều người dùng.')
-    box(ax,.4,4.4,3.2,1.7,'HOST POLICY\nAlias + allowlist + task\nSchema / budget / timeout',GREEN)
+    box(ax,.4,4.4,3.2,1.7,'HOST POLICY\nAlias + allowlist + task\nSchema / budget / timeout\nOutput / snapshot hash',GREEN,10)
     box(ax,4.9,4.4,3.2,1.7,'MCP EXCHANGE\nDiscovery + list + call\nResult hoặc protocol error',BLUE)
-    box(ax,9.4,4.4,3.2,1.7,'BACKEND GUARD\nWorkspace tại lúc đọc\nURI / snapshot / dữ liệu',GREEN)
+    box(ax,9.4,4.4,3.2,1.7,'BACKEND GUARD\nWorkspace tại lúc đọc\nResolve URI / trả dữ liệu',GREEN)
     arrow(ax,3.7,5.3,4.8,5.3);arrow(ax,8.2,5.3,9.3,5.3)
     box(ax,.4,1.3,3.2,1.7,'HOST / LOCAL ERROR\noutside_task\ntimeout tại client',RED)
     box(ax,4.9,1.3,3.2,1.7,'JSON-RPC ERROR\n-32601: unknown method\n-32022: version không hỗ trợ',RED,10)
