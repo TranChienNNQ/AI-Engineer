@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="684pt" height="345.546pt" viewBox="0 0 684 345.546" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-06T23:36:29.942068</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 345.546 
+L 684 345.546 
+L 684 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 27.288 156.325392 
+L 194.688 156.325392 
+Q 202.7232 156.325392 202.7232 152.73288 
+L 202.7232 89.86392 
+Q 202.7232 86.271408 194.688 86.271408 
+L 27.288 86.271408 
+Q 19.2528 86.271408 19.2528 89.86392 
+L 19.2528 152.73288 
+Q 19.2528 156.325392 27.288 156.325392 
+z
+" clip-path="url(#p8b1aec9e29)" style="fill: #245ca6; fill-opacity: 0.078431; stroke: #245ca6; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 261.648 156.325392 
+L 429.048 156.325392 
+Q 437.0832 156.325392 437.0832 152.73288 
+L 437.0832 89.86392 
+Q 437.0832 86.271408 429.048 86.271408 
+L 261.648 86.271408 
+Q 253.6128 86.271408 253.6128 89.86392 
+L 253.6128 152.73288 
+Q 253.6128 156.325392 261.648 156.325392 
+z
+" clip-path="url(#p8b1aec9e29)" style="fill: #dd8a21; fill-opacity: 0.078431; stroke: #dd8a21; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 496.008 156.325392 
+L 656.712 156.325392 
+Q 664.7472 156.325392 664.7472 152.73288 
+L 664.7472 89.86392 
+Q 664.7472 86.271408 656.712 86.271408 
+L 496.008 86.271408 
+Q 487.9728 86.271408 487.9728 89.86392 
+L 487.9728 152.73288 
+Q 487.9728 156.325392 496.008 156.325392 
+z
+" clip-path="url(#p8b1aec9e29)" style="fill: #25836a; fill-opacity: 0.078431; stroke: #25836a; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 27.288 279.069552 
+L 194.688 279.069552 
+Q 202.7232 279.069552 202.7232 275.47704 
+L 202.7232 212.60808 
+Q 202.7232 209.015568 194.688 209.015568 
+L 27.288 209.015568 
+Q 19.2528 209.015568 19.2528 212.60808 
+L 19.2528 275.47704 
+Q 19.2528 279.069552 27.288 279.069552 
+z
+" clip-path="url(#p8b1aec9e29)" style="fill: #be4b53; fill-opacity: 0.078431; stroke: #be4b53; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 261.648 279.069552 
+L 429.048 279.069552 
+Q 437.0832 279.069552 437.0832 275.47704 
+L 437.0832 212.60808 
+Q 437.0832 209.015568 429.048 209.015568 
+L 261.648 209.015568 
+Q 253.6128 209.015568 253.6128 212.60808 
+L 253.6128 275.47704 
+Q 253.6128 279.069552 261.648 279.069552 
+z
+" clip-path="url(#p8b1aec9e29)" style="fill: #245ca6; fill-opacity: 0.078431; stroke: #245ca6; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 496.008 279.069552 
+L 656.712 279.069552 
+Q 664.7472 279.069552 664.7472 275.47704 
+L 664.7472 212.60808 
+Q 664.7472 209.015568 656.712 209.015568 
+L 496.008 209.015568 
+Q 487.9728 209.015568 487.9728 212.60808 
+L 487.9728 275.47704 
+Q 487.9728 279.069552 496.008 279.069552 
+z
+" clip-path="url(#p8b1aec9e29)" style="fill: #dd8a21; fill-opacity: 0.078431; stroke: #dd8a21; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(60.625188 117.554748)">Persistent weights</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(50.355656 130.757755)">codes + scales + bias</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(309.107297 116.609005)">Dequant tạm</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(298.158859 131.702638)">Ŵ FP32 trong lab</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(529.192344 117.554748)">Matmul trong lab</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(517.373359 130.757755)">FP32 input / compute</text>
+   </g>
+   <g id="patch_8">
+    <path d="M 196.686501 122.79528 
+Q 228.166104 122.79528 257.856853 122.79528 
+" style="fill: none; stroke: #566577; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 253.456853 120.59528 
+L 257.856853 122.79528 
+L 253.456853 124.99528 
+" style="fill: none; stroke: #566577; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 431.046501 122.79528 
+Q 462.526104 122.79528 492.216853 122.79528 
+" style="fill: none; stroke: #566577; stroke-width: 1.6; stroke-linecap: round"/>
+    <path d="M 487.816853 120.59528 
+L 492.216853 122.79528 
+L 487.816853 124.99528 
+" style="fill: none; stroke: #566577; stroke-width: 1.6; stroke-linecap: round"/>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(80.587609 239.665548)">Activations</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(54.248625 254.135275)">fake-quant vẫn FP32</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(319.942297 239.823673)">KV cache</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(285.594797 253.97715)">đối tượng quant riêng</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(520.496328 240.298908)">Peak process/device</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(517.55125 253.501915)">+ copies / workspace</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="342" y="323.3772" transform="rotate(-0 342 323.3772)">Đếm tensor state, file size và đo peak memory là ba việc khác nhau.</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: middle" x="342" y="20.97" transform="rotate(-0 342 20.97)">4-bit storage chưa mô tả toàn bộ inference memory</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p8b1aec9e29">
+   <rect x="7.2" y="38.97" width="669.6" height="299.376"/>
+  </clipPath>
+ </defs>
+</svg>

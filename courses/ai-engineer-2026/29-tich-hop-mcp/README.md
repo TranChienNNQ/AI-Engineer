@@ -366,4 +366,4 @@ Hình PNG/SVG có sẵn trong `figures/`. Bản ZIP chỉ giữ tài liệu/code
 
 Làm [16 bài tập](exercises.md), đối chiếu [lời giải](solutions.md), đọc [phụ lục](deep-dive.md). Bạn cần đọc được một frame, phân biệt protocol/library version, chạy stdio thật, giải thích host/server kiểm quyền ở đâu và chỉ rõ giới hạn của mỗi con số đã đo.
 
-**Bài 30 dự kiến:** đánh giá nhiều bước và giới hạn hành động; hiện mới là đề cương. [Nguồn và phạm vi kiểm](../SOURCES.md).
+**Bài tiếp theo:** [Bài 30 — Đánh giá nhiều bước và giới hạn hành động](../30-danh-gia-nhieu-buoc-gioi-han-hanh-dong/README.md). [Nguồn và phạm vi kiểm](../SOURCES.md).

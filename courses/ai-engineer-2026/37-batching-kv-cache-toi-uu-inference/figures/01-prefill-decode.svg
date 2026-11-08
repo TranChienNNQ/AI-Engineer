@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="684pt" height="325.994219pt" viewBox="0 0 684 325.994219" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-06T23:04:29.745317</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 325.994219 
+L 684 325.994219 
+L 684 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 27.288 183.520619 
+L 187.992 183.520619 
+Q 196.0272 183.520619 196.0272 180.194219 
+L 196.0272 99.806219 
+Q 196.0272 96.479819 187.992 96.479819 
+L 27.288 96.479819 
+Q 19.2528 96.479819 19.2528 99.806219 
+L 19.2528 180.194219 
+Q 19.2528 183.520619 27.288 183.520619 
+z
+" clip-path="url(#p423296b1f8)" style="fill: #245ca6; fill-opacity: 0.078431; stroke: #245ca6; stroke-width: 1.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 268.344 183.520619 
+L 429.048 183.520619 
+Q 437.0832 183.520619 437.0832 180.194219 
+L 437.0832 99.806219 
+Q 437.0832 96.479819 429.048 96.479819 
+L 268.344 96.479819 
+Q 260.3088 96.479819 260.3088 99.806219 
+L 260.3088 180.194219 
+Q 260.3088 183.520619 268.344 183.520619 
+z
+" clip-path="url(#p423296b1f8)" style="fill: #25836a; fill-opacity: 0.078431; stroke: #25836a; stroke-width: 1.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 509.4 183.520619 
+L 656.712 183.520619 
+Q 664.7472 183.520619 664.7472 180.194219 
+L 664.7472 99.806219 
+Q 664.7472 96.479819 656.712 96.479819 
+L 509.4 96.479819 
+Q 501.3648 96.479819 501.3648 99.806219 
+L 501.3648 180.194219 
+Q 501.3648 183.520619 509.4 183.520619 
+z
+" clip-path="url(#p423296b1f8)" style="fill: #25836a; fill-opacity: 0.078431; stroke: #25836a; stroke-width: 1.4; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(92.375781 129.655062)">Prefill</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(62.806406 142.85807)">input: x₀ x₁ x₂ x₃</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(64.972031 156.061078)">cache length: 4</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(322.564125 129.655062)">Decode 1</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(325.487719 142.85807)">input: y₁</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(306.028031 156.061078)">cache length: 5</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(556.924125 129.655062)">Decode 2</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(559.847719 142.85807)">input: y₂</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(540.388031 156.061078)">cache length: 6</text>
+   </g>
+   <g id="patch_5">
+    <path d="M 189.988049 141.386219 
+Q 228.164097 141.386219 264.439488 141.386219 
+" style="fill: none; stroke: #566577; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 260.039488 139.186219 
+L 264.439488 141.386219 
+L 260.039488 143.586219 
+" style="fill: none; stroke: #566577; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 431.044049 141.386219 
+Q 469.220097 141.386219 505.495488 141.386219 
+" style="fill: none; stroke: #566577; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 501.095488 139.186219 
+L 505.495488 141.386219 
+L 501.095488 143.586219 
+" style="fill: none; stroke: #566577; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 107.64 182.194715 
+Q 107.64 202.371391 107.64 220.64741 
+" style="fill: none; stroke: #566577; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 109.84 216.24741 
+L 107.64 220.64741 
+L 105.44 216.24741 
+" style="fill: none; stroke: #566577; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #245ca6" x="107.64" y="243.950219" transform="rotate(-0 107.64 243.950219)">phát y₁</text>
+   </g>
+   <g id="patch_8">
+    <path d="M 348.696 182.194715 
+Q 348.696 202.371391 348.696 220.64741 
+" style="fill: none; stroke: #566577; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 350.896 216.24741 
+L 348.696 220.64741 
+L 346.496 216.24741 
+" style="fill: none; stroke: #566577; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #245ca6" x="348.696" y="243.950219" transform="rotate(-0 348.696 243.950219)">phát y₂</text>
+   </g>
+   <g id="patch_9">
+    <path d="M 583.056 182.194715 
+Q 583.056 202.371391 583.056 220.64741 
+" style="fill: none; stroke: #566577; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 585.256 216.24741 
+L 583.056 220.64741 
+L 580.856 216.24741 
+" style="fill: none; stroke: #566577; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #245ca6" x="583.056" y="243.950219" transform="rotate(-0 583.056 243.950219)">phát y₃ → dừng</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="342" y="296.618219" transform="rotate(-0 342 296.618219)">Không cần forward y₃ nếu request kết thúc. Cache giữ P + N − 1 = 6 vị trí.</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: middle" x="342" y="21.594219" transform="rotate(-0 342 21.594219)">P=4, N=3: prefill đã tạo token đầu tiên</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p423296b1f8">
+   <rect x="7.2" y="41.594219" width="669.6" height="277.2"/>
+  </clipPath>
+ </defs>
+</svg>

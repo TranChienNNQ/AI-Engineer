@@ -4,9 +4,23 @@
 
 Biên soạn ngày 04/11/2026. Dành cho backend engineer đã học embedding và attention ở bài 16–17. Ví dụ, hình và dữ liệu trong bài được tự xây dựng; thực hành chạy thật trên CPU, không tải mô hình hoặc dữ liệu ngoài.
 
+> [!NOTE]
+> **Định nghĩa các khái niệm cốt lõi của kiến trúc Transformer:**
+> 1. **Kiến trúc Transformer:** Là kiến trúc học sâu đột phá (Vaswani et al., 2017) loại bỏ hoàn toàn các vòng lặp tuần tự của RNN và tích chập của CNN, xây dựng hoàn toàn dựa trên các cơ chế Attention kết hợp với kết nối tắt (Residual), chuẩn hóa tầng (LayerNorm) và mạng truyền thẳng (FFN).
+> 2. **Khối Transformer (Transformer Block):** Đơn vị cấu trúc cơ sở được xếp chồng nhiều lần (ví dụ: 12, 32, hoặc 96 tầng). Mỗi khối gồm hai tầng con chính: tầng Multi-Head Attention (giúp các token giao tiếp với nhau) và tầng Feed-Forward Network (giúp từng token tự xử lý phi tuyến).
+> 3. **Kết nối tắt (Residual Connection / Skip Connection):** Phép cộng trực tiếp tín hiệu đầu vào vào đầu ra của một tầng con: $Y = X + F(X)$, tạo ra một "đường cao tốc thông tin" giúp gradient chảy thông suốt qua hàng chục tầng mà không bị suy giảm.
+> 4. **Layer Normalization (LayerNorm):** Kỹ thuật chuẩn hóa các giá trị đặc trưng (features) của **riêng từng token độc lập**, đưa giá trị về phân phối trung bình 0 và phương sai 1, giúp ổn định động lực học khi huấn luyện mạng sâu.
+> 5. **Mạng truyền thẳng theo từng vị trí (Position-wise Feed-Forward Network — FFN):** Mạng MLP hai tầng áp dụng độc lập và đồng nhất cho từng vị trí token trong chuỗi, thực hiện biến đổi phi tuyến sâu trong không gian đặc trưng.
+> 6. **Mã hóa Vị trí (Positional Encoding — PE):** Vector biểu diễn thứ tự không gian được cộng trực tiếp vào vector embedding để bù đắp việc Attention thuần túy không có khái niệm về trật tự trước - sau.
+> 7. **Teacher Forcing:** Kỹ thuật huấn luyện chuỗi trong đó toàn bộ câu đúng trong quá khứ được nạp làm đầu vào đồng thời ở tất cả các vị trí, cho phép GPU tính toán song song loss của cả câu chỉ trong một lần forward duy nhất.
+
 ## 1. Mục tiêu và cách học
 
 Ở bài 17, bạn đã có một phép đọc: query so với các key, softmax thành trọng số rồi trộn value. Nhưng phép đọc đó chưa đủ để tạo một hệ thống nhiều tầng có thể học thứ tự, giữ thông tin đầu vào và dự đoán token tiếp theo. Bài này lấp đúng khoảng trống đó.
+
+> [!TIP]
+> **Tại sao kỹ sư AI cần tự tay xây dựng một Transformer từ số 0?**
+> Hầu hết mọi mô hình ngôn ngữ lớn (LLM) hiện nay — từ GPT-4, Claude, Gemini, LLaMA cho đến DeepSeek — đều dựa trên nền tảng của các khối Transformer Decoder-only. Việc nắm vững cách ghép nối tensor, hiểu rõ cơ chế mặt nạ nhân quả (causal mask), kỹ thuật dịch nhãn (label shift) và cách hoạt động của vòng lặp sinh tự hồi quy (autoregressive generation) sẽ giúp bạn tự tin gỡ lỗi (debug), tối ưu hóa tốc độ suy luận (KV cache, vLLM) và làm chủ các kỹ thuật tinh chỉnh (fine-tuning) trong thực tế.
 
 Sau bài này, bạn cần làm được:
 
@@ -37,6 +51,13 @@ M có giá trị 0 tại ô được đọc và −∞ tại ô bị chặn. Mul
 
 Nếu chỉ chồng những phép đọc này, ta còn phải trả lời: vị trí nằm ở đâu; thông tin gốc đi qua tầng bằng đường nào; mỗi token được biến đổi phi tuyến ra sao; khi sinh output thì có được nhìn tương lai không? Đó là lý do cần kiến trúc gồm nhiều bộ phận có vai trò khác nhau.
 
+> [!NOTE]
+> **Sự phối hợp nhịp nhàng giữa các bộ phận trong Transformer:**
+> - **Self-Attention** đóng vai trò là *"phiên thảo luận nhóm"*: các từ ngữ tương tác qua lại, trao đổi thông tin để hiểu ngữ cảnh của nhau.
+> - **FFN (Feed-Forward Network)** đóng vai trò là *"giờ tự suy ngẫm"*: sau khi đã lắng nghe ngữ cảnh từ các từ xung quanh, từng từ tự xử lý và biến đổi kiến thức của riêng mình qua các tầng phi tuyến.
+> - **Residual Connection** là *"đường dây liên lạc thông suốt"*: giữ lại thông tin gốc ban đầu để không bị biến dạng qua quá trình thảo luận.
+> - **LayerNorm** là *"người điều phối kỷ luật"*: giữ cho biên độ tín hiệu luôn ổn định, không để nơ-ron nào phát nổ hay tắt ngấm.
+
 | Bộ phận | Câu hỏi nó giải quyết | Shape điển hình |
 |---|---|---|
 | Token embedding | ID rời rạc được đưa vào không gian số như thế nào? | `[B,T] → [B,T,D]` |
@@ -48,6 +69,12 @@ Nếu chỉ chồng những phép đọc này, ta còn phải trả lời: vị 
 | Output head | Biểu diễn được đổi thành điểm số cho tác vụ nào? | Ví dụ `[B,T,D] → [B,T,V]` |
 
 Transformer gốc năm 2017 là mô hình encoder–decoder; encoder dùng self-attention, decoder thêm masked self-attention và cross-attention đọc output encoder. Bài này học cấu trúc gốc rồi tự xây một biến thể decoder-only để luyện sinh chuỗi. Đây là hai kiến trúc cần phân biệt, không gọi thí nghiệm nhỏ là tái hiện toàn bộ mô hình dịch máy gốc. [Attention Is All You Need, mục 3.1](https://arxiv.org/html/1706.03762v7).
+
+> [!NOTE]
+> **Ba nhánh phát triển lớn của họ mô hình Transformer:**
+> 1. **Encoder-only (BERT, RoBERTa):** Sử dụng Self-Attention hai chiều (Bidirectional). Mọi từ đều được nhìn thấy toàn bộ câu. Thích hợp nhất cho các bài toán phân loại văn bản, trích xuất thực thể (NER), tìm kiếm ngữ nghĩa.
+> 2. **Decoder-only (GPT, LLaMA, Mistral, Gemini):** Sử dụng Causal (Masked) Self-Attention. Mỗi từ chỉ được nhìn về quá khứ, cấm nhìn tương lai. Thích hợp nhất cho các bài toán sinh văn bản tự hồi quy (Text Generation, Chatbot, Code Completion).
+> 3. **Encoder–Decoder (T5, BART, Transformer 2017):** Kết hợp cả Encoder hai chiều và Decoder một chiều qua tầng Cross-Attention. Thích hợp cho các bài toán chuyển đổi chuỗi sang chuỗi (Dịch máy, Tóm tắt văn bản).
 
 ![Ba họ kiến trúc và nguồn QKV](figures/01-architectures.png)
 
@@ -61,6 +88,13 @@ Y=X+F(X).
 
 Ví dụ X=[2,−1], F(X)=[0.3,0.5] thì Y=[2.3,−0.5]. Nhánh học một phần cập nhật vào biểu diễn hiện có. X và F(X) phải cùng shape; vì vậy output MHA và FFN trong block quay về D chiều.
 
+> [!NOTE]
+> **Ẩn dụ Đường cao tốc Thông tin (Highway Analogy):**
+> Hãy hình dung việc truyền tín hiệu qua mạng nơ-ron sâu giống như đi lại trong một thành phố:
+> - Nhánh biến đổi $F(X)$ giống như con đường làng quanh co với nhiều ngã rẽ và đèn đỏ (các phép nhân ma trận trọng số và hàm phi tuyến).
+> - Phép cộng $+ X$ tạo ra một **con đường cao tốc trên cao chạy thẳng tắp**.
+> Thông tin gốc $X$ có thể phóng thẳng từ tầng 1 lên tầng 32 mà không bị suy hao. Nhánh $F(X)$ chỉ cần học cách "tinh chỉnh nhẹ" (residual - phần dư) trên nền thông tin gốc đã có, thay vì phải tái tạo lại toàn bộ dữ liệu từ đầu.
+
 Nhìn theo gradient, nếu g là gradient đến Y, thì gradient đến X gồm hai đường: g qua phép cộng trực tiếp và phần qua F. Với quy ước gradient cột:
 
 \[
@@ -68,6 +102,12 @@ Nhìn theo gradient, nếu g là gradient đến Y, thì gradient đến X gồm
 \]
 
 Đường trực tiếp tạo thêm lối truyền tín hiệu qua tầng. Không thể từ công thức này kết luận gradient luôn lớn hoặc không bao giờ triệt tiêu: hai nhánh vẫn có thể cộng hoặc bù nhau. Cũng không có nghĩa F không cần học.
+
+> [!NOTE]
+> **Phân tích toán học về Dòng chảy Gradient:**
+> Khi lan truyền ngược (backpropagation), đạo hàm của phép cộng $Y = X + F(X)$ theo $X$ là:
+> $$\frac{\partial Y}{\partial X} = I + \frac{\partial F}{\partial X}$$
+> Khi nhân quy tắc dây chuyền, gradient truyền về luôn có số hạng $+ g$ trực tiếp (nhờ ma trận đơn vị $I$). Cho dù nhánh biến đổi $F$ có bị bão hòa hoặc triệt tiêu gradient ($\frac{\partial F}{\partial X} \approx 0$), gradient $g$ vẫn chảy thông suốt về các tầng trước mà không bao giờ bị biến mất hoàn toàn! Đây chính là bí quyết giúp ta có thể huấn luyện thành công các mạng Transformer sâu hàng trăm tầng.
 
 Một phép kiểm tư duy hữu ích: nếu nhánh F bằng 0 thì pre-norm sublayer `X + F(LN(X))` trả X; post-norm sublayer `LN(X + F(X))` trả LN(X). Vị trí LayerNorm làm thay đổi hành vi dù nhánh biến đổi bằng 0.
 
@@ -82,6 +122,11 @@ Với x có D feature, lấy trung bình và phương sai **trên D feature củ
 \]
 
 γ và β là tham số học được, mỗi vector dài D; ε là số dương nhỏ tránh chia cho 0. Với `nn.LayerNorm(D)` trên `[B,T,D]`, B và T không nằm trong phép tính mean/variance. PyTorch dùng phương sai chia D, tương đương `correction=0`; không dùng mặc định chia D−1 khi tự viết công thức. LayerNorm vẫn tính thống kê từ input trong cả train và eval. [Tài liệu LayerNorm 2.15](https://docs.pytorch.org/docs/2.15/generated/torch.nn.LayerNorm.html).
+
+> [!IMPORTANT]
+> **Phân biệt LayerNorm vs BatchNorm trong xử lý ngôn ngữ:**
+> - **BatchNorm (Bài 14 - Phổ biến trong CNN ảnh):** Chuẩn hóa dọc theo trục Batch $B$ cho từng đặc trưng. Cách này thất bại trong xử lý văn bản vì độ dài câu $T$ thay đổi liên tục, và nếu batch size nhỏ hoặc khi suy luận từng câu đơn lẻ ($B=1$), thống kê batch sẽ bị sai lệch hoàn toàn.
+> - **LayerNorm (Chuẩn mực của Transformer):** Chuẩn hóa ngang qua $D$ đặc trưng của **duy nhất một token tại một vị trí thời điểm**. Mỗi token tự tính mean $\mu$ và variance $\sigma^2$ của riêng mình. Phép tính này hoàn toàn độc lập với kích thước batch $B$ và độc lập với các token khác trong câu, hoạt động nhất quán $100\%$ cả lúc train lẫn lúc inference.
 
 ### Ví dụ tính tay
 
@@ -117,6 +162,12 @@ Dùng quy ước vector hàng:
 
 Với D=32, F=64, tensor `[B,T,32]` thành `[B,T,64]` rồi trở lại `[B,T,32]`. Tất cả token trong một tầng dùng chung W₁,W₂; tầng khác có bộ trọng số riêng. FFN không trực tiếp trộn các hàng token; attention thực hiện phép trộn đó. Nhưng input FFN đã chứa ngữ cảnh từ attention nên FFN vẫn có thể xử lý thông tin liên quan token khác. [D2L, mục 11.7.2](https://d2l.ai/chapter_attention-mechanisms-and-transformers/transformer.html).
 
+> [!NOTE]
+> **Vai trò của FFN trong khối Transformer:**
+> - Attention chỉ thực hiện các phép kết hợp tuyến tính mềm giữa các từ (tính điểm rồi cộng dồn vector Value). Nếu không có FFN, toàn bộ mạng Transformer sẽ thiếu đi khả năng biểu diễn các phi tuyến phức tạp.
+> - Tầng FFN thực hiện việc **phóng to số chiều** từ $D \to F$ (thường là $F = 4D$, ví dụ $512 \to 2048$), đưa qua hàm kích hoạt phi tuyến (ReLU hoặc GELU/SwiGLU trong LLaMA), rồi **thu nhỏ trở lại** $F \to D$.
+> - Quá trình "nén - nở" này cho phép mạng trích xuất và ghi nhớ các tri thức ngữ nghĩa trừu tượng (nhiều nghiên cứu chỉ ra rằng các tầng FFN chính là nơi lưu giữ tri thức bách khoa của các mô hình LLM).
+
 Nếu bỏ activation và chỉ nối hai affine, ta lại có một affine duy nhất như bài 9. ReLU làm hai lớp không thể luôn gộp theo cách đó. F là chiều ẩn của FFN, không phải số token, số head hay số lớp output.
 
 PyTorch `Linear(in_features, out_features)` lưu weight theo `[out,in]`; vì vậy code thực hiện `x @ weight.T + bias`. Khi chép ma trận tính tay sang code, lỗi transpose dễ xảy ra.
@@ -133,6 +184,11 @@ PyTorch `Linear(in_features, out_features)` lưu weight theo `[out,in]`; vì v�
 Trong pre-norm self-attention, Q,K,V đều được chiếu từ LN₁(X), còn residual vẫn cộng vào X chưa chuẩn hóa. LN₁ và LN₂ là hai module có tham số riêng. Không dùng một LN chung chỉ vì cùng shape.
 
 Kiến trúc gốc dùng post-norm; phần tính tay dưới đây theo dạng đó. Lab huấn luyện dùng pre-norm và một **final LayerNorm sau toàn bộ stack**, trước output head. Không tự thêm final norm vào mỗi kết quả tính tay hoặc quên final norm khi tải mô hình.
+
+> [!IMPORTANT]
+> **Tại sao thế giới chuyển từ Post-Norm sang Pre-Norm?**
+> - **Post-Norm (Transformer 2017 gốc):** Chuẩn hóa được đặt **sau** khi cộng residual: $\text{LN}(X + F(X))$. Điểm yếu chí mạng là tín hiệu trên đường cao tốc residual bị bóp méo qua từng tầng LayerNorm, khiến gradient ở các tầng đầu bị suy giảm nghiêm trọng. Huấn luyện Post-Norm cực kỳ khó khăn, bắt buộc phải có giai đoạn làm nóng tốc độ học (Learning Rate Warmup) kéo dài hàng ngàn bước nếu không mô hình sẽ bị phân kỳ.
+> - **Pre-Norm (Chuẩn công nghiệp hiện đại - GPT-2, GPT-3, LLaMA):** Chuẩn hóa được đặt **trước** khi vào nhánh biến đổi: $X + F(\text{LN}(X))$. Đường cao tốc residual được giữ thông suốt tuyệt đối từ tầng đầu đến tầng cuối mà không bị can thiệp. Huấn luyện cực kỳ ổn định, dễ hội tụ và không bị phụ thuộc khắt khe vào warmup.
 
 Vị trí chuẩn hóa ảnh hưởng quá trình tối ưu. Công trình [On Layer Normalization in the Transformer Architecture](https://arxiv.org/abs/2002.04745) phân tích gradient ở khởi tạo và thực nghiệm pre/post-LN trong điều kiện nghiên cứu của họ. Không suy ra mọi mô hình pre-norm đều khỏi cần warm-up hay mọi post-norm đều không học được. Lab nhỏ không dùng warm-up; đó là cấu hình thí nghiệm, không phải khuyến nghị chung cho mô hình lớn.
 
@@ -229,6 +285,13 @@ Với D=4, hai tần số là 1 và 0.01:
 | 1 | 0.841471 | 0.540302 | 0.010000 | 0.999950 |
 | 2 | 0.909297 | −0.416147 | 0.019999 | 0.999800 |
 
+> [!NOTE]
+> **Ẩn dụ Chiếc đồng hồ nhiều kim (Sinusoidal Positional Encoding):**
+> Tại sao lại dùng các hàm sin và cos với tần số khác nhau để mã hóa vị trí?
+> - Hãy tưởng tượng một chiếc đồng hồ cơ: kim giây quay rất nhanh (tần số cao), kim phút quay vừa phải, và kim giờ quay rất chậm (tần số thấp). Bằng cách kết hợp góc quay của cả 3 kim, bạn có thể xác định chính xác thời điểm trong ngày.
+> - Trong công thức sinusoidal: các chiều đầu tiên ($i=0$) có bước sóng ngắn, biến thiên liên tục giúp mô hình nhận biết các **vị trí gần kề nhau**. Các chiều sau ($i$ lớn) có bước sóng cực dài, biến thiên chậm rãi giúp mô hình nhận diện **khoảng cách xa trên toàn bộ văn bản**.
+> - Nhờ công thức cộng lượng giác $\sin(\alpha + \beta)$, mô hình có thể dễ dàng học được **khoảng cách tương đối** giữa hai từ bất kỳ bằng một phép biến đổi tuyến tính đơn giản.
+
 PE là feature, không phải thêm một token. Tổng vẫn D chiều; phép nối embedding và PE sẽ thành 2D và cần thiết kế khác. Sinusoidal PE trong lab là buffer, không được optimizer học; embedding vẫn học được. Buffer đi vào `state_dict` nhưng không nằm trong `model.parameters()`.
 
 Đây là công thức được dùng ở mục 3.5 của [Transformer gốc](https://arxiv.org/html/1706.03762v7). Có cách học vector vị trí hoặc thiết kế thông tin vị trí khác; bài này chỉ triển khai sinusoidal để dễ kiểm. Tính được sin/cos cho t lớn không chứng minh model tổng quát hóa tốt sang chuỗi dài chưa từng train.
@@ -283,6 +346,13 @@ True nghĩa là chặn. Đường chéo được đọc, vì ở vị trí t ta 
 
 Loss mask **không** chặn attention nhìn token. Bỏ loss ở tương lai nhưng bỏ causal mask vẫn có thể rò đáp án. Ngược lại, chặn PAD key không tự loại padded query khỏi loss hoặc làm output padded query bằng 0. Sau khi cộng PE, residual và bias, output PAD query có thể khác 0 hoàn toàn hợp lệ.
 
+> [!WARNING]
+> **Phân biệt rạch ròi 3 loại Mask — Tránh nhầm lẫn gây rò rỉ dữ liệu:**
+> 1. **Causal Mask (Mặt nạ nhân quả):** Tác động trực tiếp vào bên trong tầng Attention trước hàm Softmax. Nó cấm từ ở vị trí hiện tại nhìn trộm các từ ở tương lai.
+> 2. **Key Padding Mask:** Cũng tác động vào Attention, cấm các từ thật chú ý vào các ô đệm `<pad>`.
+> 3. **Loss Mask (thường dùng `ignore_index = -100`):** Chỉ tác động ở tầng tính Loss cuối cùng! Nó báo cho hàm Cross-Entropy bỏ qua không tính điểm ở những vị trí không cần chấm (như các từ thuộc phần prompt câu hỏi, hoặc các ô đệm padding).
+> *Lưu ý sống còn:* Việc đặt `label = -100` hoàn toàn KHÔNG ngăn được mô hình nhìn trộm từ tương lai trong các tầng attention. Bạn bắt buộc phải có Causal Mask ở tầng attention!
+
 Trong encoder–decoder cần truyền source PAD mask hai nơi: vào encoder self-attention và vào decoder cross-attention (`memory_key_padding_mask`). Chỉ mask encoder chưa đủ vì hidden tại source PAD vẫn có thể khác 0.
 
 API `nn.MultiheadAttention` dùng bool True=chặn; cả `attn_mask` và `key_padding_mask` trong lab cùng là bool. Ngược lại, bool True của functional SDPA là cho phép đọc như bài 17. Không tái sử dụng nguyên boolean mask giữa hai API. [MHA 2.15](https://docs.pytorch.org/docs/2.15/generated/torch.nn.MultiheadAttention.html).
@@ -303,7 +373,24 @@ Với target thật `[A,B,EOS]`, mô hình cần học:
 
 Cách tạo: lấy chuỗi `[BOS,A,B,EOS]`, input bỏ token cuối, labels bỏ token đầu. **Không đưa `[A,B,EOS]` vào input rồi cũng dùng nó làm labels cùng vị trí**: residual có đường trực tiếp từ embedding token thật đến output, nên causal mask không cứu được lỗi này.
 
+> [!NOTE]
+> **Tại sao phải dịch chuyển 1 vị trí (Label Shifting)?**
+> Hãy quan sát:
+> - Tại vị trí 0: Mô hình nhìn thấy `BOS` $\implies$ Nhiệm vụ là phải dự đoán ra từ `A`.
+> - Tại vị trí 1: Mô hình nhìn thấy `[BOS, A]` $\implies$ Nhiệm vụ là phải dự đoán ra từ tiếp theo `B`.
+> - Tại vị trí 2: Mô hình nhìn thấy `[BOS, A, B]` $\implies$ Nhiệm vụ là phải dự đoán ra `EOS` (kết thúc câu).
+> Do đó, mảng `input_ids` và `labels` luôn bị dịch lệch nhau đúng 1 nhịp:
+> ```python
+> input_ids = full_sequence[:-1]  # Bỏ token cuối cùng
+> labels    = full_sequence[1:]   # Bỏ token đầu tiên
+> ```
+
 Teacher forcing nghĩa là trong train, prefix dùng token thật trước đó thay vì token model vừa đoán. Ta có thể tính logits cho mọi vị trí trong một forward vì đã có toàn bộ chuỗi train, nhưng causal mask vẫn chặn đường thông tin từ tương lai. Nhãn tương lai có mặt trong batch để tính loss, không được đọc như input tại query đang chấm nhãn đó.
+
+> [!TIP]
+> **Bản chất của Teacher Forcing (Kèm cặp của người thầy):**
+> Trong lúc huấn luyện: Cho dù ở bước 1 mô hình có đoán sai từ `A` thành từ `X`, thì ở bước 2 ta **vẫn nạp từ đúng `A` vào làm đầu vào** (người thầy sửa sai ngay lập tức để học tiếp bước sau).
+> Lợi ích tối thượng của Teacher Forcing: **Song song hóa cực đại**. Nhờ đã có sẵn toàn bộ chuỗi từ thật trong tập train kết hợp với Causal Mask, GPU có thể tính toán dự đoán và loss cho toàn bộ 2.048 token cùng một lúc chỉ trong 1 lần forward duy nhất, nhanh gấp hàng ngàn lần so với việc phải chạy vòng lặp tuần tự từng từ như RNN!
 
 Với logits có 3 lớp `[0, ln2, 0]`, xác suất `[1/4,1/2,1/4]`; nếu nhãn là lớp thứ hai thì loss=−ln(1/2)=ln2≈0.693147. Batch có hai token được chấm, xác suất nhãn đúng là 1/2 và 1/4, thì CE trung bình=(ln2+ln4)/2≈1.039721. Hai vị trí PAD/IGNORE khác không thêm vào tử hoặc mẫu số.
 
@@ -331,9 +418,22 @@ Khi không còn target thật, bắt đầu từ prefix đã biết. Lặp:
 3. Nếu EOS thì dừng; nếu chưa thì nối token vào prefix. Với tác vụ copy trong lab, nếu model sinh PAD/BOS/SEP ngoài cấu trúc mong đợi, dừng và tính là đáp án sai.
 4. Dừng khi chạm giới hạn số bước, kể cả khi model không sinh EOS.
 
+> [!NOTE]
+> **Vòng lặp sinh tự hồi quy (Autoregressive Inference Loop):**
+> Trong môi trường thực tế (khi ChatGPT trả lời bạn):
+> - Bước 1: Nạp câu hỏi của bạn (Prompt) $\implies$ Mô hình dự đoán ra từ đầu tiên: `"Hôm"`.
+> - Bước 2: Nối `"Hôm"` vào câu hỏi $\implies$ Nạp lại vào mô hình $\implies$ Dự đoán ra từ tiếp theo: `"nay"`.
+> - Bước 3: Nối tiếp $\implies$ Dự đoán ra `"thời"`.
+> - Quá trình này lặp lại từng token một (token-by-token) cho đến khi mô hình tự sinh ra token đặc biệt kết thúc câu (`EOS` — End of Sequence).
+
 Lấy argmax cho tất cả hàng của một forward teacher-forced không tương đương sinh một chuỗi độc lập: các hàng sau vẫn đã nhìn token thật trước đó. Train có thể song song hóa theo vị trí trong một forward; sinh autoregressive vẫn phụ thuộc token vừa sinh. `eval()` không tự tạo vòng lặp này.
 
 Lab recompute toàn bộ prefix ở mỗi bước, không có KV cache. Về ý tưởng, causal attention cho phép giữ key/value của token cũ theo tầng và chỉ tính cho query mới; attention của token mới vẫn phải đọc các key được phép. Cần vị trí, mask và trạng thái cache đúng khi triển khai. Bài 21 và nhánh inference dự kiến sẽ đi sâu; ở đây không có benchmark cache hoặc khẳng định độ trễ GPU.
+
+> [!TIP]
+> **Khái niệm KV Cache trong tối ưu hóa LLM Inference:**
+> Khi sinh từ thứ 100, cách làm ngây thơ là phải tính toán lại toàn bộ ma trận $Q, K, V$ của 99 từ trước đó. Việc này gây lãng phí tính toán cực kỳ lớn (độ phức tạp $O(T^2)$).
+> **KV Cache** là kỹ thuật lưu sẵn các vector Key và Value của 99 từ quá khứ vào bộ nhớ RAM/VRAM. Khi có từ thứ 100, ta chỉ việc tính duy nhất vector Query của từ thứ 100 và cho nó chú ý vào bộ nhớ KV Cache đã lưu. Đây là tính năng cốt lõi giúp các công cụ phục vụ mô hình như vLLM, TensorRT-LLM tăng tốc độ sinh văn bản lên gấp hàng chục lần.
 
 ## 13. Đọc code của một Transformer nhỏ
 
@@ -412,6 +512,14 @@ Môi trường ở phần 17; best theo validation CE là **epoch 58**, khác ep
 Baseline B được chọn là token xuất hiện nhiều nhất trong **nhãn train**. Baseline quy tắc được cho cùng source như neural model; chép chuỗi là giải pháp đúng và đơn giản cho tác vụ xác định này. Neural model ở đây phục vụ học cơ chế, không phải phương án triển khai vượt quy tắc.
 
 Probe test đầu tiên source `[C,A,D,D]`, output `[C,A,D,D,EOS]` đúng. Một ví dụ đúng không đại diện toàn test; vẫn còn 34/128 chuỗi sinh sai. Token accuracy cao dưới teacher forcing không đảm bảo cả chuỗi đúng khi model phải tự dùng token đã sinh. Một token sai/thiếu EOS cũng làm exact match bằng 0. Không suy trực tiếp chênh lệch hai metric là toàn bộ do một nguyên nhân; chúng khác cả đơn vị và điều kiện đánh giá.
+
+> [!WARNING]
+> **Khoảng cách tai hại: Token Accuracy 95% nhưng Exact Match chỉ đạt 73%! (Hiện tượng Exposure Bias)**
+> Hãy chú ý sự chênh lệch lớn giữa hai chỉ số này:
+> - **Token Accuracy (95.2%):** Đo dưới chế độ Teacher Forcing — tức là mô hình luôn được "mớm" sẵn các từ đúng trước đó để đoán từ tiếp theo.
+> - **Exact Match (73.4%):** Đo khi mô hình phải tự sinh chuỗi từ đầu đến cuối một cách độc lập (Inference tự hồi quy).
+> **Tại sao lại có sự sụt giảm này?**
+> Trong thực tế, chỉ cần mô hình đoán sai duy nhất 1 token ở giữa câu, chuỗi đầu vào bị ô nhiễm bởi chính lỗi sai đó. Lỗi sai này tiếp tục dẫn đến chuỗi sai lầm dây chuyền ở các bước tiếp theo (hiện tượng trôi dạt phân phối - Exposure Bias). Toàn bộ câu bị hỏng dù 95% số từ riêng lẻ đoán đúng! Đây là lý do tại sao khi đánh giá các mô hình sinh (LLM), chỉ số đánh giá cấp độ toàn chuỗi (Exact Match, BLEU, ROUGE, LLM-as-a-judge) luôn quan trọng hơn nhiều so với token accuracy đơn thuần.
 
 ![Kết quả thí nghiệm và khác biệt giữa hai cách đánh giá](figures/07-training.png)
 

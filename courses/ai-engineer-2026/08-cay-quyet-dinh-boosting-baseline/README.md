@@ -2,7 +2,7 @@
 
 [Mục lục](../README.md) · [Bài 7](../07-precision-recall-mat-can-bang/README.md) · [Bài tập](exercises.md) · [Lời giải](solutions.md)
 
-Biên soạn và kiểm tra ngày 04/11/2026. Toàn bộ dữ liệu và kết quả trong bài là ví dụ tự tạo để học. Code NumPy thực sự huấn luyện cây và boosting nhỏ, không cần GPU, tài khoản dịch vụ hoặc dữ liệu tải ngoài. Đây là bản minh họa cơ chế, không thay thế thư viện dùng trong sản phẩm.
+Biên soạn và kiểm tra ngày 04/11/2026. Bổ sung các khối giải thích tường minh, trực giác kỹ thuật và ví dụ thực tế cho AI Engineer; toàn bộ dữ liệu, điểm số, bảng split và kết quả so sánh gốc được giữ nguyên vẹn để đối chiếu chuẩn. Code NumPy thực sự huấn luyện cây và boosting nhỏ, không cần GPU, tài khoản dịch vụ hoặc dữ liệu tải ngoài. Đây là bản minh họa cơ chế, không thay thế thư viện dùng trong sản phẩm.
 
 ## 1. Mục tiêu và cách học
 
@@ -35,6 +35,15 @@ Baseline xác suất và baseline nhãn không giống nhau: train có positive 
 
 Ở một hệ thống đã có rule hoặc mô hình đang chạy, chính nó còn là baseline nghiệp vụ cần đo. Lab này không có hệ thống thật; dùng mean và tuyến tính làm mốc, cùng feature và phép chia dữ liệu với cây/boosting.
 
+> [!NOTE]
+> ### 💡 Trực giác & Ẩn dụ đời thường: Thước đo chuẩn mực (Benchmark) trước khi xây cầu
+> 
+> - **Ẩn dụ chiếc phà qua sông**: Giả sử bạn bỏ ra hàng chục triệu USD để xây một cây cầu treo hiện đại (mô hình Machine Learning phức tạp), nhưng sau khi hoàn thành, xe cộ qua sông chỉ nhanh hơn đi phà (baseline đơn giản) đúng 5 giây, trong khi chi phí bảo trì cầu đắt gấp 100 lần. Một dự án như vậy là thất bại về mặt kinh tế kỹ thuật. Baseline chính là "chuyến phà" mà mọi giải pháp AI bắt buộc phải vượt qua một cách thuyết phục.
+> - **Tại sao Mean tối ưu MSE còn Median tối ưu MAE?**:
+>   - **MSE phạt bình phương khoảng cách**: $(y - c)^2$. Nếu một dự đoán lệch xa 10 đơn vị, lỗi bị phạt tới $10^2 = 100$. Để tổng hình phạt không bị bùng nổ bởi các điểm lệch xa, hằng số $c$ bắt buộc phải đứng tại **trọng tâm cân bằng vật lý (Mean)** của toàn bộ dữ liệu.
+>   - **MAE phạt khoảng cách tuyệt đối**: $|y - c|$. Dù một điểm ngoại lai nằm cách xa hàng triệu dặm, khi bạn dịch $c$ về phía nó 1 đơn vị, tổng lỗi cũng chỉ tăng/giảm đúng 1 đơn vị. Vì vậy, điểm tối ưu chỉ cần nằm ở vị trí chia đôi tập dữ liệu: 50% số điểm ở bên trái và 50% số điểm ở bên phải — đó chính là **Median (Trung vị)**.
+> - **Góc nhìn AI Engineer trong hệ thống Backend**: Khi làm bài toán dự báo độ trễ API (latency), baseline đầu tiên cần dựng trong 5 phút là trả về hằng số: trung vị $p_{50}$ hoặc trung bình $p_{\text{mean}}$ của 24 giờ qua. Nếu mô hình AI tốn thêm $10\text{ms}$ inference chỉ để giảm $0.5\%$ MSE so với baseline này, thì việc đưa mô hình vào production sẽ khiến hệ thống chậm hơn là không dùng!
+
 ## 3. Cây quyết định là chương trình if/else học từ dữ liệu
 
 **Decision tree — cây quyết định** gồm:
@@ -54,6 +63,14 @@ Ngược lại:   dự đoán p(Y=1)=0.75
 Đưa x=2 vào lá trái, x=4 vào lá phải. Ngưỡng feature `2.5` là điều kiện định tuyến, khác ngưỡng xác suất `0.5` dùng đổi p thành nhãn. Trong lab, điều kiện feature dùng `<=` sang trái, `>` sang phải; nhãn binary dùng `p>=0.5` gán 1.
 
 Một cây có thể dự đoán lớp hoặc một số như latency. Mô hình học vị trí điều kiện và giá trị lá từ train; khi dự đoán chỉ đi theo đường đã học. Nó không tính gradient theo x để quyết định nhánh. [Google: Decision trees](https://developers.google.com/machine-learning/decision-forests/decision-trees)
+
+> [!NOTE]
+> ### 💡 Trực giác: Cây quyết định — Trò chơi "20 câu hỏi" và Ưu thế tuyệt đối trong Backend
+> 
+> - **Ẩn dụ trò chơi đoán đồ vật**: Bạn muốn đoán một con vật mà bạn mình đang nghĩ trong đầu. Thay vì đoán mò, bạn hỏi từng câu trắc nghiệm nhị phân: *"Nó có sống dưới nước không?"* $\rightarrow$ Nếu có: *"Nó có phải cá không?"*... Mỗi câu hỏi (split) thu hẹp một nửa không gian tìm kiếm cho đến khi xác định được con vật (lá). Cây quyết định chính là một bộ câu hỏi `if / else` tuần tự được máy tính tự động rút trích từ dữ liệu quá khứ.
+> - **Lợi thế Explainability & Tốc độ thực thi trong Production**:
+>   - Khác với Deep Learning là một "hộp đen" ma trận khó hiểu, Cây quyết định có tính giải thích tường minh $100\%$. Kỹ sư có thể giải thích rõ cho khách hàng hoặc kiểm toán viên: *"Giao dịch này bị chặn vì số tiền > 50 triệu VÀ địa chỉ IP từ nước ngoài"*.
+>   - **Biên dịch thành code thuần (Rule Engine)**: Một cây quyết định sau khi train có thể xuất thẳng thành mã nguồn sạch C, Go, Java hoặc SQL (`if-else` lồng nhau). Nó có thể chạy trực tiếp trên API Gateway với độ trễ cực thấp (vài microsecond), không cần cài đặt Python, PyTorch hay tốn GPU đắt đỏ.
 
 ## 4. Cây phân loại chọn split bằng Gini như thế nào?
 
@@ -96,6 +113,23 @@ Lab thử feature theo chỉ số tăng, ngưỡng tăng; khi điểm bằng nha
 ![Điểm Gini của các ngưỡng và cây một split được chọn](figures/01-gini-stump.png)
 
 *Hình 1. Mỗi ứng viên dùng cùng tập train. Hai split tốt ngang nhau; quy tắc hòa quyết định hình dạng cây cuối.*
+
+> [!NOTE]
+> ### 💡 Trực giác: Giải mã công thức Gini Impurity (Độ vẩn đục của lọ kẹo)
+> 
+> - **Lọ kẹo và sự hỗn loạn nhãn**: Tưởng tượng bạn có một chiếc lọ chứa 2 loại kẹo: kẹo dâu ($y=0$) và kẹo cam ($y=1$):
+>   - **Lọ hoàn toàn tinh khiết ($p=0$ hoặc $p=1$)**: Trong lọ chỉ toàn kẹo dâu ($p=0$) hoặc toàn kẹo cam ($p=1$). Bạn nhắm mắt thò tay bốc 1 viên thì $100\%$ chắc chắn loại kẹo bốc được. Độ vẩn đục/hỗn loạn:
+>     $$G = 2 \times 0 \times (1-0) = 0$$
+>   - **Lọ hỗn loạn cực đại ($p=0.5$)**: Trong lọ có $50\%$ kẹo dâu và $50\%$ kẹo cam. Cơ hội bốc trúng mỗi loại là ngang nhau, sự không chắc chắn đạt đỉnh điểm:
+>     $$G = 2 \times 0.5 \times (1-0.5) = 0.5$$
+> - **Bản chất xác suất của công thức $G = 1 - [p^2 + (1-p)^2]$**:
+>   - $p^2$ là xác suất bốc liên tiếp 2 viên kẹo đều là cam.
+>   - $(1-p)^2$ là xác suất bốc liên tiếp 2 viên kẹo đều là dâu.
+>   - Vậy $[p^2 + (1-p)^2]$ chính là xác suất bốc được 2 viên kẹo **cùng màu**.
+>   - Lấy $1 - [p^2 + (1-p)^2]$ chính là xác suất bốc phải 2 viên kẹo **khác màu nhau**. Lọ càng nhiều kẹo khác loại trộn lẫn thì xác suất bốc nhầm càng cao $\rightarrow$ Gini càng lớn!
+> - **Tại sao bắt buộc phải tính trọng số mẫu khi tính Gain?**:
+>   - Giả sử một split chia tập 100 mẫu thành: nhánh trái có đúng 1 mẫu ($G_L = 0$, tinh khiết tuyệt đối) và nhánh phải có 99 mẫu ($G_R = 0.48$, đục ngầu). Nếu bạn lấy trung bình cộng không trọng số $\frac{0 + 0.48}{2} = 0.24$, bạn sẽ tưởng lầm split này rất tốt! Thực tế $99\%$ dữ liệu của bạn vẫn đang bị trộn lẫn hỗn độn.
+>   - Trọng số $\frac{N_L}{N} G_L + \frac{N_R}{N} G_R$ buộc thuật toán phải ưu tiên những nhát cắt thanh lọc được số đông mẫu dữ liệu.
 
 ### Lá trả xác suất gì?
 
@@ -148,6 +182,19 @@ Ví dụ bốn điểm `(x,y)=(1,1),(2,1),(3,3),(4,5)`, không chuẩn hóa:
 
 Vì mỗi lá trả hằng số, dự đoán theo x có dạng bậc thang. Cây một split này trả 1 cho x=0 và 4 cho x=10. Nó không tự kéo dài xu hướng tuyến tính. Một cây hồi quy với lá mean không trọng số luôn dự đoán trong khoảng min/max y_train; đặc tính ấy **không tự áp dụng** cho tổng nhiều cây cộng residual hoặc loại lá khác.
 
+> [!NOTE]
+> ### 💡 Trực giác: Cây hồi quy là "Hàm bậc thang" & Cảnh báo sống còn về Ngoại suy
+> 
+> - **Ẩn dụ Biểu phí taxi theo cung đường**:
+>   - Trong hồi quy tuyến tính, dự đoán là một đường dốc mượt mà ($y = ax + b$).
+>   - Trong cây hồi quy, dự đoán là một **hàm bậc thang (Piecewise Constant)**: từ $0\text{km}$ đến $2.5\text{km}$ tính giá $10.000$đ; từ $2.5\text{km}$ trở lên tính giá $40.000$đ. Mọi đầu vào trong cùng một khoảng đều nhận chung một giá trị dự đoán là trung bình cộng của các mẫu train rơi vào đó.
+> 
+> > [!CAUTION]
+> > ### ⚠️ Cảnh báo sống còn cho AI Engineer: Cây quyết định KHÔNG BIẾT NGOẠI SUY (Extrapolation Failure)!
+> > - **Thực tế phũ phàng**: Giả sử bạn huấn luyện một cây quyết định để định giá nhà dựa trên diện tích. Tập dữ liệu train có các căn nhà từ $30\text{m}^2$ đến $150\text{m}^2$, với giá cao nhất là $5$ tỷ VNĐ. Khi một khách hàng VIP đưa vào một biệt thự siêu sang $1.000\text{m}^2$, cây quyết định sẽ đi qua các nhánh $x > 2.5, x > 4.5...$ và rơi vào chiếc lá tận cùng bên phải. Chiếc lá này chứa giá trị trung bình của các mẫu lớn nhất trong tập train, và cây sẽ phán: *"Giá căn biệt thự là 5 tỷ VNĐ!"*.
+> > - **Nguyên nhân cốt lõi**: Giá trị ở mỗi lá là trung bình cộng $\bar{y}$ của các mẫu train rơi vào lá đó. Do đó, dự đoán của một cây hồi quy đơn lẻ **vĩnh viễn không bao giờ vượt ra ngoài đoạn $[\min(y_{\text{train}}), \max(y_{\text{train}})]$**!
+> > - **Bài học hệ thống**: Tuyệt đối không dùng mô hình dựa trên cây (Decision Tree, Random Forest, XGBoost) một cách ngây thơ cho các bài toán chuỗi thời gian có xu hướng tăng trưởng dài hạn (Trend), ví dụ như dự báo số lượng người dùng sau 2 năm, doanh số thị trường chứng khoán tương lai, trừ khi bạn đã trừ bỏ xu hướng (Detrending) hoặc kết hợp với mô hình tuyến tính!
+
 ## 7. Dừng cây: độ sâu chưa phải chất lượng
 
 Hai tham số lab:
@@ -164,6 +211,18 @@ Các thư viện còn có pruning — cắt tỉa — và các điều kiện d�
 **Greedy — tham lam** nghĩa chọn split tốt ngay tại nút, không tìm toàn bộ các cây tương lai. Với XOR cân bằng `(0,0)→0,(1,0)→1,(0,1)→1,(1,1)→0`, mọi split gốc theo một feature có gain=0.
 
 Cây depth=2 được đặt tay vẫn biểu diễn XOR được: hỏi x₁ rồi hỏi x₂ ở mỗi nhánh. Nhưng thuật toán lab yêu cầu gain dương nên **dừng ngay tại gốc**, p=0.5 cho mọi điểm. “Họ cây biểu diễn được” khác “thuật toán tham lam cụ thể sẽ tìm được”. Không khẳng định mọi thư viện đều dừng trên XOR; điều kiện dừng có thể khác.
+
+> [!NOTE]
+> ### 💡 Trực giác: Học vẹt vì quá sâu và Sự "thiển cận" của thuật toán Tham lam (Greedy)
+> 
+> - **Cạm bẫy học vẹt (Overfitting khi cây quá sâu)**:
+>   - Nếu ta đặt `max_depth` vô hạn và `min_leaf = 1`, cây sẽ tiếp tục chia cho đến khi mỗi chiếc lá chỉ chứa đúng... 1 mẫu dữ liệu! Khi đó Train Accuracy đạt $100\%$ và Train MSE $= 0$. Nhưng đây chỉ là một cuốn sổ tay chép phạt thuộc lòng từng hạt nhiễu. Khi dữ liệu thực tế ngoài production đưa vào, mô hình sẽ sai lệch nghiêm trọng.
+> - **Trực giác bài toán XOR — Cạm bẫy "thấy cây mà không thấy rừng"**:
+>   - Hãy tưởng tượng mạch điện công tắc đảo chiều ở hai đầu cầu thang: đèn chỉ bật ($y=1$) khi đúng 1 trong 2 công tắc được bật lên.
+>   - Thuật toán tham lam (Greedy) chỉ biết nhìn vào **từng biến đơn lẻ ngay tại bước chân tiếp theo**:
+>     - Nếu nhìn riêng công tắc $x_1$: khi $x_1=0$, đèn bật 1 lần, tắt 1 lần ($p=0.5$); khi $x_1=1$, đèn cũng bật 1 lần, tắt 1 lần ($p=0.5$). Độ vẩn đục Gini không hề giảm chút nào ($\text{Gain} = 0$).
+>     - Nếu nhìn riêng công tắc $x_2$: kết quả cũng hệt như vậy ($\text{Gain} = 0$).
+>   - Vì thuật toán chỉ xem xét lợi ích tức thời của 1 split, nó kết luận: *"Cắt theo biến nào cũng vô ích!"* và dừng ngay tại gốc, dự đoán mọi mẫu với xác suất $50/50$. Trong khi thực tế, chỉ cần kết hợp 2 tầng điều kiện ($x_1$ rồi $x_2$) là giải quyết trọn vẹn $100\%$ bài toán XOR!
 
 ## 8. Ensemble: nhiều cây được kết hợp ra sao?
 
@@ -194,6 +253,25 @@ Sau M vòng, $F_M(x)=F_0(x)+\eta\sum_{m=1}^M h_m(x)$. Các cây cũ giữ nguyê
 Ở đây chọn loss **nửa bình phương** để âm gradient đúng bằng residual. Báo cáo vẫn dùng mean bình phương đầy đủ — MSE. Hệ số 1/2 và hệ số chung do lấy trung bình không đổi nghiệm tối ưu nhưng ảnh hưởng quy ước gradient/bước; đừng sao chép công thức giữa các loss mà bỏ hệ số. [scikit-learn: Gradient boosting formulation](https://scikit-learn.org/stable/modules/ensemble.html#mathematical-formulation)
 
 Nguồn có thể định nghĩa error=F−y rồi **trừ** cây error. Bài định nghĩa residual=y−F và **cộng** cây residual: hai dấu phải đi cùng nhau. Trực giác fit lỗi và shrinkage được đối chiếu với [Google: Gradient boosted decision trees](https://developers.google.com/machine-learning/decision-forests/intro-to-gbdt).
+
+> [!NOTE]
+> ### 💡 Ẩn dụ kinh điển: Hội đồng phản biện (Bagging) vs Chuỗi thợ điêu khắc sửa sai (Gradient Boosting)
+> 
+> - **Bagging (Random Forest — Bỏ phiếu dân chủ)**:
+>   - Giống như việc thành lập một **hội đồng gồm 100 chuyên gia**. Mỗi chuyên gia được cho đọc một phần tài liệu hơi khác nhau (Bootstrap lấy mẫu có hoàn lại) và chỉ được hỏi một nhóm câu hỏi ngẫu nhiên (Random Subspace).
+>   - Các cây được huấn luyện **hoàn toàn độc lập, song song**. Khi có ca bệnh mới, 100 bác sĩ cùng chẩn đoán rồi lấy trung bình hoặc bỏ phiếu đa số.
+>   - **Tác dụng**: Giảm phương sai (Variance Reduction), dập tắt các phán đoán cực đoan của từng cá nhân, chống overfit cực mạnh.
+> - **Gradient Boosting (Chuỗi thợ điêu khắc tuần tự sửa lỗi)**:
+>   - **Người thợ thứ nhất ($F_0$)**: Nhận tảng đá và tạc phác thảo thô sơ bằng giá trị trung bình của toàn bộ pho tượng ($\bar{y}$).
+>   - **Đo sai số còn lại ($r_1 = y - F_0$)**: Nhìn lại pho tượng thấy mũi còn thiếu $1.5\text{cm}$, cằm bị dư $0.5\text{cm}$ $\rightarrow$ Đây chính là **Residual (phần bù sai lệch)**!
+>   - **Người thợ thứ hai ($h_1$)**: Đến và **chỉ chuyên tâm tạc bù đúng phần sai số $r_1$**. Nhưng thay vì đục thật mạnh tay, người này chỉ gõ nhẹ nhàng với lực vừa phải $\eta = 0.5$ (Learning Rate / Shrinkage) để tránh lỡ tay làm hỏng đá.
+>   - **Người thợ thứ ba ($h_2$)**: Đo lại lượng sai số của pho tượng hiện tại ($r_2 = y - F_1$) và tiếp tục đục tỉa phần còn thiếu...
+>   - Cứ thế qua $M$ vòng, pho tượng ngày càng trở nên sắc nét và tiệm cận tuyệt đối với tác phẩm mẫu!
+> - **Bản chất toán học: Tại sao gọi là "Gradient" Boosting?**:
+>   - Ở Bài 2, Gradient Descent cập nhật vector trọng số: $w \leftarrow w - \eta \nabla_w \mathcal{L}$.
+>   - Ở đây, ta cập nhật cả một **hàm số dự đoán**: $F(x) \leftarrow F(x) + \eta h(x)$.
+>   - Với hàm loss bình phương $\mathcal{L} = \frac{1}{2}(y - F)^2$, đạo hàm theo dự đoán là $\frac{\partial \mathcal{L}}{\partial F} = -(y - F)$. Do đó, **âm gradient** chính là $y - F$ (Residual).
+>   - Việc huấn luyện cây $h(x)$ fit vào residual thực chất chính là **bắt cây $h$ đi theo hướng dốc xuống dốc nhất của hàm mất mát trong không gian hàm số**!
 
 ### Tính tay hai vòng trên bốn điểm
 
@@ -278,6 +356,20 @@ Tối thiểu hóa validation MSE; nếu hòa trong 1e−12, chọn ứng viên 
 
 *Hình 4. Các chấm boosting là đúng năm M trong lưới. Đường nối chỉ giúp đọc xu hướng giữa các ứng viên, không phải phép đo mọi checkpoint ở giữa. Không có test trong hình.*
 
+> [!NOTE]
+> ### 💡 Bài học thực chiến sống còn cho AI Engineer: Dao cạo Occam & Đừng "dùng dao mổ trâu để giết gà"
+> 
+> - **Nghịch lý trong bảng thực nghiệm**:
+>   - Mô hình `Boost M=200` có Train MSE siêu thấp ($1.69$), nhưng sang Validation MSE lại phình to lên $5.75$.
+>   - Mô hình `Tuyến tính (Linear)` có Train MSE cao hơn ($6.59$), nhưng Validation MSE lại xuất sắc nhất toàn bộ bảng: **$5.10$**!
+> - **Tại sao một phương trình bậc nhất đơn giản lại đánh bại cỗ máy Boosting 200 vòng?**:
+>   - Dữ liệu thực tế được sinh ra từ quy luật tuyến tính $f(x) \approx 20 + 2x$ nhưng bị phủ một lớp **nhiễu ngẫu nhiên Gaussian rất nặng** ($\text{SD}=2.2$).
+>   - Hồi quy tuyến tính chỉ có đúng 2 tham số $(w, b)$. Nó cứng rắn vạch một đường thẳng xuyên qua tâm đám mây dữ liệu, vô hiệu hóa và san phẳng toàn bộ các hạt nhiễu ngẫu nhiên!
+>   - Ngược lại, cỗ máy Boosting quá linh hoạt. Sau 200 vòng đục đẽo, các cây con đã nỗ lực "bẻ gập" đường dự đoán để đi qua từng hạt nhiễu của tập Train $\rightarrow$ dẫn đến **Overfitting** tai hại trên tập Validation!
+> - **Nguyên tắc kỹ thuật sống còn**:
+>   1. Luôn luôn xây dựng một baseline tuyến tính (Linear / Logistic Regression) hoặc baseline heuristic/rule trước khi chạm vào XGBoost hay Deep Learning.
+>   2. Một mô hình đơn giản chạy nhanh hơn gấp 100 lần, tốn ít RAM hơn gấp 50 lần, giải thích được từng hệ số cho ban giám đốc, và lại có điểm Validation tốt hơn... chính là sự lựa chọn số 1 của một Kỹ sư AI trưởng thành.
+
 Sau chốt: test MSE linear≈6.019883, mean≈88.979560. Không tính test của mọi ứng viên rồi chọn lại. Linear tốt hơn mean trên tám điểm này không đủ khẳng định một họ mô hình luôn tốt hơn; thiết kế synthetic, mức nhiễu, min_leaf và lưới tham số đều ảnh hưởng kết quả.
 
 ![So sánh validation của các ứng viên và dự đoán mô hình đã chọn](figures/05-baseline-so-sanh.png)
@@ -296,6 +388,17 @@ Khi mở rộng sang dữ liệu thật, giữ phép chia theo nhóm/thời gian
 - **Tốc độ:** code thử mọi midpoint bằng mask và đệ quy Python để dễ đọc. Nó không có tối ưu histogram, song song hay quản lý bộ nhớ của thư viện. Không dùng thời gian chạy mini-lab để so tốc độ các hệ ML.
 
 Các kỹ thuật nâng cao như histogram split, regularization giá trị lá, tối ưu bậc hai và hỗ trợ categorical/missing cần đọc theo implementation cụ thể. Chúng không tự có chỉ vì gọi mọi thứ là “boosting”. Bài dừng ở cơ chế để chuẩn bị bước so sánh thư viện sau này.
+
+> [!NOTE]
+> ### 💡 Cẩm nang xử lý dữ liệu dạng bảng (Tabular Data) cho AI Engineer
+> 
+> Khi chuyển từ thuật toán tự viết sang các thư viện sản xuất như LightGBM, XGBoost, CatBoost:
+> 1. **Dữ liệu thiếu (Missing Values)**: Các thư viện hiện đại học được một "nhánh mặc định" (default branch) cho NaN trong quá trình split. Tuy nhiên, nếu NaN mang ý nghĩa nghiệp vụ (ví dụ: người dùng chưa từng vay vốn), hãy chủ động tạo thêm feature cờ `is_missing`.
+> 2. **Biến phân loại (Categorical Features)**:
+>    - Không gán số thứ tự bừa bãi ($0, 1, 2$) cho các biến danh nghĩa (Hà Nội, Đà Nẵng, TP.HCM) vì cây sẽ so sánh vô nghĩa $\le 0.5$.
+>    - Dùng **One-Hot Encoding** cho biến ít giá trị (cardinality thấp $< 10$).
+>    - Dùng **Target Encoding** hoặc tính năng categorical native của LightGBM/CatBoost cho biến có hàng nghìn giá trị (mã sản phẩm, tỉnh thành).
+> 3. **Tối ưu tốc độ (Histogram-based Splitting)**: Các thư viện không quét từng điểm dữ liệu như lab mà nén các feature liên tục vào 256 "thùng" (bins), giúp việc tìm split nhanh gấp hàng trăm lần và giảm bộ nhớ RAM tới $80\%$.
 
 ## 13. Thực hành và tái tạo hình
 

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="936pt" height="540pt" viewBox="0 0 936 540" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-05T11:13:16.091615</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 540 
+L 936 540 
+L 936 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 81.432 237.075429 
+L 277.704 237.075429 
+Q 285.8256 237.075429 285.8256 230.04 
+L 285.8256 165.548571 
+Q 285.8256 158.513143 277.704 158.513143 
+L 81.432 158.513143 
+Q 73.3104 158.513143 73.3104 165.548571 
+L 73.3104 230.04 
+Q 73.3104 237.075429 81.432 237.075429 
+z
+" clip-path="url(#p010c0d0c40)" style="fill: #2863a5; fill-opacity: 0.070588; stroke: #2863a5; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 392.76 237.075429 
+L 589.032 237.075429 
+Q 597.1536 237.075429 597.1536 230.04 
+L 597.1536 165.548571 
+Q 597.1536 158.513143 589.032 158.513143 
+L 392.76 158.513143 
+Q 384.6384 158.513143 384.6384 165.548571 
+L 384.6384 230.04 
+Q 384.6384 237.075429 392.76 237.075429 
+z
+" clip-path="url(#p010c0d0c40)" style="fill: #bd4949; fill-opacity: 0.070588; stroke: #bd4949; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 81.432 407.098286 
+L 277.704 407.098286 
+Q 285.8256 407.098286 285.8256 400.062857 
+L 285.8256 323.845714 
+Q 285.8256 316.810286 277.704 316.810286 
+L 81.432 316.810286 
+Q 73.3104 316.810286 73.3104 323.845714 
+L 73.3104 400.062857 
+Q 73.3104 407.098286 81.432 407.098286 
+z
+" clip-path="url(#p010c0d0c40)" style="fill: #2863a5; fill-opacity: 0.070588; stroke: #2863a5; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 392.76 407.098286 
+L 589.032 407.098286 
+Q 597.1536 407.098286 597.1536 400.062857 
+L 597.1536 323.845714 
+Q 597.1536 316.810286 589.032 316.810286 
+L 392.76 316.810286 
+Q 384.6384 316.810286 384.6384 323.845714 
+L 384.6384 400.062857 
+Q 384.6384 407.098286 392.76 407.098286 
+z
+" clip-path="url(#p010c0d0c40)" style="fill: #d89a24; fill-opacity: 0.070588; stroke: #d89a24; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 683.784 407.098286 
+L 866.52 407.098286 
+Q 874.6416 407.098286 874.6416 400.062857 
+L 874.6416 323.845714 
+Q 874.6416 316.810286 866.52 316.810286 
+L 683.784 316.810286 
+Q 675.6624 316.810286 675.6624 323.845714 
+L 675.6624 400.062857 
+Q 675.6624 407.098286 683.784 407.098286 
+z
+" clip-path="url(#p010c0d0c40)" style="fill: #227b62; fill-opacity: 0.070588; stroke: #227b62; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 289.854097 197.794286 
+Q 335.230423 197.794286 378.929698 197.794286 
+" clip-path="url(#p010c0d0c40)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 372.929698 194.794286 
+L 378.929698 197.794286 
+L 372.929698 200.794286 
+z
+" clip-path="url(#p010c0d0c40)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 289.854097 361.954286 
+Q 335.230423 361.954286 378.929698 361.954286 
+" clip-path="url(#p010c0d0c40)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 372.929698 358.954286 
+L 378.929698 361.954286 
+L 372.929698 364.954286 
+z
+" clip-path="url(#p010c0d0c40)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 601.18788 361.954286 
+Q 636.408439 361.954286 669.951947 361.954286 
+" clip-path="url(#p010c0d0c40)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 663.951947 358.954286 
+L 669.951947 361.954286 
+L 663.951947 364.954286 
+z
+" clip-path="url(#p010c0d0c40)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(158.539094 192.998114)">CALLER</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(130.57675 210.048114)">Await shield(task)</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(465.979281 192.998114)">TIMEOUT</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(445.662797 209.849598)">Caller ngừng đợi</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(156.778234 357.164129)">THREAD</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(127.047297 375.075223)">Function chờ Event</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(447.518656 359.169129)">VẪN CHƯA XONG</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(433.517875 373.413661)">Task vẫn được theo dõi</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(749.204891 358.533114)">MỞ GATE</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(731.035125 375.330458)">Thread hoàn tất</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="477.36" y="464.554286" transform="rotate(-0 477.36 464.554286)">Quan sát: caller_timed_out=True, thread_finished=False. Shield không kill thread.</text>
+   </g>
+  </g>
+  <g id="text_7">
+   <text style="font-weight: 700; font-size: 18px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172d45" x="51.48" y="37.639688" transform="rotate(-0 51.48 37.639688)">06 · Caller hết chờ, thread chưa chắc đã dừng</text>
+  </g>
+  <g id="text_8">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #596777" x="51.48" y="59.4" transform="rotate(-0 51.48 59.4)">Thread demo thật: gate còn đóng ở mốc caller timeout; sau đó mở gate và await completion.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p010c0d0c40">
+   <rect x="37.44" y="86.4" width="879.84" height="410.4"/>
+  </clipPath>
+ </defs>
+</svg>

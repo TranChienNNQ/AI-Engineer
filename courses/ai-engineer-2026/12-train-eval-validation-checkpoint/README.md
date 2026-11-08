@@ -2,7 +2,7 @@
 
 [Mục lục](../README.md) · [Bài 11](../11-pytorch-tensor-autograd-dataloader/README.md) · [Bài tập](exercises.md) · [Lời giải](solutions.md)
 
-Biên soạn ngày 04/11/2026. Ví dụ tự tạo, chạy PyTorch thật trên CPU; không cần GPU, dữ liệu ngoài hoặc tài khoản theo dõi thí nghiệm. Bài nối từ thao tác tensor/autograd ở bài 11 sang một thí nghiệm có thể kiểm tra, dừng và khôi phục.
+Biên soạn ngày 04/11/2026. Bổ sung định nghĩa tường minh các khái niệm quản lý vòng đời huấn luyện (Training/Eval Loop, Epoch vs Step, 3 loại đường cong Loss, Early Stopping, Checkpoint State, Atomic Save & Resume, Experiment Tracking...), kèm trực giác kỹ thuật và cẩm nang MLOps cho AI Engineer; toàn bộ ví dụ giải tích, công thức tính tay, bảng so sánh và code kiểm toán gốc được giữ nguyên vẹn 100% để đối chiếu chuẩn. Ví dụ tự tạo, chạy PyTorch thật trên CPU; không cần GPU, dữ liệu ngoài hoặc tài khoản theo dõi thí nghiệm. Bài nối từ thao tác tensor/autograd ở bài 11 sang một thí nghiệm có thể kiểm tra, dừng và khôi phục.
 
 ## 1. Mục tiêu và kiến thức cần trước
 
@@ -28,6 +28,23 @@ Một epoch là một lượt đi qua train loader; một step trong lab là m�
 ![Chu trình thí nghiệm](figures/01-lifecycle.png)
 
 *Chỉ train sửa tham số; validation điều khiển lựa chọn. Test chấm cấu hình và checkpoint đã chốt.*
+
+> [!NOTE]
+> ### 💡 Bảng từ điển định nghĩa: Các đại lượng vòng đời huấn luyện (Lifecycle)
+> 
+> - **Thí nghiệm (Experiment / Study)**: Một chiến dịch nghiên cứu gồm nhiều lần chạy (Runs) nhằm trả lời một câu hỏi kỹ thuật cụ thể (ví dụ: *"Learning rate nào và độ sâu nào giúp mô hình MLP dự báo latency tốt nhất?"*).
+> - **Lần chạy (Run)**: Một phiên thực thi huấn luyện đơn lẻ từ đầu đến cuối với một bộ siêu tham số (Hyperparameters / Config) cố định.
+> - **Epoch**: Một chu kỳ quét trọn vẹn qua toàn bộ tập dữ liệu huấn luyện ($N_{\text{train}}$ mẫu).
+> - **Step / Iteration (Bước tối ưu)**: Một lần thực hiện cập nhật trọng số của Optimizer (`optimizer.step()`) trên một mẻ (batch) dữ liệu.
+>   $$\text{Số steps trong 1 Epoch} = \lceil \frac{N_{\text{train}}}{\text{batch\_size}} \rceil$$
+> - **Artifact**: Toàn bộ các tệp tin sản phẩm sinh ra sau một Run (file trọng số `.pt`, file log `.csv`, cấu hình `.json`, báo cáo `.json`).
+> 
+> ---
+> 
+> ### 💡 Ẩn dụ đời thường: Chu kỳ ôn thi tốt nghiệp THPT
+> - **Mỗi Epoch** giống như việc bạn đọc xong trọn vẹn toàn bộ một lượt cuốn sách giáo khoa ôn thi.
+> - **Mỗi Step** giống như việc bạn làm xong một bài tập nhỏ trong sách, nhìn đáp án và tự rút kinh nghiệm.
+> - **Huấn luyện 60 Epoch** nghĩa là bạn đã "cày nát" cuốn sách giáo khoa đó 60 lượt liên tiếp!
 
 ## 3. Tách train và evaluate từ nền tảng
 
@@ -65,6 +82,24 @@ print(steps, online, train_end, val_end)  # 3 update; validation không gọi op
 Trong thực nghiệm nhiều epoch, vòng ngoài `fit` lặp khối này, so validation với best, ghi log/checkpoint rồi quyết định tiếp tục hoặc dừng. Nó không đưa validation vào loss để backward.
 
 Cấu trúc tách hai vòng phù hợp với [hướng dẫn tối ưu của PyTorch](https://docs.pytorch.org/tutorials/beginner/basics/optimization_tutorial.html). Nguồn gọi vòng đo theo epoch là test loop; trong bài này, dữ liệu được xem để chọn mô hình mang vai trò **validation**. Tên hàm không quyết định vai trò thống kê của tập dữ liệu.
+
+> [!NOTE]
+> ### 💡 Phân định trách nhiệm: Vòng lặp Huấn luyện (Train) vs Vòng lặp Đánh giá (Eval)
+> 
+> - **Vòng lặp Huấn luyện (Training Loop)**:
+>   - *Tập dữ liệu*: Tập Train (`data['train']`).
+>   - *Trạng thái*: Bắt buộc gọi `model.train()` để kích hoạt các cơ chế học (Dropout ngắt kết nối ngẫu nhiên để chống overfit, BatchNorm tính mean/variance động).
+>   - *Nhiệm vụ*: Tính toán đạo hàm (`loss.backward()`) và cập nhật trọng số (`optimizer.step()`).
+> - **Vòng lặp Đánh giá (Evaluation Loop)**:
+>   - *Tập dữ liệu*: Tập Validation hoặc Test.
+>   - *Trạng thái*: Bắt buộc gọi `model.eval()` và bọc trong `@torch.no_grad()` (tắt hoàn toàn Dropout, đóng băng BatchNorm, ngắt bộ nhớ Autograd để tăng tốc).
+>   - *Nhiệm vụ*: Chỉ đọc mô hình và tính toán độ đo hiệu năng khách quan. **Tuyệt đối cấm kỵ gọi `backward()` hay `optimizer.step()`!**
+> 
+> ---
+> 
+> ### 💡 Ẩn dụ đời thường: Giải bài tập về nhà vs Thi thử hàng tuần
+> - **Training**: Bạn ngồi ở nhà tự giải bài tập, được quyền mở sách xem đáp án, gạch xóa và sửa sai thoải mái.
+> - **Validation**: Kỳ thi thử hàng tuần ở trường. Bạn không được mở sách giải (`no_grad`), thầy cô chỉ chấm điểm để xem bạn tiến bộ đến đâu và quyết định bạn có cần ôn luyện thêm không. Nếu bạn vừa thi thử vừa mở lời giải ra chép (`train trên tập validation`), điểm số thi thử sẽ bị "ảo" và bạn chắc chắn sẽ trượt kỳ thi thật (Test)!
 
 ## 4. Ví dụ tính tay một bước train và một lượt eval
 
@@ -104,6 +139,18 @@ Với batch cuối nhỏ, không lấy mean các batch mean tùy ý. Ví dụ ba
 *Đường cong lấy từ run lr=0.03 thực sự đã chạy. Vạch đánh dấu checkpoint được chọn theo validation, không theo điểm train thấp nhất.*
 
 Khoảng cách train/validation có thể gợi ý overfit, khác phân bố, nhiễu hoặc mẫu nhỏ; một hình không đủ xác định nguyên nhân. Không phải mọi lần validation tăng đều là lỗi code.
+
+> [!NOTE]
+> ### 💡 Trực giác AI Engineer: Giải mã 3 đường cong Loss & Nhận diện Overfitting
+> 
+> - **Tại sao `train_online_mse` và `train_eval_mse` lại khác nhau dù cùng đo trên tập Train?**:
+>   1. **Trạng thái mô hình khác nhau**: `train_online_mse` được tính bằng cách ghép các batch lại khi mô hình đang thay đổi liên tục sau mỗi step; trong khi `train_eval_mse` đo lại trên mô hình đã chốt cứng ở cuối epoch.
+>   2. **Dropout tác động**: Trong lúc train online, Dropout ngắt ngẫu nhiên $15\%$ nơ-ron khiến mạng bị "khuyết tật" tạm thời, làm loss bị đẩy lên cao hơn. Khi chuyển sang eval, toàn bộ nơ-ron hoạt động trở lại bình thường, khiến `train_eval_mse` thường tụt xuống thấp hơn!
+> 
+> - **Chẩn đoán Overfitting (Học vẹt) & Underfitting (Học chưa tới)**:
+>   - **Underfitting**: Cả 2 đường `train_loss` và `val_loss` đều cao và nằm bẹt dí $\rightarrow$ Mô hình quá nông, quá yếu, hoặc learning rate quá bé chưa học tới nơi.
+>   - **Vùng lý tưởng (Sweet Spot)**: Cả `train_loss` và `val_loss` đều giảm đều đặn song hành cùng nhau.
+>   - **Overfitting**: `train_loss` tiếp tục lao dốc xuống sát $0$, nhưng `val_loss` bắt đầu **bẻ cong quay đầu đi lên** $\rightarrow$ Mô hình bắt đầu học thuộc lòng từng hạt nhiễu của tập Train. Đây là thời điểm vàng cần bấm chuông dừng cuộc chơi (**Early Stopping**)!
 
 ## 6. train/eval và no_grad: thực nghiệm Dropout
 
@@ -150,6 +197,23 @@ Dừng sau epoch 4, chọn epoch 2. Epoch 5 chưa được chạy; 0.580 chỉ l
 
 Early stopping giới hạn việc tiếp tục học khi tiêu chí không cải thiện; nó không bảo đảm tối ưu hoặc test tốt nhất. Validation cũng bị dùng để lựa chọn nên score của người thắng có thể lạc quan. Không thử liên tục cấu hình mới chỉ vì không thích điểm test.
 
+> [!NOTE]
+> ### 💡 Định nghĩa: Thuật toán Dừng sớm (Early Stopping) & Ẩn dụ Vị huấn luyện viên kiên nhẫn
+> 
+> - **Định nghĩa Early Stopping**: Kỹ thuật điều khiển dừng quá trình huấn luyện một cách tự động khi độ đo hiệu năng trên tập Validation ngừng cải thiện sau một số lượng epoch liên tiếp định trước.
+> - **Ba thông số cốt lõi**:
+>   1. **Monitor Metric**: Chỉ số theo dõi (ví dụ: `val_loss` cần nhỏ hơn, `val_accuracy` cần lớn hơn).
+>   2. **Patience (Độ kiên nhẫn)**: Số epoch liên tiếp chấp nhận mô hình "dậm chân tại chỗ" hoặc thụt lùi trước khi chính thức bấm chuông dừng cuộc chơi.
+>   3. **Min Delta ($\Delta_{\text{min}}$)**: Ngưỡng cải thiện tối thiểu để được công nhận là một sự tiến bộ thực sự, tránh việc mô hình chỉ giảm được $0.000001$ mà vẫn reset bộ đếm kiên nhẫn.
+> 
+> ---
+> 
+> ### 💡 Ẩn dụ đời thường: Vị huấn luyện viên thể thao kiên nhẫn
+> - Một vận động viên nhảy cao nhảy qua mức xà $2.0\text{m}$ ở hiệp thi đấu thứ 2 (**Kỷ lục Best Epoch = 2**).
+> - Ở hiệp thứ 3, anh ta nhảy hỏng, chỉ đạt $1.99\text{m}$ (không tiến bộ $\rightarrow$ cảnh cáo lần 1: `bad_epochs = 1`).
+> - Ở hiệp thứ 4, anh ta tiếp tục sa sút, chỉ đạt $1.98\text{m}$ (tiếp tục không tiến bộ $\rightarrow$ cảnh cáo lần 2: `bad_epochs = 2`).
+> - Với mức kiên nhẫn quy định trước là `patience = 2`, vị huấn luyện viên lập tức thổi còi dừng buổi tập! Ông lấy thành tích tốt nhất ở hiệp thứ 2 ($2.0\text{m}$) làm đại diện đi thi đấu chính thức.
+
 ## 8. Chốt giao thức trước khi chạy
 
 Thí nghiệm chính tự tạo 90 hàng: x phân bố đều trong [−1,1), y=sin(3x)+0.3x+ε, ε là nhiễu Gaussian độ lệch chuẩn 0.2. Dùng một generator riêng với data_seed=17 để tạo dữ liệu và hoán vị ID: 48 train, 21 validation, 21 test, không trùng hàng. Không có chuẩn hóa fit trên toàn dữ liệu; nếu thêm scaler, chỉ fit trên train và lưu cùng artifact.
@@ -185,6 +249,21 @@ Best và last có thể trùng nhau nhưng không mặc định trùng. Resume t
 Không giữ best bằng `best = model.state_dict()` rồi tiếp tục train: các tensor trong dict còn tham chiếu storage của model. Lab dùng `copy.deepcopy(model.state_dict())` lúc cải thiện rồi ghi file. Việc gán dict không tự đóng băng tensor. `atomic_save` ghi file tạm cùng thư mục rồi rename để giảm rủi ro đọc dở một file; chưa phải giao thức bảo đảm lưu bền khi mất điện hoặc trên object storage.
 
 Cách lưu/tải dict và optimizer được đối chiếu với [Saving and Loading Models](https://docs.pytorch.org/tutorials/beginner/saving_loading_models.html). Lab không pickle toàn bộ module; config và code vẫn cần để dựng model cùng cấu trúc.
+
+> [!NOTE]
+> ### 💡 Bảng định nghĩa: Phân biệt `best.pt` vs `last.pt` & Kỹ thuật Atomic Save
+> 
+> - **Phân biệt rạch ròi giữa `best.pt` và `last.pt`**:
+>   - **`best.pt` (Dành cho Inference / Production)**:
+>     - Chỉ lưu giữ ảnh chụp trọng số của mô hình tại thời điểm đạt đỉnh cao phong độ trên tập Validation (`model.state_dict()`).
+>     - Tệp này nhỏ gọn, lược bỏ toàn bộ biến phụ trợ, sẵn sàng để đóng gói vào Docker container và deploy lên server API phục vụ người dùng.
+>   - **`last.pt` (Dành cho Resume Training)**:
+>     - Lưu giữ toàn bộ "hiện trường" tại thời điểm kết thúc epoch gần nhất để có thể nối lại quá trình học nếu server bị ngắt đột ngột (Spot instance bị thu hồi trên AWS, đứt kết nối mạng, cúp điện).
+>     - Bắt buộc phải lưu đủ 5 thành phần: Trọng số mô hình (`model`), Bộ nhớ nội tại của Optimizer (`optimizer`), Vị trí bước học (`epoch`, `global_step`), Trạng thái sinh số ngẫu nhiên (`rng_state`), và Bộ đếm Dừng sớm (`best_metric`, `bad_epochs`).
+> 
+> - **Kỹ thuật Lưu an toàn nguyên tử (Atomic Save)**:
+>   - Tuyệt đối không ghi đè trực tiếp vào file checkpoint chính. Nếu đang ghi được $50\%$ dữ liệu mà server mất điện hoặc đầy ổ cứng, file checkpoint sẽ bị hỏng vĩnh viễn (corrupted).
+>   - **Chuẩn MLOps**: Luôn ghi dữ liệu ra một file tạm `temp_checkpoint.pt`, sau khi ghi hoàn tất $100\%$ mới thực hiện lệnh đổi tên nguyên tử `os.replace(temp, target)` (Atomic Rename ở cấp hệ điều hành).
 
 ## 10. Tải để dự đoán và tải để học tiếp
 
@@ -224,6 +303,14 @@ Mode `resume` dùng cùng Config(epochs=12, patience=100), chạy ba nhánh: ful
 
 Lab kiểm trọng số cuối, toàn bộ history và trạng thái RNG bằng nhau chính xác trên môi trường CPU đã nêu; dự đoán best sau lưu/tải cũng bằng nhau. Nhánh cố tình chỉ tải weight rồi học tiếp thiếu momentum cho max chênh parameter khoảng **0.151223918**, dù dùng lại thứ tự batch và RNG đúng.
 
+> [!NOTE]
+> ### 💡 Trực giác AI Engineer: Tại sao bắt buộc phải lưu `optimizer.state_dict()`?
+> 
+> - **"Quán tính chuyển động" của Optimizer**:
+>   - Các thuật toán tối ưu hiện đại như SGD Momentum hay Adam không chỉ nhìn vào gradient của bước hiện tại, mà chúng tích lũy "quán tính di chuyển" (Momentum Buffer $v$, hoặc trung bình trượt bậc nhất $m$ và bậc hai $v$ trong Adam).
+>   - Nếu bạn ngắt job và tiếp tục học lại nhưng **chỉ nạp trọng số mô hình**, optimizer sẽ bị "mất trí nhớ": toàn bộ quán tính rơi về $0$ ($v_2 = 1.0 \rightarrow w_2 = 0.70$ thay vì $v_2 = 2.8 \rightarrow w_2 = 0.52$).
+>   - Hậu quả: Quỹ đạo tối ưu bị bẻ gãy đột ngột, mô hình giật cục và chênh lệch tới $0.15$ trên từng tham số! Khi huấn luyện các mô hình lớn nhiều tuần lễ, việc mất trạng thái optimizer sẽ phá hỏng hoàn toàn quá trình hội tụ.
+
 ## 11. Seed, RNG và phạm vi tái lập
 
 Seed là điểm khởi tạo chuỗi ngẫu nhiên; RNG state là vị trí hiện tại trong chuỗi đó. Gọi lại manual_seed lúc resume không có nghĩa quay đến đúng vị trí Dropout đã dùng sau epoch 5.
@@ -258,6 +345,22 @@ Nhánh continued ghi lại cả history trước checkpoint và ghi đường d�
 *Chỉ dùng validation để chọn run. Test score nằm trong báo cáo sau lựa chọn; không phải một đường được quét theo epoch.*
 
 Khi đọc log, hỏi: metric ở mode nào, denominator gì, model epoch nào, tập mẫu nào? Train loss thấp không đủ để nhận định có thể triển khai. Đây là thực nghiệm quy trình trên dữ liệu nhỏ, chưa có baseline mạnh, nhiều seed, đo độ trễ hoặc giám sát vận hành.
+
+> [!TIP]
+> ### 💡 Cẩm nang MLOps: Cấu trúc Thư mục Theo dõi Thí nghiệm chuẩn Công nghiệp
+> 
+> Trong thực tế kỹ thuật, không nên phụ thuộc hoàn toàn vào các dịch vụ đám mây (W&B, MLflow) mà cần duy trì một cấu trúc lưu trữ artifact dạng tệp cục bộ có thể tái lập 100%:
+> 
+> 1. `config.json`: Toàn bộ siêu tham số cấu hình (Hyperparameters). Bất kỳ ai chỉ cần đọc file này là có thể tái hiện chính xác kiến trúc mạng.
+> 2. `split.json`: Chỉ số index phân chia dữ liệu Train/Val/Test kèm mã băm SHA-256 để chống rò rỉ dữ liệu (Data Leakage).
+> 3. `metadata.json`: Ghi lại môi trường phần cứng, phiên bản thư viện (PyTorch, CUDA, OS) và commit hash của git repo.
+> 4. `metrics.csv`: Bảng ghi nhật ký theo từng epoch (train loss, val loss, learning rate, thời gian chạy).
+> 5. `best.pt`: Trọng số mô hình tốt nhất để đem đi phục vụ dự đoán (Serving).
+> 6. `last.pt`: Toàn bộ trạng thái huấn luyện để sẵn sàng nối tiếp khi gặp sự cố ngắt nguồn.
+> 
+> > [!IMPORTANT]
+> > **Nguyên tắc vàng "Khóa chặt tập Test" (Hold-out Test Freeze)**:
+> > Tuyệt đối không bao giờ đưa tập Test vào vòng lặp huấn luyện, không ghi test metric theo từng epoch vào `metrics.csv`, và không dùng điểm test để chọn model! Tập Test là "két sắt niêm phong" chỉ được mở ra đúng 1 lần duy nhất để chấm điểm cho mô hình chiến thắng sau khi mọi quyết định đã được chốt xong.
 
 ## 13. Cài đặt và thực hành
 

@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="936pt" height="540pt" viewBox="0 0 936 540" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-06T22:17:01.021025</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 540 
+L 936 540 
+L 936 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 68.5728 236.489143 
+L 331.1712 236.489143 
+Q 339.2928 236.489143 339.2928 229.453714 
+L 339.2928 166.134857 
+Q 339.2928 159.099429 331.1712 159.099429 
+L 68.5728 159.099429 
+Q 60.4512 159.099429 60.4512 166.134857 
+L 60.4512 229.453714 
+Q 60.4512 236.489143 68.5728 236.489143 
+z
+" clip-path="url(#p46afeb474a)" style="fill: #2863a5; fill-opacity: 0.070588; stroke: #2863a5; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 393.4368 236.489143 
+L 601.8912 236.489143 
+Q 610.0128 236.489143 610.0128 229.453714 
+L 610.0128 166.134857 
+Q 610.0128 159.099429 601.8912 159.099429 
+L 393.4368 159.099429 
+Q 385.3152 159.099429 385.3152 166.134857 
+L 385.3152 229.453714 
+Q 385.3152 236.489143 393.4368 236.489143 
+z
+" clip-path="url(#p46afeb474a)" style="fill: #d89a24; fill-opacity: 0.070588; stroke: #d89a24; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 664.1568 236.489143 
+L 872.6112 236.489143 
+Q 880.7328 236.489143 880.7328 229.453714 
+L 880.7328 166.134857 
+Q 880.7328 159.099429 872.6112 159.099429 
+L 664.1568 159.099429 
+Q 656.0352 159.099429 656.0352 166.134857 
+L 656.0352 229.453714 
+Q 656.0352 236.489143 664.1568 236.489143 
+z
+" clip-path="url(#p46afeb474a)" style="fill: #227b62; fill-opacity: 0.070588; stroke: #227b62; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 343.997684 197.794286 
+Q 362.301292 197.794286 378.92785 197.794286 
+" clip-path="url(#p46afeb474a)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 372.92785 194.794286 
+L 378.92785 197.794286 
+L 372.92785 200.794286 
+z
+" clip-path="url(#p46afeb474a)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 614.717684 197.794286 
+Q 633.021292 197.794286 649.64785 197.794286 
+" clip-path="url(#p46afeb474a)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 643.64785 194.794286 
+L 649.64785 197.794286 
+L 643.64785 200.794286 
+z
+" clip-path="url(#p46afeb474a)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 88.8768 394.786286 
+L 439.4592 394.786286 
+Q 447.5808 394.786286 447.5808 387.750857 
+L 447.5808 318.569143 
+Q 447.5808 311.533714 439.4592 311.533714 
+L 88.8768 311.533714 
+Q 80.7552 311.533714 80.7552 318.569143 
+L 80.7552 387.750857 
+Q 80.7552 394.786286 88.8768 394.786286 
+z
+" clip-path="url(#p46afeb474a)" style="fill: #227b62; fill-opacity: 0.070588; stroke: #227b62; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 515.2608 394.786286 
+L 865.8432 394.786286 
+Q 873.9648 394.786286 873.9648 387.750857 
+L 873.9648 318.569143 
+Q 873.9648 311.533714 865.8432 311.533714 
+L 515.2608 311.533714 
+Q 507.1392 311.533714 507.1392 318.569143 
+L 507.1392 387.750857 
+Q 507.1392 394.786286 515.2608 394.786286 
+z
+" clip-path="url(#p46afeb474a)" style="fill: #2863a5; fill-opacity: 0.070588; stroke: #2863a5; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 766.899472 240.176187 
+Q 729.467822 274.011589 693.280283 306.722408 
+" clip-path="url(#p46afeb474a)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 699.743066 304.924511 
+L 693.280283 306.722408 
+L 695.719635 300.473444 
+z
+" clip-path="url(#p46afeb474a)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(158.097781 193.434129)">BLOCK WEIGHTS</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(130.963406 208.553661)">[−1,−.5,0,.5,1,.2] + pad0/0</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(443.978844 193.522411)">SCALE = absmax = 1</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(453.329625 209.522411)">Nearest NF4 level</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(739.654312 193.870145)">CODES 0..15</text>
+    <text style="font-size: 9px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(716.219156 207.820145)">[0, 2, 7, 12, 15, 9, 7, 7]</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(176.715422 347.395313)">Hai codes [0,2] → byte0x20=32</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(193.124328 364.995313)">low nibble0 / high nibble2</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(587.096531 347.919375)">Unpack → lookup × scale → FP32 matmul</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(596.294969 364.119375)">Giữ grad theo input, không học codes</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #bd4949" x="477.36" y="458.691429" transform="rotate(-0 477.36 458.691429)">NF4 không có các mức cách đều như uniform INT4; quantized base khác original FP32 base.</text>
+   </g>
+  </g>
+  <g id="text_7">
+   <text style="font-weight: 700; font-size: 18px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172d45" x="51.48" y="35.277188" transform="rotate(-0 51.48 35.277188)">04 · NF4: codebook + block scale + packed nibbles</text>
+  </g>
+  <g id="text_8">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #596777" x="51.48" y="59.4" transform="rotate(-0 51.48 59.4)">Local CPU format: block32, FP32 scale; hình dùng block8 để nhìn padding. Không có DQ/paged kernels.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p46afeb474a">
+   <rect x="37.44" y="86.4" width="879.84" height="410.4"/>
+  </clipPath>
+ </defs>
+</svg>

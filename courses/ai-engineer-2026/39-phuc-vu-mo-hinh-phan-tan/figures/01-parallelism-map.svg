@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="684pt" height="397.176pt" viewBox="0 0 684 397.176" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-07T00:26:51.119881</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 397.176 
+L 684 397.176 
+L 684 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 154.512 135.218112 
+L 315.216 135.218112 
+Q 323.2512 135.218112 323.2512 130.96032 
+L 323.2512 67.09344 
+Q 323.2512 62.835648 315.216 62.835648 
+L 154.512 62.835648 
+Q 146.4768 62.835648 146.4768 67.09344 
+L 146.4768 130.96032 
+Q 146.4768 135.218112 154.512 135.218112 
+z
+" clip-path="url(#pd41506cff0)" style="fill: #245ca6; fill-opacity: 0.078431; stroke: #245ca6; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 442.44 135.218112 
+L 603.144 135.218112 
+Q 611.1792 135.218112 611.1792 130.96032 
+L 611.1792 67.09344 
+Q 611.1792 62.835648 603.144 62.835648 
+L 442.44 62.835648 
+Q 434.4048 62.835648 434.4048 67.09344 
+L 434.4048 130.96032 
+Q 434.4048 135.218112 442.44 135.218112 
+z
+" clip-path="url(#pd41506cff0)" style="fill: #245ca6; fill-opacity: 0.078431; stroke: #245ca6; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 154.512 245.211072 
+L 315.216 245.211072 
+Q 323.2512 245.211072 323.2512 240.95328 
+L 323.2512 177.0864 
+Q 323.2512 172.828608 315.216 172.828608 
+L 154.512 172.828608 
+Q 146.4768 172.828608 146.4768 177.0864 
+L 146.4768 240.95328 
+Q 146.4768 245.211072 154.512 245.211072 
+z
+" clip-path="url(#pd41506cff0)" style="fill: #25836a; fill-opacity: 0.078431; stroke: #25836a; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 442.44 245.211072 
+L 603.144 245.211072 
+Q 611.1792 245.211072 611.1792 240.95328 
+L 611.1792 177.0864 
+Q 611.1792 172.828608 603.144 172.828608 
+L 442.44 172.828608 
+Q 434.4048 172.828608 434.4048 177.0864 
+L 434.4048 240.95328 
+Q 434.4048 245.211072 442.44 245.211072 
+z
+" clip-path="url(#pd41506cff0)" style="fill: #25836a; fill-opacity: 0.078431; stroke: #25836a; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 154.512 355.204032 
+L 315.216 355.204032 
+Q 323.2512 355.204032 323.2512 350.94624 
+L 323.2512 287.07936 
+Q 323.2512 282.821568 315.216 282.821568 
+L 154.512 282.821568 
+Q 146.4768 282.821568 146.4768 287.07936 
+L 146.4768 350.94624 
+Q 146.4768 355.204032 154.512 355.204032 
+z
+" clip-path="url(#pd41506cff0)" style="fill: #dd8a21; fill-opacity: 0.078431; stroke: #dd8a21; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 442.44 355.204032 
+L 603.144 355.204032 
+Q 611.1792 355.204032 611.1792 350.94624 
+L 611.1792 287.07936 
+Q 611.1792 282.821568 603.144 282.821568 
+L 442.44 282.821568 
+Q 434.4048 282.821568 434.4048 287.07936 
+L 434.4048 350.94624 
+Q 434.4048 355.204032 442.44 355.204032 
+z
+" clip-path="url(#pd41506cff0)" style="fill: #dd8a21; fill-opacity: 0.078431; stroke: #dd8a21; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #245ca6" x="20.592" y="91.93056" transform="rotate(-0 20.592 91.93056)">Replica</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(207.011656 95.282798)">Request A</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(197.516422 108.485806)">Full model R0</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(494.928484 95.282798)">Request B</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(485.444422 108.485806)">Full model R1</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; fill: #25836a" transform="translate(20.592 193.416285)">Tensor</text>
+    <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; fill: #25836a" transform="translate(20.592 209.01984)">parallel</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(197.905719 205.496188)">Cùng request</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(188.543687 218.699195)">Shard0: partial A</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(485.833719 205.496188)">Cùng request</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(476.460516 218.699195)">Shard1: partial B</text>
+   </g>
+   <g id="patch_8">
+    <path d="M 317.213684 209.01984 
+Q 341.999478 209.01984 364.884615 209.01984 
+" style="fill: none; stroke: #566577; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 360.484615 206.81984 
+L 364.884615 209.01984 
+L 360.484615 211.21984 
+" style="fill: none; stroke: #566577; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 18px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #25836a" x="382.176" y="213.695621" transform="rotate(-0 382.176 213.695621)">Σ</text>
+   </g>
+   <g id="patch_9">
+    <path d="M 440.443951 209.01984 
+Q 422.353683 209.01984 406.164072 209.01984 
+" style="fill: none; stroke: #566577; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 410.564072 211.21984 
+L 406.164072 209.01984 
+L 410.564072 206.81984 
+" style="fill: none; stroke: #566577; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_8">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; fill: #dd8a21" transform="translate(20.592 303.409245)">Pipeline</text>
+    <text style="font-weight: 700; font-size: 13px; font-family: 'DejaVu Sans'; fill: #dd8a21" transform="translate(20.592 319.0128)">parallel</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(207.0065 314.790905)">Request X</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(183.109859 328.949538)">Stage0: layers đầu</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(480.31825 315.489148)">Cùng request X</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(471.664344 328.692155)">Stage1: layers sau</text>
+   </g>
+   <g id="patch_10">
+    <path d="M 317.215523 319.0128 
+Q 378.828427 319.0128 438.540673 319.0128 
+" style="fill: none; stroke: #566577; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 434.140673 316.8128 
+L 438.540673 319.0128 
+L 434.140673 321.2128 
+" style="fill: none; stroke: #566577; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_11">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle" x="375.48" y="301.272" transform="rotate(-0 375.48 301.272)">activation</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 16px; font-family: 'DejaVu Sans'; text-anchor: middle" x="342" y="20.16" transform="rotate(-0 342 20.16)">Nhân bản model và chia model giải hai bài toán khác nhau</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pd41506cff0">
+   <rect x="7.2" y="35.16" width="669.6" height="354.816"/>
+  </clipPath>
+ </defs>
+</svg>

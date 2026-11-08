@@ -1,0 +1,1 @@
+-r ../45-thiet-ke-du-an-ai-end-to-end/requirements.txt

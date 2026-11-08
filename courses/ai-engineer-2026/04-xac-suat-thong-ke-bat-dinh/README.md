@@ -2,7 +2,9 @@
 
 [Mục lục](../README.md) · [Bài 3](../03-vector-ma-tran-tensor/README.md) · [Bài tập](exercises.md) · [Lời giải](solutions.md)
 
-Biên soạn và kiểm tra ngày 04/11/2026. Toàn bộ dữ liệu và mô hình số trong bài là giả định để học, không phải thống kê thị trường hay kết quả đo một dịch vụ thật. Code dùng NumPy; không cần GPU, scikit-learn hay tài khoản AI.
+Biên soạn và kiểm tra ngày 04/11/2026. Bổ sung các khối giải thích tường minh, trực giác kỹ thuật và ví dụ thực tế cho AI Engineer; toàn bộ dữ liệu, mô hình số và khung lý thuyết gốc được giữ nguyên vẹn để đối chiếu chuẩn. Code dùng NumPy; không cần GPU, scikit-learn hay tài khoản AI.
+
+---
 
 ## 1. Mục tiêu và cách đọc
 
@@ -17,6 +19,8 @@ Sau bài này, người học có thể:
 
 Cần biết phép tính số, tổng, vector và Python từ bài 1–3. Có thể học ba lượt: phần 2–6 về nền tảng và mô tả dữ liệu; phần 7–10 về suy luận từ mẫu; phần 11–14 nối sang AI. Công thức Wilson ở phần 10 là phần mở rộng: trước hết hiểu ví dụ và cách diễn giải, chưa cần tự suy ra toàn bộ công thức.
 
+---
+
 ## 2. Tại sao AI Engineer cần xác suất và thống kê?
 
 Backend có nhiều điều không được biết chắc từ một request: thời gian truy vấn, tải hệ thống, lỗi kết nối, nhãn của một ticket mới. Mô hình còn được huấn luyện từ một tập dữ liệu hữu hạn, nên bản thân các kết luận rút ra từ tập ấy cũng có thể thay đổi khi lấy mẫu khác.
@@ -29,6 +33,14 @@ Ta cần tách ba câu hỏi:
 
 Một con số dự đoán hay một điểm accuracy không trả lời đủ ba câu hỏi ấy.
 
+> [!NOTE]
+> ### 💡 Trực giác & So sánh thực tế: Software 1.0 vs Software 2.0
+> - **Lập trình truyền thống (Software 1.0)**: Mang tính **tất định (Deterministic)**. Một hàm `check_balance()` chỉ trả về `True` hoặc `False` tuyệt đối. Nếu code chạy đúng logic, kết quả luôn lặp lại 100% giống nhau.
+> - **Kỹ thuật AI (Software 2.0)**: Mang tính **xác suất (Probabilistic)**. Khi mô hình phân loại đọc một email, nó không bao giờ dám khẳng định chắc chắn 100% đây là thư rác; nó chỉ tính ra: *"Xác suất là thư rác là 92%"*. Tương tự, một hệ thống AI nhận diện giọng nói hay dự đoán thời gian xử lý backend luôn phải đối mặt với nhiễu môi trường và thông tin không hoàn hảo.
+> - **Vai trò cốt lõi**: Xác suất và thống kê không phải là bài tập toán lý thuyết, mà là **công cụ định lượng sự bất định**, giúp kỹ sư thiết lập ngưỡng an toàn (thresholds), kiểm soát rủi ro và biết khi nào hệ thống đang "nói mò".
+
+---
+
 ## 3. Biến cố và xác suất: bắt đầu từ một request
 
 Gọi $E$ là biến cố “request gặp lỗi nghiêm trọng”, $A$ là “hệ thống phát cảnh báo”. Một **biến cố** là tập các kết quả thỏa một điều kiện. Không gian mẫu $\Omega$ chứa toàn bộ các kết quả được xét trong mô hình xác suất.
@@ -37,17 +49,25 @@ $P(E)$ là xác suất của $E$, nằm trong $[0,1]$. Hai kết quả “có l�
 
 Ký hiệu và quy tắc:
 
-| Ký hiệu / công thức | Cách đọc |
-|---|---|
-| $E^c$ | Không xảy ra lỗi, phần bù của $E$ |
-| $E\cap A$ | Vừa có lỗi vừa có cảnh báo |
-| $E\cup A$ | Có lỗi hoặc có cảnh báo, gồm cả trường hợp có cả hai |
-| $P(E^c)=1-P(E)$ | Xác suất biến cố bù |
-| $P(E\cup A)=P(E)+P(A)-P(E\cap A)$ | Trừ phần bị đếm hai lần |
+| Ký hiệu / công thức | Cách đọc | Ý nghĩa trực quan |
+|---|---|---|
+| $E^c$ | Không xảy ra lỗi, phần bù của $E$ | Mọi trường hợp request chạy thành công bình thường |
+| $E\cap A$ | Vừa có lỗi vừa có cảnh báo | Giao điểm: Lỗi xảy ra và hệ thống bắt trúng (True Positive) |
+| $E\cup A$ | Có lỗi hoặc có cảnh báo, gồm cả trường hợp có cả hai | Hợp: Chỉ cần có lỗi hoặc có cảnh báo (hoặc cả hai) |
+| $P(E^c)=1-P(E)$ | Xác suất biến cố bù | Tổng xác suất của có lỗi và không lỗi luôn bằng 100% |
+| $P(E\cup A)=P(E)+P(A)-P(E\cap A)$ | Trừ phần bị đếm hai lần | Tránh cộng trùng nhóm request vừa lỗi vừa cảnh báo |
 
 Nếu chọn đều một dòng trong bảng log hữu hạn, xác suất chọn được dòng lỗi bằng số dòng lỗi chia tổng số dòng. Với hệ thống đang vận hành, tỷ lệ $k/n$ trong một mẫu log là **ước lượng tần suất**, chưa tự động bằng xác suất thật của mọi request tương lai.
 
 Ví dụ: mô hình sinh dữ liệu có xác suất lỗi $p=0.2$ không bắt buộc 10 request phải chứa đúng 2 lỗi. Có thể thấy 0, 1, 3 hoặc nhiều lỗi hơn. Xác suất và tần suất của một mẫu nhỏ khác nhau. [Seeing Theory: Basic Probability](https://seeing-theory.brown.edu/basic-probability/index.html)
+
+> [!TIP]
+> ### 💡 Phân biệt: Xác suất lý thuyết ($p$) vs Tần suất quan sát ($\hat p$)
+> - **Xác suất thực tế $p = 0.2$**: Là quy luật khách quan tiềm ẩn bên trong hệ thống (cứ 100 request dài hạn thì trung bình có 20 request lỗi).
+> - **Tần suất quan sát $\hat p = k/n$**: Là con số bạn đếm được từ một mẫu hữu hạn (ví dụ trích xuất log của 10 phút vừa qua).
+> - **Ví dụ thực tế**: Giống như tung đồng xu cân đồng chất ($p = 0.5$). Nếu bạn tung 10 lần, bạn có thể thấy 7 lần ngửa ($\hat p = 0.7$). Đừng vội kết luận đồng xu bị lệch! Đó chỉ là sự dao động ngẫu nhiên của mẫu nhỏ.
+
+---
 
 ## 4. Biến ngẫu nhiên và phân bố
 
@@ -86,6 +106,13 @@ Số lỗi là biến rời rạc. Thời gian có thể được mô hình hóa
 
 Không mặc định mọi dữ liệu có phân bố chuẩn hình chuông. Latency có thể lệch phải, nhiều cụm hoặc có đuôi lớn. Phân bố dùng trong ví dụ cần được phân biệt với dữ liệu hệ thống thực.
 
+> [!NOTE]
+> ### 💡 Giải thích tường minh về Kỳ vọng $\mathbb E[X]$ và Mật độ liên tục
+> - **Tại sao kỳ vọng lại là 0.2?** Một request riêng lẻ chỉ có thể là 0 (thành công) hoặc 1 (lỗi), không bao giờ có 0.2 lỗi. Kỳ vọng $\mathbb E[X] = 0.2$ là **trọng tâm dài hạn**: nghĩa là nếu hệ thống phục vụ $10.000$ request, tổng số lỗi kỳ vọng xấp xỉ $10.000 \times 0.2 = 2.000$ lỗi.
+> - **Mật độ xác suất (PDF) có thể lớn hơn 1?** Đúng! Nhiều người lầm tưởng xác suất không thể vượt quá 1 nên mật độ cũng vậy. Nhưng với biến liên tục, xác suất là **diện tích** dưới đường cong ($P = \text{Mật độ} \times \text{Khoảng thời gian}$). Nếu một sự kiện diễn ra chớp nhoáng trong khoảng cực hẹp $[0, 0.5]$ giây, mật độ có thể bằng $2.0$ để tổng diện tích tích phân bằng đúng $1.0$ ($2.0 \times 0.5 = 1$).
+
+---
+
 ## 5. Thống kê mô tả: cùng trung bình, khác trải nghiệm
 
 Xét hai tập latency, đơn vị ms:
@@ -109,10 +136,10 @@ Với T, $\bar x=20$. Các độ lệch là $(-10,-10,-10,-10,40)$, tổng bình
 
 Hai mục tiêu khác nhau dẫn tới hai quy ước mẫu số:
 
-| Mục tiêu | Công thức | Với T |
-|---|---|---|
-| Mô tả mức phân tán của chính tập giá trị đang có | $v_n=\frac1n\sum_i(x_i-\bar x)^2$ | $2000/5=400$ ms² |
-| Ước lượng phương sai tổng thể từ mẫu iid | $s^2=\frac1{n-1}\sum_i(x_i-\bar x)^2$ | $2000/4=500$ ms² |
+| Mục tiêu | Công thức | Với T | Ý nghĩa thực tế |
+|---|---|---|---|
+| Mô tả mức phân tán của chính tập giá trị đang có | $v_n=\frac1n\sum_i(x_i-\bar x)^2$ | $2000/5=400$ ms² | Đo độ phân tán thuần túy của 5 con số trên màn hình |
+| Ước lượng phương sai tổng thể từ mẫu iid | $s^2=\frac1{n-1}\sum_i(x_i-\bar x)^2$ | $2000/4=500$ ms² | Ước lượng độ phân tán của toàn bộ hệ thống trong tương lai |
 
 `iid` nghĩa là các quan sát độc lập và có cùng phân bố. Với giả định ấy và phương sai hữu hạn, mẫu số $n-1$ cho ước lượng không chệch của phương sai tổng thể. Việc ước lượng trung bình từ cùng dữ liệu đã làm mất một bậc tự do: tổng các độ lệch quanh trung bình mẫu luôn bằng 0.
 
@@ -138,6 +165,16 @@ Nếu dự đoán **một hằng số** $c$ cho mọi giá trị của T, MSE nh
 
 Có thể kiểm tra bằng đạo hàm: $\frac{d}{dc}\frac1n\sum_i(c-x_i)^2=\frac2n\sum_i(c-x_i)$; cho bằng 0 sẽ được $c=\bar x$. Mean phù hợp mục tiêu bình phương sai số, không nhất thiết mô tả “request điển hình” tốt nhất trong mọi tình huống. Phương sai và MSE không đồng nhất trong mọi bài toán: ở đây chúng trùng về biểu thức khi dự đoán đúng trung bình của tập ấy.
 
+> [!TIP]
+> ### 💡 Ví dụ đời thường: Cái bẫy "Lương bình quân" & Ứng dụng Backend P95/P99
+> - **Cái bẫy lương bình quân**: Hãy tưởng tượng trong quán cà phê có 9 kỹ sư lương 20 triệu/tháng. Bỗng nhiên tỷ phú Elon Musk bước vào quán!
+>   - **Mean (Trung bình)**: Lập tức bị kéo vọt lên hàng chục tỷ đồng mỗi người $\implies$ Con số bị bóp méo hoàn toàn bởi một giá trị ngoại lai (outlier).
+>   - **Median (Trung vị)**: Vẫn đứng vững ở mức 20 triệu đồng $\implies$ Phản ánh đúng thực tế của đại đa số.
+> - **Ứng dụng AI Engineer**: Khi giám sát độ trễ API mô hình (LLM serving / inference), **không bao giờ chỉ nhìn vào Mean Latency**. Hãy nhìn vào **Median (P50)**, **P95** (95% request chạy dưới ngưỡng này) và **P99** (độ trễ của 1% request xấu nhất). Một request 60 giây trong số 1000 request 10 ms sẽ làm hỏng trải nghiệm người dùng nếu hệ thống không có timeout phù hợp.
+> - **Tại sao lại chia cho $n-1$ (Bessel's Correction)?** Vì trung bình mẫu $\bar x$ được tính từ chính các điểm dữ liệu đó, nên dữ liệu mẫu luôn có xu hướng "co cụm" quanh $\bar x$ gần hơn so với trung bình thực tế của toàn vũ trụ. Chia cho $n-1$ (mẫu số nhỏ đi một chút) sẽ bù đắp phần hao hụt này, giúp phương sai không bị đánh giá thấp.
+
+---
+
 ## 6. Độc lập và đếm số lỗi
 
 Hai biến cố độc lập nếu $P(E\cap A)=P(E)P(A)$. Tương đương $P(A\mid E)=P(A)$ khi $P(E)>0$: biết E không đổi xác suất A. Độc lập không có nghĩa “không cùng xảy ra”. Hai biến cố loại trừ nhau, đều có xác suất dương, lại không độc lập.
@@ -160,6 +197,14 @@ Xác suất đúng 2 lỗi khoảng 30.2%, không phải 100%, dù $\mathbb E[K]
 
 Nếu một sự cố cơ sở dữ liệu làm nhiều request liên tiếp cùng lỗi, giả định độc lập có thể không đúng. Thêm số dòng log tương quan mạnh không tạo lượng thông tin độc lập như thêm từng ấy quan sát iid.
 
+> [!WARNING]
+> ### 💡 Ứng dụng thực tế: Kỳ vọng không phải kết quả bắt buộc (Cạm bẫy Flaky Test)
+> - Khi bạn gửi 10 request thử nghiệm và biết tỷ lệ lỗi hệ thống là $20\%$, kỳ vọng toán học đúng là $10 \times 0.2 = 2$ lỗi.
+> - Nhưng khả năng bạn bắt gặp **chính xác 2 lỗi** chỉ vỏn vẹn **$30.2\%$**! Gần $70\%$ số lần chạy thử, bạn sẽ thấy 0 lỗi, 1 lỗi, 3 lỗi hoặc nhiều hơn.
+> - **Bài học cho kỹ sư**: Nếu viết bài kiểm tra tự động (CI/CD integration test) với assertion cứng: `assert error_count == 2`, bài test của bạn sẽ bị rớt (flaky) tới 70% số lần chạy! Kiểm thử hệ thống xác suất phải kiểm tra khoảng kỳ vọng hoặc kiểm định giả thuyết thống kê, không dùng so sánh bằng tuyệt đối.
+
+---
+
 ## 7. Xác suất có điều kiện: mẫu số đã thay đổi
 
 $$
@@ -172,9 +217,9 @@ Giả định một bảng 10 000 request có cấu trúc sau:
 
 | | Có lỗi E | Không lỗi $E^c$ | Tổng |
 |---|---:|---:|---:|
-| Có cảnh báo A | 90 | 495 | 585 |
+| Có cảnh báo A | 90 | 495 | **585** |
 | Không cảnh báo | 10 | 9405 | 9415 |
-| Tổng | 100 | 9900 | 10000 |
+| Tổng | **100** | **9900** | **10000** |
 
 Tính từ đúng nhóm được điều kiện hóa:
 
@@ -184,6 +229,8 @@ Tính từ đúng nhóm được điều kiện hóa:
 - $P(E\mid A)=90/585\approx15.38\%$: trong nhóm cảnh báo, có lỗi thật bao nhiêu.
 
 **90% và 15.38% không mâu thuẫn:** chúng trả lời hai câu hỏi khác nhau, dùng hai mẫu số khác nhau.
+
+---
 
 ## 8. Bayes: đảo chiều điều kiện một cách đúng đắn
 
@@ -216,6 +263,19 @@ Nếu tỷ lệ lỗi nền tăng thành 10%, giữ hai tỷ lệ cảnh báo c�
 
 Biết hai biến cố có liên hệ không chứng minh quan hệ nhân quả. Bayes ở đây là cập nhật xác suất theo thông tin, không phải phép kiểm tra cảnh báo có gây ra lỗi hay không.
 
+> [!IMPORTANT]
+> ### 💡 Trực giác & Ứng dụng AI: Nghịch lý Báo động giả (False Alarm Paradox)
+> - **Vì sao độ nhạy 90% mà xác suất lỗi thật chỉ có 15.38%?**
+>   - Nhìn vào bảng đếm 10.000 request: Nhóm bình thường ($9.900$) **đông gấp 99 lần** nhóm lỗi thật ($100$).
+>   - Tỷ lệ báo nhầm $5\%$ nghe có vẻ rất nhỏ, nhưng $5\%$ của $9.900$ tạo ra tới **$495$ lần báo động giả**!
+>   - Trong khi đó, hệ thống dù bắt được $90\%$ số lỗi thật thì cũng chỉ phát ra được **$90$ lần báo động thật**.
+>   - Khi chuông reo (tổng cộng $585$ lần), có tới $495$ lần là báo giả và chỉ $90$ lần là lỗi thật: $90 / 585 \approx 15.38\%$.
+> - **Ứng dụng thực tế của AI Engineer**:
+>   - **Phát hiện gian lận thẻ tín dụng (Fraud Detection)**: Gian lận thẻ tín dụng trong tự nhiên chỉ chiếm tỷ lệ cực nhỏ ($0.1\%$). Nếu mô hình AI của bạn có tỷ lệ báo nhầm $1\%$, nó sẽ tạo ra hàng chục nghìn cảnh báo giả, làm nghẽn toàn bộ tổng đài hỗ trợ và làm phiền khách hàng lương thiện.
+>   - **Bộ lọc mã độc / Spam**: Phải luôn tính đến **Tỷ lệ nền (Base Rate / Prior)** khi thiết lập ngưỡng cảnh báo (Threshold tuning).
+
+---
+
 ## 9. Ước lượng từ mẫu cũng dao động
 
 Nếu có $k$ lỗi trong $n$ request, $\hat p=k/n$ là ước lượng điểm của tỷ lệ lỗi. Trong mô hình iid Bernoulli với p cố định:
@@ -241,17 +301,26 @@ Tăng số mẫu 10 lần làm SE giảm $\sqrt{10}$ lần, không phải 10 l�
 
 Trong lab, trung bình của 5000 ước lượng xấp xỉ 0.200830 ở n=100, 0.200214 ở n=1000. Đây là **kết quả mô phỏng**, khác kỳ vọng lý thuyết đúng bằng 0.2. Khi tăng mẫu, tỷ lệ thường tập trung hơn quanh p dưới giả định phù hợp, nhưng không được hứa sai lệch giảm sau mọi request được thêm vào.
 
+> [!NOTE]
+> ### 💡 Quy luật căn bậc hai ($\sqrt{n}$) trong thu thập dữ liệu
+> - Chú ý mẫu số của Sai số chuẩn là $\sqrt{n}$.
+> - Muốn độ chính xác tăng gấp đôi (tức sai số giảm đi một nửa: từ $4\%$ xuống $2\%$): Bạn **không phải thu thập gấp đôi dữ liệu**, mà bắt buộc phải thu thập **GẤP 4 LẦN DỮ LIỆU** ($2^2 = 4$).
+> - Muốn giảm sai số đi 10 lần: Bạn phải thu thập **GẤP 100 LẦN DỮ LIỆU** ($10^2 = 100$).
+> - Điều này giải thích vì sao giai đoạn đầu gán nhãn dữ liệu đem lại cải thiện rất nhanh, nhưng càng về sau chi phí thu thập dữ liệu để tăng thêm $1\%$ độ chính xác càng trở nên đắt đỏ.
+
+---
+
 ## 10. Khoảng tin cậy cho tỷ lệ — cách đọc trước, công thức sau
 
 20 lỗi trong 100 request và 200 lỗi trong 1000 request đều cho $\hat p=20\%$, nhưng lượng thông tin không giống nhau. Ta dùng **confidence interval — khoảng tin cậy** để biểu diễn bất định do lấy mẫu đối với tham số p.
 
 Bài này dùng **Wilson score interval** hai phía, mức danh nghĩa 95%, hệ số $z=1.96$. Kết quả:
 
-| Dữ liệu | Ước lượng điểm | Khoảng Wilson xấp xỉ |
-|---|---:|---:|
-| 20/100 | 20% | [13.34%, 28.88%] |
-| 200/1000 | 20% | [17.64%, 22.59%] |
-| 0/100 | 0% | [0%, 3.70%] |
+| Dữ liệu | Ước lượng điểm | Khoảng Wilson xấp xỉ | Độ rộng khoảng |
+|---|---:|---:|:---:|
+| 20/100 | 20% | [13.34%, 28.88%] | Rộng (~15.5%) |
+| 200/1000 | 20% | [17.64%, 22.59%] | Hẹp (~5.0%) |
+| 0/100 | 0% | [0%, 3.70%] | Vẫn có thể lỗi tới 3.7%! |
 
 Không thấy lỗi trong 100 request chưa chứng minh p=0. Khoảng cuối không bằng [0,0]. Bảng dùng giả định lấy mẫu nhị thức đã nêu; không sửa được việc lấy mẫu thiên lệch hoặc p thay đổi theo thời gian. Công thức được đối chiếu với [NIST: Confidence intervals for proportions](https://www.itl.nist.gov/div898/handbook/prc/section2/prc241.htm).
 
@@ -278,6 +347,14 @@ $$
 
 Khoảng là $[c-h,c+h]$. Hàm `wilson_interval` tính trực tiếp công thức này. $z$ là hệ số từ phân bố chuẩn cho mức danh nghĩa đã chọn, không phải learning rate hay điểm dữ liệu. Bài không yêu cầu tự suy ra phép đảo kiểm định dẫn đến công thức; có thể học sâu ở phần suy luận thống kê sau này.
 
+> [!CAUTION]
+> ### 💡 Cạm bẫy thực tế: Thử nghiệm 100 lần không lỗi $\ne$ Tỷ lệ lỗi bằng 0%
+> - Khi bạn chạy thử nghiệm tính năng mới trên 100 người dùng và thấy **0 lỗi xảy ra (0/100)**: Đừng vội tuyên bố hệ thống hoàn hảo 100%!
+> - Khoảng tin cậy Wilson cho thấy tỷ lệ lỗi thực tế vẫn có thể dao động từ **$0\%$ đến $3.7\%$**. Nếu đưa hệ thống này ra phục vụ 1 triệu người dùng, $3.7\%$ tương đương với **$37.000$ khách hàng gặp lỗi**!
+> - Khoảng tin cậy giúp kỹ sư AI định lượng được "khoảng bất định" do cỡ mẫu còn nhỏ.
+
+---
+
 ## 11. Xác suất dự đoán khác nhãn dự đoán
 
 Một bộ phân loại có thể trả $p_\theta(Y=1\mid x)=0.8$ rồi dùng ngưỡng để tạo nhãn. Đây là **xác suất do mô hình ước lượng**, phụ thuộc dữ liệu, tham số và giả định; không phải phép đo chắc chắn về thế giới.
@@ -288,9 +365,9 @@ Ví dụ tự tạo gồm ba nhóm, mỗi nhóm 10 mẫu:
 
 | Nhóm | Nhãn 1 quan sát | Mô hình A dự đoán | Mô hình B dự đoán |
 |---|---:|---:|---:|
-| 1 | 2/10 | 0.20 | 0.05 |
-| 2 | 5/10 | 0.50 | 0.50 |
-| 3 | 8/10 | 0.80 | 0.95 |
+| 1 | 2/10 | **0.20** | **0.05** |
+| 2 | 5/10 | **0.50** | **0.50** |
+| 3 | 8/10 | **0.80** | **0.95** |
 
 Trong mỗi nhóm, mọi mẫu nhận cùng một xác suất. Với quy tắc `p >= 0.5` gán nhãn 1, cả hai mô hình tạo cùng nhãn và cùng accuracy 21/30=70%. Nhưng xác suất của B cực đoan hơn mức dữ liệu nhóm này hỗ trợ.
 
@@ -316,6 +393,14 @@ Hai điểm số này đánh giá chất lượng xác suất tổng thể, khô
 
 Nếu gán xác suất 0 cho một kết quả thực sự xảy ra, log loss lý thuyết là vô hạn. Lab giữ ý nghĩa ấy thay vì âm thầm cắt xác suất thành một số nhỏ. Khi triển khai thư viện có thể có quy tắc xử lý số học riêng cần đọc tài liệu.
 
+> [!TIP]
+> ### 💡 Trực giác: Mô hình "Tự tin thái quá" (Overconfident Model)
+> - Cả hai mô hình A và B đều đạt Accuracy bằng nhau ($70\%$). Nhưng Mô hình A là mô hình **"biết người biết ta"**: khi nó bảo 20% khả năng thì thực tế đúng là 20%; khi nó bảo 80% thì thực tế là 80%.
+> - Mô hình B là kẻ **"ngạo mạn tự tin thái quá"**: nó thổi phồng lên 95% và hạ thấp xuống 5%.
+> - **Vì sao LogLoss và Brier Score lại quan trọng?** Vì trong các hệ thống tự động hóa rủi ro cao (chẩn đoán y khoa, xe tự lái), ta cần con số xác suất phản ánh chân thực độ chắc chắn. LogLoss phạt cực kỳ nặng các cú dự đoán tự tin ngút trời mà thực tế lại ra kết quả ngược lại.
+
+---
+
 ## 12. Entropy và các nguồn bất định
 
 Với phân bố Bernoulli, **entropy — độ bất định của phân bố** tính bằng bit:
@@ -332,12 +417,24 @@ Entropy thấp của **đầu ra mô hình** không chứng minh mô hình đún
 
 | Nguồn | Cách hiểu | Ví dụ giả định / hướng xử lý |
 |---|---|---|
-| Aleatoric | Dao động còn lại của quan sát với đầu vào đang có | Cùng số lô và truy vấn nhưng cache/tải khác nhau; có thể cần mô hình phân bố đầu ra hoặc thêm thông tin hữu ích |
-| Epistemic | Thiếu hiểu biết về mô hình do dữ liệu/giả định hạn chế | Chưa có dữ liệu request rất lớn; có thể cần dữ liệu đại diện hơn, kiểm tra mô hình và đánh giá riêng |
+| **Aleatoric** | Dao động còn lại của quan sát với đầu vào đang có (Nhiễu tự nhiên) | Cùng số lô và truy vấn nhưng cache/tải mạng khác nhau; có thể cần mô hình phân bố đầu ra hoặc thêm thông tin hữu ích |
+| **Epistemic** | Thiếu hiểu biết về mô hình do dữ liệu/giả định hạn chế | Chưa có dữ liệu request rất lớn; có thể cần **thu thập thêm dữ liệu đại diện**, kiểm tra mô hình và đánh giá riêng |
 
 Phân biệt trên được đối chiếu ở mức khái niệm với abstract của [Kendall & Gal, 2017](https://arxiv.org/abs/1703.04977); bài này chưa triển khai các phương pháp Bayesian Deep Learning trong nghiên cứu đó.
 
 “Nhiễu không thể giảm” phải hiểu tương đối với những đầu vào và mô hình đang xét: đo thêm nguyên nhân hữu ích có thể giảm phần biến thiên chưa giải thích. Ngược lại, thêm nhiều dữ liệu cùng vùng cũ không đảm bảo giải quyết thiếu hiểu biết ở vùng mới. Dữ liệu triển khai đổi phân bố còn có thể làm xác suất/đánh giá cũ mất hiệu lực; không phải mô hình nào cũng phát hiện được việc đó bằng một điểm uncertainty.
+
+> [!NOTE]
+> ### 💡 Ứng dụng thực tế: Tham số Temperature trong ChatGPT và Guardrails an toàn
+> 1. **Bản chất của thanh trượt Temperature trong LLM (ChatGPT / Claude)**:
+>    - Khi mô hình sinh ra từ tiếp theo, nó tính xác suất cho toàn bộ từ điển (ví dụ 50.000 từ).
+>    - **Temperature**: Thực chất là công cụ điều khiển **Entropy** của phân bố này.
+>      - `Temperature = 0`: Ép Entropy về cực thấp, mô hình chỉ chọn từ có xác suất cao nhất (Greedy decoding) $\implies$ Đảm bảo câu trả lời nhất quán, logic, phù hợp viết code và trích xuất dữ liệu có cấu trúc (JSON).
+>      - `Temperature = 0.8 ~ 1.0`: Làm phẳng phân bố xác suất, tăng Entropy $\implies$ Cho phép mô hình chọn các từ phong phú hơn, tăng tính sáng tạo khi làm thơ hoặc viết kịch bản.
+> 2. **Cơ chế Guardrails & Abstention ("Tự biết mình không biết")**:
+>    - Trong các ứng dụng ngân hàng hay y tế, khi mô hình tính ra độ bất định (Entropy) quá cao (phân vân giữa nhiều câu trả lời), hệ thống sẽ chủ động kích hoạt cơ chế an toàn: Từ chối phán đoán tự động và chuyển tiếp câu hỏi cho chuyên viên con người xử lý (Human-in-the-loop).
+
+---
 
 ## 13. Code thực hành và tái tạo hình
 
@@ -373,12 +470,14 @@ Hình đã lưu sẵn dạng PNG/SVG trong [figures](figures/). Chỉ cần cài
 
 Mã vẽ: [make_figures.py](make_figures.py); phụ thuộc: [requirements.txt](requirements.txt), [requirements-figures.txt](requirements-figures.txt). Đã kiểm tra Matplotlib 3.11.2; gói ghim phiên bản cần Python/nền tảng tương thích. Hình luôn dùng cấu hình cố định ghi trong mã, không tự lấy tùy chọn từ lần chạy lab trước đó.
 
+---
+
 ## 14. Tự kiểm tra và bước tiếp theo
 
 Những cặp khái niệm không nên lẫn:
 
-- Xác suất giả định p và tỷ lệ quan sát $\hat p$.
-- Phương sai tổng thể, phương sai mẫu và quy ước mô tả chia n.
+- Xác suất giả định $p$ và tỷ lệ quan sát $\hat p$.
+- Phương sai tổng thể, phương sai mẫu và quy ước mô tả chia $n$.
 - Độ lệch chuẩn quan sát và sai số chuẩn của ước lượng.
 - $P(A\mid E)$ và $P(E\mid A)$.
 - Khoảng tin cậy của tham số và khoảng dự đoán cho kết quả mới.

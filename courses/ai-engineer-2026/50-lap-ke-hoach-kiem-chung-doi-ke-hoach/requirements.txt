@@ -1,0 +1,1 @@
+-r ../49-thiet-ke-tool-tich-hop-mcp/requirements.txt

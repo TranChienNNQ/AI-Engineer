@@ -2,7 +2,7 @@
 
 [Mục lục](../README.md) · [Bài 10](../10-chain-rule-computational-graph-backpropagation/README.md) · [Bài tập](exercises.md) · [Lời giải](solutions.md)
 
-Biên soạn ngày 04/11/2026. Dữ liệu tự tạo; không tải dataset ngoài. Bài dùng PyTorch thật trên CPU. Trọng tâm là hiểu hợp đồng dữ liệu và cơ chế tự vi phân, nối trực tiếp với NumPy ở bài 10. Các số liệu thực hành chỉ là điểm train của ví dụ giảng dạy.
+Biên soạn ngày 04/11/2026. Bổ sung định nghĩa tường minh các khái niệm cốt lõi của PyTorch (Tensor, Autograd, Leaf/Non-leaf, Dataset, DataLoader, pin_memory, collate_fn...), trực giác kỹ thuật và cẩm nang thực chiến cho AI Engineer; toàn bộ ví dụ, công thức giải tích, mã nguồn và kết quả kiểm toán gốc được giữ nguyên vẹn 100% để đối chiếu chuẩn. Dữ liệu tự tạo; không tải dataset ngoài. Bài dùng PyTorch thật trên CPU. Trọng tâm là hiểu hợp đồng dữ liệu và cơ chế tự vi phân, nối trực tiếp với NumPy ở bài 10. Các số liệu thực hành chỉ là điểm train của ví dụ giảng dạy.
 
 ## 1. Mục tiêu và cách học
 
@@ -23,6 +23,17 @@ PyTorch cung cấp tensor, các phép tính, module có tham số, công cụ au
 | Tự chọn hàng thành batch | `Dataset` và `DataLoader` |
 
 Thư viện không tự chọn nhãn, phép chia dữ liệu hay metric phù hợp. Autograd đúng không chứng minh dữ liệu không rò rỉ. Nguồn: [PyTorch Learn the Basics](https://docs.pytorch.org/tutorials/beginner/basics/intro.html).
+
+> [!NOTE]
+> ### 💡 Định nghĩa: Hệ sinh thái PyTorch & Ẩn dụ Xe đạp số sàn vs Xe thể thao tự động
+> 
+> - **PyTorch là gì?**: PyTorch là một framework học sâu (Deep Learning) mã nguồn mở hàng đầu thế giới, cung cấp hai tính năng nền tảng:
+>   1. **Tensor Computing**: Thư viện mảng đa chiều tương tự NumPy nhưng có thể chạy với tốc độ siêu nhanh trên phần cứng tăng tốc như GPU (NVIDIA CUDA), Apple Silicon (MPS), hoặc TPU.
+>   2. **Dynamic Autograd Engine (Hệ thống tự vi phân động)**: Tự động ghi nhớ đồ thị tính toán theo cơ chế "chạy đến đâu dựng đồ thị đến đó" (Define-by-Run) và tự động tính toán toàn bộ gradient bằng thuật toán Backpropagation chỉ với một lệnh `loss.backward()`.
+> 
+> - **Ẩn dụ đời thường: Xe đạp số sàn (NumPy) vs Xe thể thao tự động (PyTorch)**:
+>   - Ở Bài 10, bạn đã tự tay gia công từng bánh răng, sên xích và đạp xe bằng chính sức mình: tự tính đạo hàm ma trận chuyển vị $X^T G$, tự viết vòng lặp cập nhật từng trọng số. Việc đó giúp bạn thấu hiểu bản chất cơ học bên trong cỗ máy.
+>   - PyTorch ở Bài 11 giống như một chiếc xe đua hiện đại với hộp số tự động và động cơ tăng áp: bạn chỉ cần nhấn chân ga (`model(X)`), đo đồng hồ tốc độ (`loss`), và đạp phanh (`loss.backward()`), toàn bộ hệ thống cơ điện tử bên trong sẽ tự động phối hợp nhịp nhàng mà bạn không cần phải tính tay từng đạo hàm nữa!
 
 ## 3. Tensor: giá trị đi kèm shape, dtype, device
 
@@ -66,6 +77,29 @@ print(shared,copied)  # [9,2] và [1,2]
 
 `detach()` ngắt quan hệ autograd nhưng không tự tạo bản sao dữ liệu độc lập. Nếu cần snapshot không theo dõi gradient và không chia sẻ storage, dùng `tensor.detach().clone()`. Không sửa in-place tensor chia sẻ bộ nhớ mà backward còn cần; autograd có thể báo lỗi, hoặc thay đổi dữ liệu làm phép kiểm không còn cùng trạng thái.
 
+> [!NOTE]
+> ### 💡 Bảng từ điển định nghĩa: Thuộc tính Tensor & Quản lý Bộ nhớ
+> 
+> - **PyTorch Tensor**: Cấu trúc dữ liệu mảng n-chiều (n-dimensional array), là đơn vị giao tiếp cơ bản của mọi mô hình học sâu.
+> - **Bốn thuộc tính sống còn của Tensor**:
+>   1. `shape`: Kích thước không gian của các chiều (ví dụ: `(batch_size, channels, height, width)` cho ảnh, hoặc `(batch_size, seq_len, hidden_dim)` cho văn bản LLM).
+>   2. `dtype`: Kiểu dữ liệu số học (ví dụ: `torch.float32` mặc định cho train, `torch.float64` cho kiểm toán độ chính xác cao, `torch.bfloat16`/`torch.float16` cho huấn luyện mô hình ngôn ngữ lớn LLM để tiết kiệm 50% VRAM, `torch.long` cho ID nhãn/token).
+>   3. `device`: Vị trí phần cứng lưu trữ và thực thi tính toán (`'cpu'` hoặc `'cuda:0'` trên GPU NVIDIA, `'mps'` trên chip Apple M-series).
+>   4. `requires_grad`: Cờ đánh dấu boolean (`True`/`False`). Khi bật `True`, PyTorch sẽ bắt đầu theo dõi mọi thao tác tính toán lên tensor này để dựng đồ thị đạo hàm.
+> - **Bộ nhớ dùng chung (Storage & View) vs Bản sao độc lập (Clone)**:
+>   - `torch.from_numpy(arr)`: **Mượn chung vùng nhớ vật lý (Zero-copy)** với mảng NumPy trên CPU. Thay đổi phần tử ở mảng này sẽ lập tức làm biến đổi mảng kia! Cực kỳ nhanh vì không tốn công copy dữ liệu.
+>   - `torch.tensor(arr)`: **Tạo bản sao mới hoàn toàn (Deep Copy)** trên bộ nhớ, hai bên hoạt động độc lập.
+>   - `tensor.detach()`: Cắt đứt quan hệ với Autograd (không còn theo dõi gradient), nhưng **vẫn chia sẻ chung vùng nhớ vật lý** với tensor gốc.
+>   - `tensor.detach().clone()`: **Bản snapshot độc lập an toàn tuyệt đối**: vừa ngắt Autograd, vừa cấp phát vùng nhớ mới riêng biệt.
+> 
+> > [!WARNING]
+> > ### ⚠️ Hai cạm bẫy kỹ thuật kinh điển của Kỹ sư AI:
+> > 1. **Cạm bẫy `squeeze()` làm "bốc hơi" chiều Batch trong Production**:
+> >    - Khi train với batch lớn $n=32$, gọi `y_pred.squeeze()` sẽ nén tensor `(32, 1)` thành `(32,)`. Code vẫn chạy mượt mà.
+> >    - Nhưng khi đưa lên API Production (Real-time Serving), mỗi request chỉ gửi đúng 1 mẫu ($n=1$, shape `(1, 1)`). Lúc này `squeeze()` không chỉ định trục sẽ nén sạch mọi chiều, biến tensor thành một số vô hướng scalar `()` (mất luôn chiều batch)! Hệ quả: các hàm loss ma trận lập tức crash với lỗi `IndexError` hoặc shape mismatch.
+> >    - **Giải pháp chuẩn**: Luôn chỉ định rõ trục cần nén: `squeeze(-1)`.
+> > 2. **Thao tác sửa đổi tại chỗ (In-place operations)**: Các hàm kết thúc bằng dấu gạch dưới như `add_()`, `copy_()` ghi đè trực tiếp lên vùng nhớ cũ. Nếu vùng nhớ này đang được Autograd lưu lại làm cache cho chiều backward, PyTorch sẽ lập tức ném ra lỗi runtime để bảo vệ tính toàn vẹn của giải tích.
+
 ## 5. Autograd từ graph đã tính tay
 
 Dùng lại graph bài 10: x=2, w=0.5, b=1, a=wx+b, L=a²+3a. Forward cho a=2, L=10. Hai nhánh góp 4 và 3 nên dL/da=7, dL/dw=14, dL/db=7.
@@ -101,6 +135,18 @@ Trong khi đó `.grad` ở leaf được **cộng dồn**. Nếu tính một for
 
 `None` sau zero_grad không phải tensor 0: đó là chưa có gradient được lưu. Gradient bằng 0 có thể là kết quả tính thật, còn None có thể do chưa backward hoặc parameter không nằm trên đường loss. Không suy chỉ từ None rằng thư viện bị lỗi.
 
+> [!NOTE]
+> ### 💡 Trực giác: Cơ chế Autograd, Leaf Tensor & Sự khác biệt giữa Graph và `.grad`
+> 
+> - **Định nghĩa Leaf Tensor (Tensor lá) vs Non-leaf Tensor (Tensor trung gian)**:
+>   - **Leaf Tensor**: Các tensor gốc do người dùng tạo ra trực tiếp (như tham số trọng số $w, b$ của mô hình) có `requires_grad=True`. Chúng là đích đến cuối cùng của dòng chảy gradient. Chỉ có Leaf Tensor mới được PyTorch giữ lại giá trị đạo hàm trong thuộc tính `.grad` sau khi gọi `.backward()`.
+>   - **Non-leaf Tensor**: Các tensor sinh ra từ kết quả của phép toán (như $a = w x + b$, $\text{loss} = a^2 + 3a$). Chúng sở hữu thuộc tính `grad_fn` (trỏ tới phép toán đã tạo ra chúng để phục vụ quy tắc chuỗi). Để tiết kiệm RAM/VRAM, thuộc tính `.grad` của các tensor trung gian này **bị hủy ngay lập tức sau khi backward kết thúc** (trừ khi gọi lệnh tường minh `a.retain_grad()`).
+> 
+> - **Vòng đời đối lập giữa Đồ thị tính toán (Graph) và Bộ đệm gradient (`.grad`)**:
+>   - **Graph chỉ sống trong 1 lần backward**: Khi bạn gọi `loss.backward()`, đồ thị tính toán được duyệt ngược từ loss về các lá, và **bị phá hủy ngay lập tức** để giải phóng bộ nhớ (trừ khi đặt cờ `retain_graph=True`). Mỗi lần bạn gọi `model(X)`, một đồ thị hoàn toàn mới sẽ được sinh ra từ đầu (Cơ chế Dynamic Graph).
+>   - **Bộ đệm `.grad` lại sống dai dẳng và tự cộng dồn**: Thuộc tính `.grad` của các tham số $w, b$ không hề tự biến mất! Nếu bạn chạy forward lần 2 rồi backward mà quên xóa, gradient mới sẽ **tự động cộng dồn (accumulate)** đè lên gradient cũ ($14 + 14 = 28$).
+>   - **Quy tắc vàng**: Luôn đặt lệnh `optimizer.zero_grad(set_to_none=True)` ở đầu mỗi batch huấn luyện!
+
 ## 7. Chuyển mạng bài 10 sang nn.Linear
 
 Lab dùng mạng 2→2→1 với ReLU và trọng số đặt giống bài 10 để kiểm toán. NumPy lưu W `(in,out)`, PyTorch Linear lưu weight `(out,in)` và tính `X @ weight.T + bias`. Vì vậy phải transpose weight khi chuyển; bias vẫn theo số output.
@@ -129,6 +175,22 @@ Dùng `.T` và kiểm shape ở mỗi bước giúp thấy vì sao gradient có 
 
 `nn.BCEWithLogitsLoss` nhận logit và đã kết hợp sigmoid; chỉ sigmoid để diễn giải xác suất khi cần. Không sigmoid hai lần. [BCEWithLogitsLoss](https://docs.pytorch.org/docs/2.15/generated/torch.nn.BCEWithLogitsLoss.html)
 
+> [!NOTE]
+> ### 💡 Trực giác AI Engineer: Chuyển vị trọng số giữa NumPy và PyTorch Linear
+> 
+> - **Tại sao `nn.Linear` lại lưu trọng số dạng chuyển vị `(out_features, in_features)`?**:
+>   - Trong sách giáo khoa toán học và NumPy, ta thường viết phép biến đổi cho vector hàng:
+>     $$Z = X W + b \quad \text{với } W \text{ có kích thước } (d_{\text{in}}, d_{\text{out}})$$
+>   - Tuy nhiên, trong đại số tuyến tính cổ điển, các nhà toán học biểu diễn vector dưới dạng cột: $y = W x + b$, trong đó $W$ có kích thước $(\text{out}, \text{in})$.
+>   - Để vừa tương thích với công thức vector cột cổ điển, vừa xử lý được batch vector hàng $X$ $(n, d_{\text{in}})$, PyTorch thiết kế lớp `nn.Linear` lưu trữ ma trận trọng số $A$ dạng $(d_{\text{out}}, d_{\text{in}})$ và thực hiện phép tính:
+>     $$\text{output} = X A^T + b$$
+>   - Do đó, khi nạp trọng số từ NumPy hoặc từ các framework khác sang PyTorch, bạn bắt buộc phải **chuyển vị (transpose) ma trận trọng số**:
+>     ```python
+>     # NumPy W có shape (in, out) -> PyTorch Linear weight cần shape (out, in)
+>     linear_layer.weight.data = torch.from_numpy(W_numpy.T)
+>     linear_layer.bias.data = torch.from_numpy(b_numpy)
+>     ```
+
 ## 8. Dataset và DataLoader có trách nhiệm gì?
 
 **Dataset** định nghĩa một mẫu và cách lấy mẫu. Dataset dạng map trong bài có `__len__` trả số mẫu, `__getitem__(index)` trả `(x,y)`. **DataLoader** lấy các mẫu theo sampler/thứ tự, gộp thành batch và cho phép lặp.
@@ -148,6 +210,32 @@ Không shuffle, batch size2 và `drop_last=False`: ID `[0,1]`, `[2,3]`, `[4]`, k
 *Drop last thay tập mẫu được xử lý; không chỉ thay hình thức trình bày.*
 
 `shuffle=True` đổi thứ tự lấy mẫu trong tập đã chọn, **không chia train/test**, không tách user trùng và không sửa leakage. Lab truyền generator có seed, num_workers=0 để tránh multiprocessing làm khó bước nhập môn. Tăng worker không bảo đảm nhanh hơn; dữ liệu nhỏ trong RAM có thể không hưởng lợi. Với nhiều worker, random transform và IterableDataset cần thiết kế seed/phân chia dữ liệu riêng; chưa kiểm chứng ở đây. [Datasets & DataLoaders](https://docs.pytorch.org/tutorials/beginner/basics/data_tutorial.html)
+
+> [!NOTE]
+> ### 💡 Bảng định nghĩa: Hợp đồng dữ liệu của Dataset và DataLoader
+> 
+> - **`torch.utils.data.Dataset` (Hợp đồng dữ liệu đơn mẫu)**:
+>   - Lớp trừu tượng đại diện cho một tập dữ liệu. Bất kỳ Dataset chuẩn Map-style nào trong PyTorch cũng bắt buộc phải cài đặt 2 phương thức:
+>     1. `__len__(self)`: Trả về tổng số lượng mẫu trong tập dữ liệu ($N$). Cho phép gọi hàm `len(dataset)`.
+>     2. `__getitem__(self, index)`: Nhận vào một chỉ số `index` và trả về đúng một cặp mẫu dữ liệu $(x, y)$ tại vị trí đó (đọc file ảnh từ ổ cứng, parse chuỗi văn bản, trích xuất audio).
+> 
+> - **`torch.utils.data.DataLoader` (Cỗ máy đóng gói và nạp dữ liệu)**:
+>   - Trình bao bọc (wrapper) thông minh nhận đầu vào là một `Dataset`, chịu trách nhiệm vận chuyển dữ liệu vào mô hình với các tham số cốt lõi:
+>     - `batch_size`: Số lượng mẫu được gom lại thành 1 mẻ (batch) tensor để đưa vào GPU tính toán song song.
+>     - `shuffle`: Xáo trộn ngẫu nhiên thứ tự các chỉ số trước mỗi epoch (bắt buộc bật `True` cho tập Train để phá vỡ tính tương quan cục bộ; đặt `False` cho Validation/Test để kết quả nhất quán).
+>     - `drop_last`: Khi tổng số mẫu $N$ không chia hết cho `batch_size`, batch cuối cùng sẽ bị lẻ (ví dụ 105 mẫu chia batch 32 thì batch cuối chỉ có 9 mẫu). Nếu `drop_last=True`, batch 9 mẫu này sẽ bị bỏ qua; nếu `drop_last=False`, batch 9 mẫu vẫn được xử lý.
+>     - `num_workers`: Số lượng tiến trình con (multiprocessing worker) trên CPU chuyên lo việc load và tiền xử lý dữ liệu trước khi đẩy vào RAM/GPU.
+>     - `pin_memory`: Khi bật `True`, DataLoader sẽ khóa trang bộ nhớ RAM (page-locked memory), giúp việc truyền dữ liệu từ CPU RAM sang GPU VRAM qua cổng PCIe đạt băng thông tối đa.
+>     - `collate_fn`: Hàm tùy biến quy định cách gom một danh sách các mẫu `[sample_1, sample_2, ...]` thành một batch tensor duy nhất (cực kỳ quan trọng khi xử lý padding cho các câu có độ dài ngắn khác nhau trong NLP).
+> 
+> ---
+> 
+> ### 💡 Ẩn dụ đời thường: Bếp ăn công nghiệp (Dataset & DataLoader)
+> - **`Dataset` là Kho nguyên liệu**: Người thủ kho (`__getitem__`) biết chính xác ở ngăn kéo số 5 có củ cà rốt nào, ngăn số 10 có miếng thịt bò nào.
+> - **`DataLoader` là Đội ngũ phụ bếp thông minh**:
+>   - Họ lấy nguyên liệu từ kho ra, rửa sạch, sơ chế và đóng thành từng khay đồ ăn sẵn gồm 32 suất (`batch_size=32`).
+>   - Họ huy động 4 người cùng sơ chế một lúc (`num_workers=4`) và đặt sẵn các khay lên băng chuyền siêu tốc (`pin_memory=True`).
+>   - Bếp trưởng (GPU) chỉ việc đứng ở đầu băng chuyền, nhận từng khay xào nấu liên tục với công suất tối đa mà không bao giờ phải chịu cảnh "cháy máy" vì chờ đợi nguyên liệu!
 
 ## 9. Tính tay loss khi batch cuối nhỏ
 
@@ -183,6 +271,35 @@ Thứ tự mỗi batch trong lab:
 
 `model.parameters()` trả các Parameter đã đăng ký trong module. Việc tạo tensor requires_grad=True rời rạc không tự đưa nó vào optimizer của model. Không thay Parameter sau khi tạo optimizer rồi mặc định optimizer tự theo tensor mới.
 
+> [!NOTE]
+> ### 💡 Quy tắc vàng tính Metric toàn Epoch & 4 bước thần thánh trong Training Loop
+> 
+> - **Cạm bẫy tính trung bình Loss sai lầm (Naive Batch Average)**:
+>   - Giả sử tập dữ liệu có 5 mẫu chia thành 3 batch với kích thước lần lượt là $[2, 2, 1]$. Loss trung bình đo được ở 3 batch là $[5, 37, 81]$.
+>   - Nếu bạn tính trung bình cộng đơn thuần của 3 con số này:
+>     $$\text{Loss sai} = \frac{5 + 37 + 81}{3} = 41$$
+>   - Con số $41$ này hoàn toàn sai lệch! Nó đã vô tình coi mẫu duy nhất ở batch 3 có sức nặng ngang ngửa với 2 mẫu ở batch 1 và batch 2.
+>   - **Cách tính đúng chuẩn kỹ thuật**: Ta phải nhân loss từng batch với số lượng mẫu thực tế của batch đó rồi chia cho tổng số mẫu:
+>     $$\text{Loss đúng} = \frac{5 \times 2 + 37 \times 2 + 81 \times 1}{2 + 2 + 1} = \frac{10 + 74 + 81}{5} = \frac{165}{5} = 33$$
+> 
+> ---
+> 
+> - **"Bốn bước thần thánh" trong mỗi Batch huấn luyện (Bắt buộc ghi nhớ)**:
+>   ```python
+>   # 1. Xóa sạch gradient cũ còn đọng lại từ batch trước
+>   optimizer.zero_grad(set_to_none=True)
+>   
+>   # 2. Truyền xuôi (Forward): Dự đoán và tính hàm mất mát
+>   outputs = model(inputs)
+>   loss = criterion(outputs, targets)
+>   
+>   # 3. Truyền ngược (Backward): Autograd tự động tính đạo hàm cho mọi tham số
+>   loss.backward()
+>   
+>   # 4. Tối ưu (Step): Optimizer cập nhật trọng số dựa trên gradient vừa tính
+>   optimizer.step()
+>   ```
+
 ## 11. eval và no_grad là hai công tắc khác nhau
 
 `model.train()`/`model.eval()` đổi chế độ hoạt động của những module có hành vi phụ thuộc mode, như Dropout/BatchNorm. Chúng không tự bật/tắt autograd. Với Linear/ReLU trong bài, eval không đổi công thức forward.
@@ -190,6 +307,27 @@ Thứ tự mỗi batch trong lab:
 `torch.no_grad()` tắt ghi graph cho các phép toán trong context, hữu ích khi đo/suy luận. Nó không tự gọi eval. Cách đo thông thường kết hợp cả `model.eval()` và `with torch.no_grad():`.
 
 Trong mode `modes`, gọi eval rồi forward vẫn có requires_grad=True do parameter cần grad; forward trong no_grad làFalse; ra khỏi context, forward mới lạiTrue. Bài chưa thực nghiệm Dropout/BatchNorm, nên không suy từ Linear rằng eval không bao giờ thay dự đoán.
+
+> [!NOTE]
+> ### 💡 Phân biệt rạch ròi: `model.eval()` vs `torch.no_grad()`
+> 
+> Hai công tắc này hoàn toàn độc lập và giải quyết hai bài toán hoàn toàn khác nhau:
+> 
+> | Đặc điểm | `model.eval()` | `with torch.no_grad():` / `inference_mode()` |
+> |---|---|---|
+> | **Bản chất** | Phương thức của `nn.Module` | Trình quản lý ngữ cảnh (Context Manager) của Autograd Engine |
+> | **Tác động lên đâu?** | Lên **hành vi của các tầng đặc thù** (Dropout, BatchNorm) | Lên **bộ máy ghi chép đồ thị tính toán** (Autograd Graph) |
+> | **Với Dropout** | Tắt ngắt kết nối ngẫu nhiên, cho toàn bộ nơ-ron hoạt động | Không can thiệp (nếu model đang ở mode train thì Dropout vẫn ngắt ngẫu nhiên!) |
+> | **Với BatchNorm** | Cố định running mean/var đã học, không tính lại mean/var của batch hiện tại | Không can thiệp (vẫn tính mean/var nếu model đang ở train) |
+> | **Với Autograd** | **VẪN THEO DÕI VÀ TÍNH GRADIENT BÌNH THƯỜNG!** Không hề tắt graph | **NGẮT HOÀN TOÀN VIỆC GHI GRAPH**, tiết kiệm 50% RAM/VRAM và tăng tốc độ |
+> 
+> > [!TIP]
+> > **Quy tắc vàng khi Đánh giá (Validation/Test) hoặc Inference**: Luôn luôn kết hợp cả hai:
+> > ```python
+> > model.eval() # 1. Chuyển các tầng về chế độ kiểm thử
+> > with torch.no_grad(): # 2. Tắt bộ nhớ autograd để chạy nhanh và tiết kiệm RAM
+> >     val_outputs = model(val_inputs)
+> > ```
 
 ## 12. Môi trường và lệnh chạy
 

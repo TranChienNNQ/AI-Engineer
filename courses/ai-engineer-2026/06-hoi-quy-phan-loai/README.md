@@ -2,7 +2,9 @@
 
 [Mục lục](../README.md) · [Bài 5](../05-train-validation-test-ro-ri-du-lieu/README.md) · [Bài tập](exercises.md) · [Lời giải](solutions.md)
 
-Biên soạn và kiểm tra ngày 04/11/2026. Dữ liệu, nhãn, chi phí và kết quả đều là ví dụ tự tạo để học. Code dùng NumPy; không cần scikit-learn, SciPy, GPU hay dịch vụ AI.
+Biên soạn và kiểm tra ngày 04/11/2026. Bổ sung các khối giải thích tường minh, trực giác kỹ thuật và ví dụ thực tế cho AI Engineer; toàn bộ dữ liệu, nhãn, chi phí và kết quả gốc được giữ nguyên vẹn để đối chiếu chuẩn. Code dùng NumPy; không cần scikit-learn, SciPy, GPU hay dịch vụ AI.
+
+---
 
 ## 1. Mục tiêu và cách đọc
 
@@ -16,6 +18,8 @@ Sau bài học, người học có thể:
 - Đọc softmax, phân biệt nó với nhiều sigmoid và tránh một số lỗi số học.
 
 Cần biết vector, đạo hàm, MSE, xác suất Bernoulli và vai trò validation từ bài 1–5. Có thể đọc phần 2–4 để ôn hồi quy; phần 5–9 học phân loại nhị phân; phần 10–14 mở rộng đầu ra và thực hành. Precision/recall, F1 và mất cân bằng sẽ học sâu ở bài 7.
+
+---
 
 ## 2. Chọn kiểu bài toán từ ý nghĩa đích
 
@@ -34,6 +38,16 @@ Việc y được lưu bằng số nguyên chưa quyết định kiểu bài to�
 Ngược lại, số đếm vẫn có thể là bài toán hồi quy dù chỉ quan sát số nguyên. Một dự đoán kỳ vọng 12.4 request có thể có nghĩa, nhưng xử lý miền giá trị và quyết định làm tròn cần theo mục tiêu. Mức độ ưu tiên có thứ tự còn có thể cần cách mô hình hóa ordinal; không tự coi mọi thang mức là khoảng cách bằng nhau.
 
 Định dạng đầu vào cũng không quyết định kiểu bài toán: cùng một ảnh có thể được dùng dự đoán loại vật thể hoặc một đại lượng số. Cần chọn đích, loss và cách đánh giá cùng nhau.
+
+> [!NOTE]
+> ### 💡 Trực giác & Phân loại nhanh 4 dạng bài toán trong thực tế
+> Để không bao giờ nhầm lẫn, hãy tự đặt câu hỏi về bản chất đầu ra:
+> 1. **Hồi quy (Regression) — "Bao nhiêu?"**: Đầu ra là một con số thực liên tục có đơn vị đo lường (độ trễ ms, giá nhà tỷ VNĐ, nhiệt độ °C). Sai lệch giữa 10 ms và 12 ms có ý nghĩa toán học cụ thể.
+> 2. **Phân loại nhị phân (Binary Classification) — "Có hay Không?"**: Đầu ra là 1 trong 2 lựa chọn loại trừ nhau (Email Spam hay Hợp lệ? Giao dịch Lừa đảo hay An toàn? Khách hàng Rời bỏ hay Ở lại?).
+> 3. **Phân loại đa lớp (Multi-class Classification) — "Một trong số nhiều?"**: Đầu ra là duy nhất 1 nhãn trong $C$ nhãn ứng viên (Nhận diện giống chó: Poodle, Husky hay Corgi? Phân loại phòng ban xử lý: Kỹ thuật, Kế toán hay Nhân sự?). Các nhãn cạnh tranh nhau, tổng xác suất chia cho các nhãn bằng đúng 100%.
+> 4. **Phân loại nhiều nhãn (Multi-label Classification) — "Những cái nào trong số nhiều?"**: Một mẫu có thể đồng thời mang nhiều nhãn (Một bài báo công nghệ có thể gắn cả 3 thẻ: `#AI`, `#Python`, `#Cloud`; một bộ phim có thể vừa là `Hành động`, vừa là `Hài hước`). Các nhãn độc lập với nhau.
+
+---
 
 ## 3. Hồi quy tuyến tính: điểm dự đoán có đơn vị của đích
 
@@ -70,6 +84,14 @@ $$
 
 Với learning rate 0.1, cập nhật đồng thời w=1.3,b=0.8. Dự đoán mới là 2.1 và 3.4; MSE $=(0.9^2+1.6^2)/2=1.685$. Đây là cơ chế bài 2, nay đặt trong sự lựa chọn loại đầu ra và loss.
 
+> [!TIP]
+> ### 💡 So sánh thực tế: Khi nào chọn MAE và khi nào chọn RMSE?
+> - **MAE (Mean Absolute Error — Sai số tuyệt đối trung bình)**: Đo độ lệch trung bình thực tế bằng cách lấy trị tuyệt đối $|\hat y - y|$. MAE giống như một vị trọng tài ôn hòa: lệch 1 ms thì phạt 1 điểm, lệch 10 ms thì phạt 10 điểm. MAE ít bị ảnh hưởng bởi các điểm dị biệt (outliers).
+> - **RMSE (Root Mean Squared Error — Căn bậc hai sai số bình phương trung bình)**: Vì bình phương sai số trước khi lấy căn, RMSE giống như một vị thẩm phán nghiêm khắc: lệch 1 ms chỉ phạt 1 điểm, nhưng lệch 10 ms bị phạt tương đương 100 điểm trước khi căn!
+> - **Ứng dụng AI Engineer**: Nếu trong hệ thống SLA của bạn, các lỗi dự đoán lớn gây hậu quả nghiêm trọng (ví dụ: dự đoán sai độ trễ làm server bị sập hàng loạt), hãy tối ưu **RMSE**. Nếu bài toán chấp nhận thỉnh thoảng có vài ngoại lai và bạn muốn đo lường mức sai lệch điển hình, hãy chọn **MAE**.
+
+---
+
 ## 4. Huấn luyện hồi quy theo quy trình bài 5
 
 Lab dùng lại dữ liệu nhỏ của bài 5 để nối mạch học:
@@ -87,11 +109,11 @@ Quy trình: fit mean/SD chỉ trên train → chuẩn hóa các phần bằng th
 
 Với 3000 bước, learning rate 0.1, kết quả gần:
 
-| L2 λ | Train MSE | Validation MSE |
-|---:|---:|---:|
-| 0 | 0.628571 | **0.034830** |
-| 0.1 | 0.633760 | 0.065281 |
-| 1 | 0.882804 | 0.447226 |
+| L2 λ | Train MSE | Validation MSE | Nhận xét lựa chọn |
+|---:|---:|---:|---|
+| **0** | **0.628571** | **0.034830** | **Tốt nhất!** Validation loss nhỏ nhất, chọn cấu hình này |
+| **0.1** | 0.633760 | 0.065281 | Phạt nhẹ trọng số, loss tăng nhẹ |
+| **1** | 0.882804 | 0.447226 | Phạt quá nặng làm mô hình kém linh hoạt (Underfit) |
 
 Phần định nghĩa penalty sẽ giải thích ở mục 8. Trong ví dụ này λ=0 được chọn. Đổi về tọa độ x gốc, mô hình gần $\hat y=(31/35)x+72/7$. Hai dự đoán test là khoảng 11.614286 và 13.385714 ms, MSE=16/1225≈0.013061 ms², RMSE=MAE≈0.114286 ms.
 
@@ -100,6 +122,8 @@ Baseline dự đoán mean train 12.5 cho mọi request có test MSE=1. Đây là
 ![Dữ liệu, đường hồi quy được chọn và đường loss huấn luyện](figures/01-hoi-quy.png)
 
 *Hình 1. Điểm test được hiển thị sau khi quy trình chọn đã chốt. Hình phải chỉ vẽ 100 bước đầu. Train loss không về 0 vì các điểm train không nằm chính xác trên một đường thẳng.*
+
+---
 
 ## 5. Logistic regression: logit khác xác suất
 
@@ -117,11 +141,11 @@ $$
 
 e≈2.71828. Trong toán thực với z hữu hạn, 0<p<1; trên máy tính p có thể bị làm tròn thành 0/1 ở giá trị rất lớn. Sigmoid không đổi logit thành nhãn ngay, mà tạo xác suất mô hình gán cho lớp 1. [Google: Sigmoid function](https://developers.google.com/machine-learning/crash-course/logistic-regression/sigmoid-function)
 
-| z | p xấp xỉ |
-|---:|---:|
-| −2 | 0.119203 |
-| 0 | 0.500000 |
-| 2 | 0.880797 |
+| z (Logit thô) | p xấp xỉ (Xác suất) | Ý nghĩa trực quan |
+|---:|---:|---|
+| −2 | 0.119203 | Nghiêng mạnh về lớp 0 (~11.9%) |
+| 0 | 0.500000 | Điểm cân bằng tuyệt đối: 50/50 |
+| 2 | 0.880797 | Nghiêng mạnh về lớp 1 (~88.1%) |
 
 Đảo lại:
 
@@ -134,6 +158,20 @@ $p/(1-p)$ là **odds**; z là log-odds. Ví dụ z=ln3 cho odds=3, p=3/4=0.75. O
 Nếu tăng một đặc trưng một đơn vị, giữ các đặc trưng khác cố định, log-odds tăng $w_j$, odds nhân với $e^{w_j}$. Xác suất không tăng một lượng cố định vì sigmoid phi tuyến. Không tự diễn giải hệ số thành tác động nhân quả hoặc so độ quan trọng của hai hệ số khác đơn vị/thang đo.
 
 Tên **logistic regression** dễ gây nhầm: trong cách gọi bài toán ML thông thường, đây là mô hình phân loại dù có chữ regression. Nó tuyến tính ở log-odds, không phải ở xác suất. [scikit-learn: Logistic regression](https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression)
+
+> [!NOTE]
+> ### 💡 Trực giác: Vì sao không dùng đường thẳng $wx+b$ trực tiếp cho phân loại?
+> - **Vấn đề của đường thẳng**: Hàm tuyến tính $\hat y = wx + b$ có thể chạy từ $-\infty$ đến $+\infty$. Nếu áp dụng cho bài toán xác suất (vốn chỉ được phép nằm trong đoạn $[0, 1]$), mô hình có thể cho ra dự đoán vô lý như: *"Xác suất spam là -2.5"* hoặc *"Xác suất gian lận là 180%"*!
+> - **Hàm Sigmoid — Cỗ máy nén số học**: Hàm Sigmoid đóng vai trò như một chiếc kẹp đàn hồi mềm hình chữ S:
+>   - Bất kỳ số âm rất lớn nào cũng bị nén tiệm cận về sát số $0$.
+>   - Số $0$ rơi đúng vào điểm phân vân $0.5$ (50%).
+>   - Bất kỳ số dương rất lớn nào cũng bị nén tiệm cận về sát số $1$.
+> - **Logit vs Odds vs Xác suất**:
+>   - *Xác suất $p$*: Tỷ lệ cơ hội xảy ra ($p = 0.75$, tức 75%).
+>   - *Tỷ số cược (Odds)*: Tỷ lệ giữa cơ hội xảy ra và không xảy ra: $\text{Odds} = \frac{p}{1-p} = \frac{0.75}{0.25} = 3$ (Nói nôm na: "Cửa thắng sáng gấp 3 lần cửa thua").
+>   - *Logit ($z$)*: Lấy log tự nhiên của Odds: $z = \ln(3) \approx 1.098$.
+
+---
 
 ## 6. Từ xác suất đến quyết định
 
@@ -152,6 +190,14 @@ Bài dùng quy tắc hòa `>=`; quy tắc ở đúng biên phải được ghi r
 Nếu đặc trưng đầu vào đã được biến đổi phi tuyến, ranh giới khi nhìn lại không gian gốc có thể khác. Và xác suất đúng miền [0,1] vẫn chưa chứng minh calibration tốt; phải kiểm tra trên dữ liệu phù hợp như bài 4.
 
 Ngưỡng quyết định khác tham số w,b. Đổi ngưỡng không tự huấn luyện lại mô hình hoặc đổi p; nó đổi hành động cuối. Vai trò của ngưỡng được đối chiếu với [Google: Thresholds](https://developers.google.com/machine-learning/crash-course/classification/thresholding).
+
+> [!TIP]
+> ### 💡 Ứng dụng AI: Đổi ngưỡng quyết định theo bối cảnh kinh doanh
+> Mô hình AI chỉ tính ra xác suất $p$, còn việc gán nhãn 0 hay 1 phụ thuộc vào **ngưỡng quyết định $\tau$ (Decision Threshold)** do kỹ sư lựa chọn:
+> - **Khi nào chọn ngưỡng thấp ($\tau = 0.2$)?** Trong bài toán chẩn đoán ung thư hoặc phát hiện gian lận ngân hàng: Thà báo nhầm (False Alarm) để bác sĩ kiểm tra lại, còn hơn là bỏ sót một khối u ác tính!
+> - **Khi nào chọn ngưỡng cao ($\tau = 0.85$)?** Trong bộ lọc email Spam: Thà để lọt một vài email rác vào Inbox, còn hơn là xóa nhầm một email quan trọng của đối tác kinh doanh!
+
+---
 
 ## 7. Vì sao dùng binary cross-entropy?
 
@@ -209,6 +255,16 @@ Với learning rate 1, w mới=0.5,b mới=0. Hai xác suất thành khoảng 0.
 
 Không. MSE giữa xác suất và nhãn nhị phân chính là Brier score đã học. Nếu gắn sigmoid rồi tối ưu MSE, gradient theo logit có thêm $2(p-y)p(1-p)$; không phải gradient BCE ở trên. Logistic regression theo Bernoulli likelihood thường dùng BCE. Loss/optimizer phải khớp thiết kế và được đánh giá, không chọn bằng khẩu hiệu “phân loại không được bình phương sai số”. [Google: Loss and regularization](https://developers.google.com/machine-learning/crash-course/logistic-regression/loss-regularization)
 
+> [!NOTE]
+> ### 💡 Vẻ đẹp của công thức Gradient BCE: $(\mathbf p - \mathbf y)$
+> Hãy nhìn vào biểu thức đạo hàm: $\nabla_\mathbf w L = \frac{1}{n}X^T(\mathbf p - \mathbf y)$.
+> - Độ lệch chính là: **(Xác suất máy đoán $p$ - Nhãn thực tế $y$)**!
+> - Nếu nhãn thật là $y = 1$ mà máy chỉ đoán $p = 0.2$: độ lệch là $0.2 - 1 = -0.8$ (độ dốc âm rất lớn $\implies$ cập nhật mạnh mẽ tham số để tăng xác suất lên).
+> - Nếu nhãn thật là $y = 1$ và máy đã đoán đúng $p = 0.99$: độ lệch là $0.99 - 1 = -0.01$ (độ dốc gần bằng 0 $\implies$ máy gần như không cần điều chỉnh tham số nữa).
+> - Sự kết hợp giữa đạo hàm của Sigmoid $p(1-p)$ và đạo hàm của BCE $\frac{p-y}{p(1-p)}$ đã triệt tiêu mẫu số một cách hoàn hảo, để lại biểu thức gradient thanh lịch bậc nhất trong toán học học máy.
+
+---
+
 ## 8. Regularization: thêm một ưu tiên cho nghiệm
 
 Bài này dùng mục tiêu:
@@ -228,6 +284,14 @@ Hai lưu ý quan trọng:
 
 Nếu dữ liệu phân tách hoàn hảo, logistic không regularize có thể tiếp tục tăng độ lớn trọng số để giảm BCE mà không có nghiệm trọng số hữu hạn tối ưu. Ví dụ hai điểm ở mục 7 chỉ minh họa một bước; không khẳng định chạy vô hạn sẽ dừng ở một bộ hệ số hữu hạn. Tập train logistic ở mục sau cố ý có các nhãn chồng lấn theo x, không phân tách hoàn hảo bằng một ngưỡng tuyến tính.
 
+> [!TIP]
+> ### 💡 Trực giác: Regularization là gì và vì sao lại cần "phạt trọng số"?
+> - **Ẩn dụ đời thường**: Giống như việc bạn chấm bài luận của học sinh: ngoài điểm nội dung trả lời đúng trọng tâm ($L_{data}$), bạn còn trừ điểm nếu học sinh dùng từ ngữ quá đao to búa lớn, hoa mỹ phóng đại một cách không cần thiết ($\frac{\lambda}{2}\|\mathbf w\|_2^2$).
+> - **Bản chất trong học máy**: Nếu không có Regularization, mô hình Logistic Regression sẽ cố gắng thổi phồng các trọng số $w$ lên hàng nghìn, hàng triệu để ép xác suất tiến sát tuyệt đối về $1.0$ và $0.0$. Trọng số khổng lồ làm mô hình trở nên cực kỳ "nhạy cảm thái quá" (Overfitting) — chỉ cần một biến động tí hon ở đầu vào là dự đoán nhảy dựng lên.
+> - L2 Regularization (còn gọi là **Weight Decay / Co cụm trọng số**) ghì các trọng số ở mức vừa phải, giúp mô hình giữ được độ mượt mà và tổng quát hóa tốt hơn trên dữ liệu mới.
+
+---
+
 ## 9. Huấn luyện logistic và giữ ranh giới đánh giá
 
 Dữ liệu một đặc trưng x là chỉ số đã biểu diễn, có thể âm; không phải số request âm:
@@ -243,11 +307,11 @@ Test y:    0,    0,   1,   1
 
 Mọi giá trị được dựng sẵn; không phải ticket thật. Fit scaler trên train, thử ba mức λ, dùng **validation BCE không cộng penalty** để chọn. Với 3000 bước, lr=0.1:
 
-| λ | Train BCE | Validation BCE |
-|---:|---:|---:|
-| 0 | 0.487924 | **0.301201** |
-| 0.1 | 0.517555 | 0.410167 |
-| 1 | 0.629064 | 0.601882 |
+| λ | Train BCE | Validation BCE | Kết quả lựa chọn |
+|---:|---:|---:|---|
+| **0** | **0.487924** | **0.301201** | **Tốt nhất!** Chọn mô hình này |
+| **0.1** | 0.517555 | 0.410167 | Loss validation cao hơn |
+| **1** | 0.629064 | 0.601882 | Phạt quá nặng làm suy giảm độ chính xác |
 
 Ở dữ liệu này λ=0 được chọn, hệ số đổi về x gốc gần w=0.866926,b=0. Không suy ra mọi bài toán nên bỏ regularization.
 
@@ -258,6 +322,8 @@ Baseline xác suất bằng tỷ lệ lớp 1 của train=0.5 có test log loss=
 ![Đường log loss theo xác suất và loss huấn luyện logistic](figures/03-log-loss.png)
 
 *Hình 3. Bên trái là loss một mẫu theo p; bên phải là 300 bước đầu trên tập train. Accuracy train cuối là 75%, khác test nhỏ trong ví dụ. Loss tối ưu xác suất và accuracy theo ngưỡng đo các khía cạnh khác nhau.*
+
+---
 
 ## 10. Chọn ngưỡng theo mục tiêu hành động
 
@@ -270,11 +336,11 @@ Xác suất dự đoán:    [0.2, 0.4, 0.6, 0.8]
 
 Giả định báo nhầm (FP) tốn 1 đơn vị, bỏ sót (FN) tốn 3 đơn vị; dự đoán đúng tốn 0. Tổng chi phí=FP+3×FN.
 
-| Ngưỡng τ | FP | FN | Chi phí validation |
-|---:|---:|---:|---:|
-| 0.3 | 1 | 0 | **1** |
-| 0.5 | 1 | 1 | 4 |
-| 0.7 | 1 | 2 | 7 |
+| Ngưỡng τ | Báo nhầm (FP) | Bỏ sót (FN) | Chi phí validation | Nhận xét |
+|---:|---:|---:|---:|---|
+| **0.3** | 1 | 0 | **1** | **Chi phí thấp nhất! Chọn ngưỡng này** |
+| **0.5** | 1 | 1 | 4 | Chi phí gấp 4 lần |
+| **0.7** | 1 | 2 | 7 | Bỏ sót quá nhiều ca nghiêm trọng |
 
 Trong ba ứng viên, chọn 0.3 bằng validation. Không dùng test để chọn ngưỡng sau đó rồi vẫn báo điểm test như độc lập.
 
@@ -289,6 +355,16 @@ p\ge\frac{C_{FP}}{C_{FP}+C_{FN}}
 $$
 
 Với chi phí 1 và 3, ngưỡng lý thuyết là 0.25. Không mặc định nó tối ưu thực tế nếu xác suất chưa hiệu chuẩn, chi phí thay đổi hoặc có giới hạn số cảnh báo được xử lý. Việc tìm trong ba ứng viên hữu hạn cũng khác bài toán tối ưu kỳ vọng với p thật. Các chỉ số FP/FN, precision/recall sẽ được tổ chức đầy đủ ở bài 7.
+
+> [!IMPORTANT]
+> ### 💡 Ứng dụng kỹ thuật: Tối ưu ngưỡng theo ma trận tổn thất kinh doanh
+> Trong bài toán thực tế, sai lầm không bình đẳng:
+> - **Bỏ sót một vụ gian lận (False Negative)**: Ngân hàng mất trắng 100 triệu VNĐ ($C_{FN} = 100$).
+> - **Báo nhầm một khách hàng bình thường (False Positive)**: Tốn 1 tin nhắn SMS và 1 cuộc gọi CSKH, thiệt hại 20 nghìn VNĐ ($C_{FP} = 0.02$).
+> - Công thức lý thuyết $\tau = \frac{C_{FP}}{C_{FP} + C_{FN}} = \frac{0.02}{0.02 + 100} \approx 0.0002$.
+> - Ngưỡng tối ưu trong trường hợp này cực kỳ thấp: chỉ cần một giao dịch có xác suất gian lận $0.02\%$ là hệ thống đã phải kích hoạt xác thực sinh trắc học OTP để ngăn chặn tổn thất!
+
+---
 
 ## 11. Đa lớp và nhiều nhãn: cùng shape chưa chắc cùng ý nghĩa
 
@@ -314,6 +390,17 @@ Với ticket có thể mang nhiều nhãn, có thể dùng một sigmoid cho m�
 
 Các sigmoid riêng mô hình hóa xác suất theo từng nhãn; cách đơn giản ấy chưa tự nắm hết phụ thuộc hoặc ràng buộc giữa nhãn. Lab chỉ tính softmax/categorical loss và các sigmoid minh họa, **chưa huấn luyện mô hình đa lớp hoặc nhiều nhãn**. Công thức và thủ thuật ổn định được đối chiếu với [SciPy: softmax](https://docs.scipy.org/doc/scipy/reference/generated/scipy.special.softmax.html); code không gọi SciPy.
 
+> [!TIP]
+> ### 💡 Phân biệt cốt lõi: Softmax vs Multiple Sigmoids
+> - **Softmax — "Chia bánh 100%"**: 
+>   - Các lớp cạnh tranh sống còn với nhau. Nếu xác suất lớp A tăng lên, bắt buộc xác suất các lớp B, C phải giảm xuống để tổng bằng đúng $1.0$ (100%).
+>   - *Dùng khi*: Dự đoán giống loài động vật (Một con vật chỉ có thể là Mèo HOẶC Chó HOẶC Thỏ).
+> - **Multiple Independent Sigmoids — "Mỗi lớp một cánh cửa riêng"**:
+>   - Mỗi nhãn được dự đoán bằng một hàm Sigmoid độc lập. Xác suất nhãn này không ảnh hưởng đến nhãn kia; tổng các xác suất có thể bằng $1.9$ hoặc $0.3$.
+>   - *Dùng khi*: Gán tag bài viết blog (Một bài viết có thể vừa là `#AI` ($85\%$), vừa là `#Python` ($90\%$), vừa là `#DataScience` ($75\%$)).
+
+---
+
 ## 12. Ổn định số học: tính đúng ý nghĩa khi số rất lớn
 
 Viết trực tiếp `1/(1+exp(-z))` có thể overflow khi z âm rất lớn. Lab tính sigmoid theo hai nhánh để chỉ mũ hóa số không dương.
@@ -337,6 +424,18 @@ p_j=\frac{e^{z_j-m}}{\sum_ce^{z_c-m}}
 $$
 
 Lab chuẩn hóa theo **trục lớp cuối**, giữ tổng bằng 1 theo từng mẫu. Chuẩn hóa cả batch thành một tổng duy nhất sẽ mô tả bài toán khác. Phần ổn định này không thay thế kiểm tra input hữu hạn, shape, nhãn và chất lượng mô hình.
+
+> [!NOTE]
+> ### 💡 Bí kíp công nghệ: Mẹo trừ Max tránh lỗi tràn số (Numerical Stability)
+> Trong lập trình AI trên máy tính:
+> - Hàm số mũ $e^z$ tăng cực kỳ khủng khiếp: với số thực 64-bit, chỉ cần $z \ge 710$ là $e^z$ bị tràn số thành vô cực (`inf`), kéo theo toàn bộ phép tính sau đó bị lỗi `NaN` (Not a Number)!
+> - **Thủ thuật trừ Max trong Softmax**:
+>   - Đặt $m = \max(z_1, z_2, \dots, z_C)$.
+>   - Lấy từng logit trừ đi $m$: $z_j - m$.
+>   - Giá trị lớn nhất giờ đây trở thành $m - m = 0 \implies e^0 = 1.0$! Không còn bất kỳ số nào có thể vượt quá $1.0$, triệt tiêu hoàn toàn nguy cơ tràn số `inf`.
+>   - Về mặt toán học, nhân tử $e^{-m}$ ở cả tử số và mẫu số tự động triệt tiêu nhau, giữ nguyên 100% giá trị xác suất gốc.
+
+---
 
 ## 13. Thực hành và tái tạo hình
 
@@ -371,6 +470,8 @@ Hình đã có PNG/SVG trong [figures](figures/). Để tái tạo, dùng môi t
 ```
 
 Mã vẽ: [make_figures.py](make_figures.py), phụ thuộc [requirements.txt](requirements.txt), [requirements-figures.txt](requirements-figures.txt). Đã kiểm tra Matplotlib 3.11.2; các phiên bản ghim cần Python/nền tảng tương thích. Các hình dùng cấu hình cố định trong script, không lấy tùy chọn từ lần chạy CLI trước đó.
+
+---
 
 ## 14. Tự kiểm tra và bước tiếp theo
 

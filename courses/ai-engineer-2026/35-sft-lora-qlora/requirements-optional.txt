@@ -1,0 +1,6 @@
+-r requirements.txt
+peft==0.21.0
+transformers==5.22.1
+bitsandbytes==0.50.2
+accelerate==1.15.0
+safetensors==0.8.0

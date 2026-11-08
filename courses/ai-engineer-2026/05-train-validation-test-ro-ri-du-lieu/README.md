@@ -2,7 +2,9 @@
 
 [Mục lục](../README.md) · [Bài 4](../04-xac-suat-thong-ke-bat-dinh/README.md) · [Bài tập](exercises.md) · [Lời giải](solutions.md)
 
-Biên soạn và kiểm tra ngày 04/11/2026. Dữ liệu, tỷ lệ và điểm số đều được dựng cho bài học; không phải benchmark hay hiệu quả của một hệ thống thật. Code chỉ cần NumPy; các API scikit-learn/Feast được dẫn để đọc nguyên tắc, không phải phụ thuộc thực hành.
+Biên soạn và kiểm tra ngày 04/11/2026. Bổ sung các khối giải thích tường minh, trực giác kỹ thuật và ví dụ thực tế cho AI Engineer; toàn bộ dữ liệu, mô hình số và khung lý thuyết gốc được giữ nguyên vẹn để đối chiếu chuẩn. Code chỉ cần NumPy; các API scikit-learn/Feast được dẫn để đọc nguyên tắc, không phải phụ thuộc thực hành.
+
+---
 
 ## 1. Mục tiêu và cách học
 
@@ -17,6 +19,8 @@ Sau bài này, người học có thể:
 
 Cần biết MSE, trung bình/độ lệch chuẩn và mảng NumPy từ bài 1–4. Phần 2–6 xây nền; phần 7–10 xét nhóm/thời gian; phần 11–14 nối thành quy trình thực hành. Không cần học trước cây quyết định hoặc mạng neural để làm thí nghiệm.
 
+---
+
 ## 2. Trước khi chia: đang dự đoán điều gì, cho ai, vào lúc nào?
 
 Ví dụ: “ngay khi request đến, dự đoán latency cuối cùng”. Ta cần xác định:
@@ -29,6 +33,16 @@ Ví dụ: “ngay khi request đến, dự đoán latency cuối cùng”. Ta c�
 Các câu hỏi ấy xác định phép chia. Nếu muốn làm việc với user mới nhưng để cùng user xuất hiện cả train và test, điểm số có thể trả lời sai câu hỏi dù không trùng dòng nào.
 
 Trong bài 3, ví dụ dùng “số truy vấn” làm đầu vào. Với bài toán dự đoán ngay khi nhận request, đặc trưng đó chỉ hợp lệ nếu là số truy vấn **đã biết/kế hoạch trước lúc dự đoán**. Nếu chỉ đếm được sau khi chạy xong, đó là thông tin tương lai. Tính hợp lệ phụ thuộc nhiệm vụ và thời điểm, không chỉ tên cột.
+
+> [!NOTE]
+> ### 💡 Trực giác & Ví dụ thực tế: Vẽ dòng thời gian dự đoán (Prediction Timeline)
+> - **Ví dụ thực tế — Dự đoán thời gian giao đồ ăn (ShopeeFood / GrabFood)**:
+>   - *Thời điểm quyết định ($t_0$)*: Ngay khi khách hàng bấm nút "Đặt đơn".
+>   - *Đặc trưng hợp lệ (Đã có sẵn tại $t_0$)*: Khoảng cách từ quán đến nhà khách, thời tiết hiện tại, số lượng món khách gọi.
+>   - *Đặc trưng bị rò rỉ tương lai (Data Leakage)*: "Thời gian tài xế đợi quán nấu xong". Cột này nghe rất hợp lý và tương quan cực mạnh với thời gian giao hàng, nhưng tại thời điểm khách bấm đặt đơn ($t_0$), tài xế còn chưa tới quán thì làm sao hệ thống biết được con số này?
+> - **Nguyên tắc vàng của AI Engineer**: Trước khi đưa bất kỳ cột nào vào làm đặc trưng (Feature), hãy tự hỏi: *"Tại khoảnh khắc hệ thống cần đưa ra dự đoán trong production, con số này đã thực sự tồn tại trong Database chưa?"*.
+
+---
 
 ## 3. Ba tập có ba vai trò
 
@@ -48,6 +62,17 @@ Sau khi chọn cấu hình, có thể **refit** một mô hình cuối trên tra
 
 “Giữ test ngoài lựa chọn” không có nghĩa cấm chạy lại một chương trình cố định để tái lập kết quả. Vấn đề là dùng phản hồi từ test để sửa mô hình, ngưỡng, seed hoặc báo cáo biến thể tốt nhất, rồi vẫn coi điểm ấy là độc lập.
 
+> [!TIP]
+> ### 💡 Ẩn dụ kinh điển: Kỳ thi tốt nghiệp THPT
+> Để không bao giờ nhầm lẫn vai trò của 3 tập dữ liệu, hãy nhớ đến quá trình đi học của học sinh:
+> 1. **Tập Train (Sách giáo khoa & Bài tập về nhà)**: Học sinh được xem đề bài, tự giải và đối chiếu với đáp án sau sách để học kiến thức (mô hình học trọng số $w, b$).
+> 2. **Tập Validation (Kỳ thi thử do trường tổ chức)**: Dùng để học sinh tự đánh giá xem phương pháp ôn tập nào hiệu quả hơn, nên chọn bút chì nào, phân bổ thời gian ra sao (kỹ sư chọn learning rate, số tầng mạng, kiến trúc mô hình).
+> 3. **Tập Test (Đề thi tốt nghiệp chính thức được niêm phong)**: Được giữ kín tuyệt đối, chỉ bóc niêm phong đúng 1 lần trong phòng thi để đánh giá năng lực thực chất của học sinh.
+> 
+> ⚠️ **Hậu quả của việc rò rỉ Test**: Nếu học sinh "nhìn lén" trước đề thi thật để ôn tủ, học sinh đó sẽ đạt 10 điểm tuyệt đối trong kỳ thi, nhưng khi bước chân ra cuộc đời thực tế thì hoàn toàn bất lực! Đó chính là hiện tượng mô hình đạt độ chính xác 99% trên giấy tờ nhưng sập hoàn toàn khi deploy lên production.
+
+---
+
 ## 4. Tỷ lệ chia không phải công thức chung
 
 Lab có ví dụ xáo 20 row ID rồi chia 12/4/4, tức 60%/20%/20%. Đây chỉ là minh họa. Không có tỷ lệ 70/15/15 hoặc 80/10/10 phù hợp mọi bài toán.
@@ -60,6 +85,18 @@ Cần cân nhắc số **đơn vị độc lập**, số ca của từng nhóm c
 - **Time split:** dùng quá khứ để phát triển rồi đo ở tương lai, đồng thời kiểm tra thông tin/nhãn có sẵn.
 
 Có trường hợp cần kết hợp: tương lai của **khách hàng mới**, hoặc dữ liệu có cả cụm hội thoại và mốc thời gian. Không ưu tiên cân bằng tỷ lệ nhãn bằng cách phá ranh giới nhóm/thời gian cần cho bài toán.
+
+> [!NOTE]
+> ### 💡 Bốn chiến lược chia dữ liệu qua các ví dụ đời thực
+> 1. **Random Split (Chia ngẫu nhiên)**: Bốc thăm ngẫu nhiên các dòng. Chỉ an toàn khi các dòng độc lập hoàn toàn với nhau (ví dụ: dữ liệu đo nhiệt độ tại các thành phố cách xa nhau hàng nghìn cây số).
+> 2. **Stratified Split (Chia phân tầng - Bảo toàn tỷ lệ)**:
+>    - *Ví dụ*: Bài toán chẩn đoán căn bệnh hiểm nghèo chỉ chiếm $1\%$ dân số. Nếu chia ngẫu nhiên bừa bãi, tập Test có thể hoàn toàn không có bệnh nhân nào! Stratified Split đảm bảo cả Train, Validation và Test đều giữ đúng tỷ lệ $1\%$ bệnh nhân này.
+> 3. **Group Split (Chia theo nhóm đối tượng)**:
+>    - *Ví dụ*: Nhận diện giọng nói hoặc khuôn mặt. Nếu 1 người dùng có 100 đoạn ghi âm, bạn phải đưa toàn bộ 100 đoạn đó vào Train HOẶC Test. Nếu để 80 đoạn ở Train và 20 đoạn ở Test, mô hình chỉ đơn giản là "nhớ giọng người quen" chứ không học cách nhận diện ngữ âm của người lạ!
+> 4. **Time Split (Chia theo trục thời gian)**:
+>    - *Ví dụ*: Dự báo giá cổ phiếu, xu hướng thị trường, dự đoán gian lận. Bắt buộc phải dùng dữ liệu của tháng 1-10 để Train, tháng 11 để Validation và tháng 12 để Test. Tuyệt đối không xáo trộn ngẫu nhiên vì con người không thể du hành thời gian!
+
+---
 
 ## 5. Ví dụ tính tay: chọn mô hình bằng validation
 
@@ -96,11 +133,11 @@ Sai số là $(1/2,-1/6,-1/2)$, nên MSE $=(1/4+1/36+1/4)/3=19/108\approx0.17592
 
 Tổng hợp:
 
-| k | Train MSE | Validation MSE |
-|---:|---:|---:|
-| 1 | 0.000000 | 1.583333 |
-| 3 | 1.259259 | **0.175926** |
-| 5 | 1.666667 | 1.583333 |
+| k | Train MSE | Validation MSE | Nhận xét bản chất |
+|---:|---:|---:|---|
+| **1** | **0.000000** | 1.583333 | Train loss = 0 tuyệt đối nhưng Validation lại tệ (Học vẹt / Overfitting) |
+| **3** | 1.259259 | **0.175926** | **Tốt nhất!** Validation loss nhỏ nhất (Tổng quát hóa tốt) |
+| **5** | 1.666667 | 1.583333 | Lấy quá nhiều láng giềng làm dự đoán bị phẳng hóa, kém nhạy (Underfitting) |
 
 k=1 có train loss bằng 0 vì tại một điểm train, láng giềng gần nhất chính là nó. Đó là đánh giá lại trên dữ liệu đã nhớ, chưa chứng minh khả năng với dữ liệu mới. Ta chọn k=3 theo validation, không chọn k=1 theo train loss.
 
@@ -121,6 +158,14 @@ Test loss khác validation loss là bình thường: đó là hai tập điểm 
 
 Các tập rất nhỏ này được dựng để tính tay. Chúng không cho phép ước lượng độ tin cậy vận hành hay khẳng định k=3 tốt nhất nói chung. Không coi train loss nhỏ/validation loss lớn tự nó là bằng chứng chắc chắn của một nguyên nhân duy nhất; cần kiểm tra dữ liệu và quy trình.
 
+> [!TIP]
+> ### 💡 Trực giác về kết quả: Vì sao Train MSE = 0 lại là cái bẫy?
+> - Khi chọn $k=1$, mô hình tra cứu đúng điểm gần nhất. Khi kiểm tra lại trên chính tập Train, khoảng cách từ một điểm tới chính nó bằng 0, nên nó đoán đúng 100% (Loss = 0).
+> - Nhưng đây là **"học vẹt" (Memorization)** chứ không phải **"học quy luật" (Generalization)**! Khi gặp dữ liệu mới ở Validation, nó phản ứng giật cục và gây sai số lớn ($1.583$).
+> - Ngược lại, $k=3$ chấp nhận Train MSE hơi cao một chút ($1.259$) để đạt Validation MSE cực đẹp ($0.176$). Đây là minh chứng mẫu mực cho việc: **Luôn chọn siêu tham số (hyperparameter) dựa trên Validation Set, không bao giờ chọn theo Train Set!**
+
+---
+
 ## 6. Rò rỉ dữ liệu là thông tin đi sai ranh giới
 
 **Data leakage — rò rỉ dữ liệu** xảy ra khi quá trình xây mô hình/đánh giá dùng thông tin đáng lẽ không có trong điều kiện dự đoán hoặc không được dùng cho lựa chọn đó. [scikit-learn: Common pitfalls](https://scikit-learn.org/stable/common_pitfalls.html)
@@ -136,6 +181,19 @@ Các dạng thường gặp:
 | Phản hồi đánh giá đi vào tuning | Chọn seed, prompt, threshold dựa trên điểm test | Lưu lịch sử lựa chọn và vai trò của từng tập |
 
 Rò rỉ không luôn làm điểm số cao hơn ở mọi ví dụ. Bằng chứng nằm ở luồng thông tin sai, không chỉ một con số đáng ngờ. Overfitting trên train, distribution shift và lỗi triển khai cũng có thể làm chất lượng kém; không gọi tất cả những vấn đề ấy là leakage.
+
+> [!WARNING]
+> ### 💡 Hai ví dụ rò rỉ "kinh điển" trong thực tế ngành AI
+> 1. **Rò rỉ hậu quả của nhãn (Target Leakage)**:
+>    - Một đội ngũ xây dựng mô hình dự đoán bệnh nhân có bị viêm phổi hay không.
+>    - Trong bảng dữ liệu bệnh viện có cột: "Bệnh nhân có được tiêm kháng sinh liều cao hay không?".
+>    - Mô hình đạt độ chính xác $99.9\%$, ai cũng tưởng AI siêu việt. Nhưng thực tế: Bác sĩ chỉ tiêm kháng sinh SAU KHI đã kết luận bệnh nhân bị viêm phổi! Khi đưa mô hình vào phòng khám sàng lọc ban đầu, bệnh nhân mới đến chưa ai tiêm thuốc cả, mô hình trở nên vô dụng hoàn toàn.
+> 2. **Rò rỉ do tăng cường dữ liệu (Data Augmentation Contamination)**:
+>    - Bạn có 1.000 tấm ảnh ung thư da. Bạn dùng kỹ thuật xoay ảnh, lật ảnh để nhân bản thành 5.000 tấm ảnh.
+>    - Sau đó, bạn dùng lệnh `train_test_split(random_state=42)` trên 5.000 tấm ảnh này.
+>    - Hậu quả: Bức ảnh gốc nằm ở tập Train, còn bức ảnh bị lật ngược của chính nó lại nằm ở tập Test! Mô hình nhận ra ngay bức ảnh quen thuộc, cho ra điểm số cao giả tạo.
+
+---
 
 ## 7. Ví dụ tính tay: chuẩn hóa đã nhìn test
 
@@ -170,6 +228,31 @@ Nguyên tắc áp dụng cho cả bước không dùng nhãn: học mean, vocabu
 
 Pipeline giúp đóng gói tiền xử lý và mô hình để fit/cross-validate cùng nhau. Nó không tự sửa một đặc trưng có thông tin tương lai hay splitter sai nhóm. [scikit-learn: Pipeline](https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html)
 
+> [!IMPORTANT]
+> ### 💡 Quy tắc bất di bất dịch trong Preprocessing Pipeline
+> Sai lầm phổ biến nhất của người mới học là viết:
+> ```python
+> # SAI LẦM TAI HẠI: Chuẩn hóa toàn bộ dữ liệu trước khi chia train/test!
+> X_scaled = scaler.fit_transform(X)
+> X_train, X_test, y_train, y_test = train_test_split(X_scaled, y)
+> ```
+> Khi gọi `fit_transform(X)`, giá trị trung bình $\mu$ và độ lệch chuẩn $s$ đã "ngửi thấy" toàn bộ các con số của tập Test.
+> 
+> **Cách viết chuẩn mực công nghiệp**:
+> ```python
+> # ĐÚNG: Chia trước, fit chỉ trên Train!
+> X_train, X_test, y_train, y_test = train_test_split(X, y)
+> 
+> # Fit scaler DUY NHẤT trên X_train:
+> scaler.fit(X_train)
+> 
+> # Transform X_train và dùng đúng scaler đó áp dụng lên X_test:
+> X_train_scaled = scaler.transform(X_train)
+> X_test_scaled  = scaler.transform(X_test)  # Tuyệt đối KHÔNG gọi fit lại trên test!
+> ```
+
+---
+
 ## 8. Chia theo nhóm: đơn vị độc lập không phải luôn là dòng
 
 Giả định 12 user, mỗi user có 6 quan sát, tổng 72 dòng. Mỗi user được gán một nhãn cố định tùy ý; các nhãn được cân bằng để dễ kiểm tra. Mô hình minh họa chỉ nhớ nhãn user từng thấy; với user chưa gặp, dùng nhãn đa số của train, hòa thì chọn 0.
@@ -185,16 +268,26 @@ Hai phép chia đều có 48 train, 12 validation, 12 test:
 
 Kết quả mô hình ghi nhớ:
 
-| Phép chia | User chung giữa train/test | Test accuracy |
-|---|---:|---:|
-| Theo dòng | 12 | 100% |
-| Theo user | 0 | 50% |
+| Phép chia | User chung giữa train/test | Test accuracy | Ý nghĩa kết quả |
+|---|---:|---:|---|
+| **Theo dòng (Row split)** | **12** | **100%** | Mô hình chỉ "nhớ mặt người quen", không tổng quát hóa |
+| **Theo user (Group split)** | **0** | **50%** | Phản ánh chính xác năng lực khi gặp khách hàng hoàn toàn mới |
 
 Ở cách thứ nhất, mô hình đã biết nhãn cả 12 user. Ở cách thứ hai, hai user test đều mới; fallback 0 đúng một trong hai nhãn cân bằng nên đạt 50%.
 
 **Chia theo dòng không tự động sai trong mọi nhiệm vụ.** Nó có thể phù hợp câu hỏi dự đoán quan sát mới của user đã biết, nếu cả yếu tố thời gian và thông tin đầu vào cũng phù hợp. Nhưng dùng điểm ấy để khẳng định làm tốt với **user mới** là kết luận sai mục tiêu. [scikit-learn: GroupKFold](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.GroupKFold.html)
 
 Ví dụ chưa chứng minh mọi group split làm điểm giảm hoặc mô hình thật chỉ đạt 50%. Nó chỉ phơi bày điều một phép đo có thể đang tận dụng. Với ticket, group có thể là hội thoại; với tài liệu là văn bản nguồn, với ảnh là ảnh gốc/đối tượng, không nhất thiết user ID.
+
+> [!TIP]
+> ### 💡 Ví dụ ngành Y tế: Vì sao cùng bệnh nhân không được nằm ở hai bên?
+> - Trong bài toán phát hiện u phổi từ ảnh chụp X-quang: Một bệnh nhân thường được chụp 5-10 góc chụp khác nhau.
+> - Nếu bạn chia ngẫu nhiên theo dòng, 7 góc chụp của Bệnh nhân A vào Train, 3 góc chụp còn lại vào Test.
+> - Mô hình AI thông minh sẽ không thèm học khối u, mà nó học... hình dạng xương sườn, vết sẹo mổ cũ hoặc đặc điểm máy chụp riêng của bệnh nhân A! Kết quả test đạt $99\%$.
+> - Nhưng khi bệnh viện đưa bệnh nhân mới B vào khám, AI đoán sai hoàn toàn.
+> - 👉 **Bài học**: Phải nhóm toàn bộ dữ liệu của cùng một bệnh nhân (Patient ID) vào cùng một tập bằng `GroupKFold`!
+
+---
 
 ## 9. Chia theo thời gian: lúc sự kiện xảy ra khác lúc biết thông tin
 
@@ -214,11 +307,11 @@ Tài liệu [Feast: Point-in-time joins](https://docs.feast.dev/getting-started/
 
 Nếu cứ lấy mẫu dự đoán t=1–8 vào train thì có lỗi:
 
-| Mẫu train dự kiến | Nhãn có tại | Có thể fit trước t=9? |
-|---|---:|---|
-| t=1…6 | t=3…8 | Có |
-| t=7 | t=9 | Không, theo cutoff nghiêm ngặt của ví dụ |
-| t=8 | t=10 | Không |
+| Mẫu train dự kiến | Nhãn có tại | Có thể fit trước t=9? | Lý do |
+|---|---:|---|---|
+| t=1…6 | t=3…8 | **Có** | Nhãn đã có sẵn trước thời điểm $t=9$ |
+| t=7 | t=9 | **Không** | Nhãn chỉ xuất hiện tại đúng $t=9$, chưa kịp có trước cutoff |
+| t=8 | t=10 | **Không** | Nhãn đến tận $t=10$ mới có, rơi vào tương lai |
 
 Ta loại t=7,8 khỏi **lần fit trước validation này**. Nhãn validation t=9,10 chỉ có ở t=11,12, nên phải chờ rồi mới chốt cấu hình trước t=13. Nhãn test chỉ có ở t=15,16: đánh giá offline cuối phải đợi chúng; không được dùng nhãn ấy để tạo dự đoán tại t=13,14.
 
@@ -229,6 +322,14 @@ Ta loại t=7,8 khỏi **lần fit trước validation này**. Nhãn validation 
 Điểm quan trọng: mẫu t=7,8 không bị cấm vĩnh viễn. Nếu refit sau này trước t=13 và nhãn của chúng đã có, có thể dùng theo quy trình đã định. Điều kiện luôn xét **ở lần fit nào**, với cutoff nào.
 
 `gap` hoặc khoảng loại ở biên có thể giúp tránh dùng cửa sổ/nhãn chồng lấn. Nhưng không có “gap=2 là an toàn” cho mọi bài toán. `TimeSeriesSplit.gap` đếm số mẫu, không tự đọc timestamp thực, thời gian nhãn hoàn tất hay nguồn backfill của bạn. [scikit-learn: TimeSeriesSplit](https://scikit-learn.org/stable/modules/generated/sklearn.model_selection.TimeSeriesSplit.html)
+
+> [!NOTE]
+> ### 💡 Thực tế ngân hàng: Độ trễ nhãn trong Phát hiện gian lận (Chargeback Delay)
+> - Khi kẻ gian thực hiện giao dịch lừa đảo tại thời điểm $t=0$, tiền bị trừ nhưng cả ngân hàng và chủ thẻ đều chưa biết.
+> - Thường phải mất **3 đến 14 ngày sau**, khi chủ thẻ nhận sao kê, phát hiện giao dịch lạ và gọi điện khiếu nại (Chargeback), lúc này hệ thống mới gắn nhãn giao dịch đó là "Gian lận"!
+> - Nếu bạn mô phỏng huấn luyện mô hình bằng cách lấy nhãn của ngày hôm sau mà không trừ đi khoảng trễ 14 ngày này (Label delay), bạn đang cho mô hình một chiếc "gương thần nhìn thấy tương lai", dẫn đến việc mô hình chạy thử thì hoàn hảo nhưng chạy thật ngoài production thì thất bại thảm hại.
+
+---
 
 ## 10. Cross-validation: nhiều lần validation, test vẫn bên ngoài
 
@@ -258,6 +359,13 @@ K-fold ngẫu nhiên không tự phù hợp cho thời gian hoặc nhóm; cần 
 
 Nếu chọn cấu hình bằng cùng các điểm CV rồi báo điểm tốt nhất như đánh giá hoàn toàn độc lập, vẫn có selection bias. Có thể giữ test ngoài cùng như bài này, hoặc dùng **nested CV** với vòng trong chọn cấu hình, vòng ngoài chấm toàn quy trình. Nested CV là phần mở rộng, chưa được triển khai trong lab. [scikit-learn: Cross-validation](https://scikit-learn.org/stable/modules/cross_validation.html)
 
+> [!TIP]
+> ### 💡 Trực giác: Khi nào nên dùng Cross-Validation?
+> - **Khi tập dữ liệu nhỏ (dưới vài chục nghìn mẫu)**: Việc cắt riêng 1 tập Validation cố định có thể gặp rủi ro do may rủi (tập validation rơi vào toàn ca dễ hoặc toàn ca khó). Chia $K$ fold (ví dụ $K=5$) giống như bạn xoay vòng thi thử 5 lần, lấy điểm trung bình để có cái nhìn khách quan nhất.
+> - **Nguyên tắc vàng**: Tập **Test cuối cùng vẫn phải nằm ngoài tuyệt đối** toàn bộ vòng lặp Cross-Validation!
+
+---
+
 ## 11. Từ bài toán đến quy trình có thể kiểm tra
 
 Một bản thiết kế đánh giá nên ghi được:
@@ -272,6 +380,15 @@ Một bản thiết kế đánh giá nên ghi được:
 Chọn seed để tái lập khác chọn seed cho điểm đẹp nhất. Giữ một test file nhưng liên tục tối ưu prompt/kiến trúc theo điểm của nó cũng làm phản hồi test đi vào lựa chọn. Khi đã dùng test như development, nên ghi nhận điều đó và tìm đánh giá độc lập mới phù hợp, không đổi tên file để coi như sạch.
 
 Vận dụng cho LLM/RAG: few-shot examples và prompt tuning thuộc quá trình phát triển; không lấy đáp án chuẩn của test vào prompt để báo khả năng trả lời mới. Tuy nhiên việc truy xuất tài liệu được phép trong nhiệm vụ hỏi–đáp không tự là leakage. Cần định nghĩa đang đo hỏi trên tài liệu đã biết hay tổng quát hóa sang tài liệu mới, và tách theo nguồn tương ứng. Đây là vận dụng nguyên tắc luồng thông tin, không phải một benchmark LLM được chạy trong bài.
+
+> [!IMPORTANT]
+> ### 💡 Ứng dụng AI Engineer: Rò rỉ dữ liệu trong kỷ nguyên LLM & RAG
+> 1. **Data Contamination trong đánh giá LLM**:
+>    - Khi một công ty công bố mô hình LLM đạt $95\%$ bài thi toán GSM8K hay MMLU, cộng đồng AI luôn kiểm tra xem bộ đề thi đó có bị lọt vào tập dữ liệu Pre-training (hàng nghìn tỷ token trên internet) hay không. Nếu mô hình đã đọc đề thi trong quá trình pre-train, nó chỉ đang nhớ lại lời giải chứ không phải suy luận logic thực sự!
+> 2. **Rò rỉ dữ liệu trong RAG (Retrieval-Augmented Generation)**:
+>    - Khi đánh giá năng lực RAG, bạn phải phân biệt: Đang kiểm tra khả năng tra cứu tài liệu đã nạp sẵn hay kiểm tra khả năng đọc hiểu tài liệu hoàn toàn mới? Nếu đưa tài liệu chứa đáp án câu hỏi test vào Vector DB chung mà không phân tách nguồn, bạn đang vô tình tạo ra rò rỉ dữ liệu đánh giá.
+
+---
 
 ## 12. Code thực hành và kết quả cần đối chiếu
 
@@ -296,16 +413,18 @@ python3 lab.py --mode cv --seed 2026
 
 `--mode all` chạy cả sáu phần. `--seed` chỉ ảnh hưởng mode `split` và `cv`; các dữ liệu/phép chia dựng sẵn khác không đổi. Nếu ở gốc bộ tài liệu, thay `lab.py` bằng `05-train-validation-test-ro-ri-du-lieu/lab.py`.
 
-| Mode | Điều cần quan sát |
-|---|---|
-| `split` | 20 ID không trùng giữa ba tập, kích thước 12/4/4 |
-| `select` | Chọn k=3 bằng validation; test MSE≈0.472222 chỉ tính sau chọn |
-| `preprocess` | Mean đúng=1, mean có nhìn test=4; hai phép transform khác nhau |
-| `groups` | Cùng 48/12/12 dòng; 12 user trùng và 100% so với 0 user trùng và 50% |
-| `time` | Train trước validation chỉ t=1…6; loại t=7,8; chờ nhãn validation ở t=11,12 |
-| `cv` | Fit lại scaler trong từng fold; không tính final-test score |
+| Mode | Điều cần quan sát | Ý nghĩa kỹ thuật |
+|---|---|---|
+| `split` | 20 ID không trùng giữa ba tập, kích thước 12/4/4 | Ranh giới chia thuần túy theo chỉ số dòng |
+| `select` | Chọn k=3 bằng validation; test MSE≈0.472222 chỉ tính sau chọn | Minh chứng: Chọn mô hình theo Validation, đánh giá độc lập bằng Test |
+| `preprocess` | Mean đúng=1, mean có nhìn test=4; hai phép transform khác nhau | Bằng chứng toán học cho thấy fit trên toàn bộ dữ liệu làm biến dạng tham số chuẩn hóa |
+| `groups` | Cùng 48/12/12 dòng; 12 user trùng và 100% so với 0 user trùng và 50% | Sự khác biệt một trời một vực giữa dự đoán "người quen" và "người mới" |
+| `time` | Train trước validation chỉ t=1…6; loại t=7,8; chờ nhãn validation ở t=11,12 | Xử lý độ trễ nhãn và loại trừ rò rỉ thời gian |
+| `cv` | Fit lại scaler trong từng fold; không tính final-test score | Đóng gói tiền xử lý vào từng fold của Cross-Validation |
 
 `choose_k` không nhận test làm đầu vào. `fit_scaler` chỉ học từ mảng được truyền vào, vì vậy người gọi vẫn chịu trách nhiệm truyền đúng train-fold. Code không tự chứng minh dữ liệu sản xuất đã độc lập hoặc feature có sẵn đúng thời điểm. Mode `time` là kiểm tra lịch/nhãn, không huấn luyện một mô hình dự báo thời gian.
+
+---
 
 ## 13. Hình minh họa và cách tái tạo
 
@@ -317,6 +436,8 @@ Có sẵn 5 hình PNG và SVG trong [figures](figures/). Đọc bài không cầ
 ```
 
 Mã vẽ: [make_figures.py](make_figures.py); phụ thuộc: [requirements.txt](requirements.txt), [requirements-figures.txt](requirements-figures.txt). Đã kiểm tra Matplotlib 3.11.2 và NumPy 2.5.4; gói ghim phiên bản cần Python/nền tảng tương thích. Hình CV dùng seed cố định trong mã, không tự lấy từ một lần chạy CLI khác.
+
+---
 
 ## 14. Tự kiểm tra và bước tiếp theo
 

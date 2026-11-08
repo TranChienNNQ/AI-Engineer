@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="936pt" height="540pt" viewBox="0 0 936 540" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-05T13:51:56.530162</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 540 
+L 936 540 
+L 936 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 55.0368 251.146286 
+L 236.4192 251.146286 
+Q 244.5408 251.146286 244.5408 244.110857 
+L 244.5408 174.929143 
+Q 244.5408 167.893714 236.4192 167.893714 
+L 55.0368 167.893714 
+Q 46.9152 167.893714 46.9152 174.929143 
+L 46.9152 244.110857 
+Q 46.9152 251.146286 55.0368 251.146286 
+z
+" clip-path="url(#p80489bdb11)" style="fill: #2863a5; fill-opacity: 0.070588; stroke: #2863a5; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 245.865319 209.52 
+Q 254.692889 209.52 261.843409 209.52 
+" clip-path="url(#p80489bdb11)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 255.843409 206.52 
+L 261.843409 209.52 
+L 255.843409 212.52 
+z
+" clip-path="url(#p80489bdb11)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 274.9968 251.146286 
+L 456.3792 251.146286 
+Q 464.5008 251.146286 464.5008 244.110857 
+L 464.5008 174.929143 
+Q 464.5008 167.893714 456.3792 167.893714 
+L 274.9968 167.893714 
+Q 266.8752 167.893714 266.8752 174.929143 
+L 266.8752 244.110857 
+Q 266.8752 251.146286 274.9968 251.146286 
+z
+" clip-path="url(#p80489bdb11)" style="fill: #2863a5; fill-opacity: 0.070588; stroke: #2863a5; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 465.825319 209.52 
+Q 474.652889 209.52 481.803409 209.52 
+" clip-path="url(#p80489bdb11)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 475.803409 206.52 
+L 481.803409 209.52 
+L 475.803409 212.52 
+z
+" clip-path="url(#p80489bdb11)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 494.9568 251.146286 
+L 676.3392 251.146286 
+Q 684.4608 251.146286 684.4608 244.110857 
+L 684.4608 174.929143 
+Q 684.4608 167.893714 676.3392 167.893714 
+L 494.9568 167.893714 
+Q 486.8352 167.893714 486.8352 174.929143 
+L 486.8352 244.110857 
+Q 486.8352 251.146286 494.9568 251.146286 
+z
+" clip-path="url(#p80489bdb11)" style="fill: #227b62; fill-opacity: 0.070588; stroke: #227b62; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 685.785319 209.52 
+Q 694.612889 209.52 701.763409 209.52 
+" clip-path="url(#p80489bdb11)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 695.763409 206.52 
+L 701.763409 209.52 
+L 695.763409 212.52 
+z
+" clip-path="url(#p80489bdb11)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 714.9168 251.146286 
+L 896.2992 251.146286 
+Q 904.4208 251.146286 904.4208 244.110857 
+L 904.4208 174.929143 
+Q 904.4208 167.893714 896.2992 167.893714 
+L 714.9168 167.893714 
+Q 706.7952 167.893714 706.7952 174.929143 
+L 706.7952 244.110857 
+Q 706.7952 251.146286 714.9168 251.146286 
+z
+" clip-path="url(#p80489bdb11)" style="fill: #227b62; fill-opacity: 0.070588; stroke: #227b62; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 85.4928 377.197714 
+L 348.0912 377.197714 
+Q 356.2128 377.197714 356.2128 370.162286 
+L 356.2128 312.706286 
+Q 356.2128 305.670857 348.0912 305.670857 
+L 85.4928 305.670857 
+Q 77.3712 305.670857 77.3712 312.706286 
+L 77.3712 370.162286 
+Q 77.3712 377.197714 85.4928 377.197714 
+z
+" clip-path="url(#p80489bdb11)" style="fill: #d89a24; fill-opacity: 0.070588; stroke: #d89a24; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 420.5088 377.197714 
+L 862.4592 377.197714 
+Q 870.5808 377.197714 870.5808 370.162286 
+L 870.5808 312.706286 
+Q 870.5808 305.670857 862.4592 305.670857 
+L 420.5088 305.670857 
+Q 412.3872 305.670857 412.3872 312.706286 
+L 412.3872 370.162286 
+Q 412.3872 377.197714 420.5088 377.197714 
+z
+" clip-path="url(#p80489bdb11)" style="fill: #2863a5; fill-opacity: 0.070588; stroke: #2863a5; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 85.4928 468.072 
+L 862.4592 468.072 
+Q 870.5808 468.072 870.5808 461.036571 
+L 870.5808 415.306286 
+Q 870.5808 408.270857 862.4592 408.270857 
+L 85.4928 408.270857 
+Q 77.3712 408.270857 77.3712 415.306286 
+L 77.3712 461.036571 
+Q 77.3712 468.072 85.4928 468.072 
+z
+" clip-path="url(#p80489bdb11)" style="fill: #227b62; fill-opacity: 0.070588; stroke: #227b62; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(121.901437 205.165313)">PLANNED</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(106.822531 220.711406)">Lịch muốn phát</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(352.559875 205.159844)">SENT</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(316.530969 221.834063)">Bắt đầu HTTP client</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(566.059719 205.159844)">SERVER</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(537.07925 220.674688)">Queue → slot → run</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(790.922062 205.159844)">DONE</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(742.325187 220.279375)">Response checked / error</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #172d45" x="216.792" y="344.469598" transform="rotate(-0 216.792 344.469598)">dispatch lag = sent − planned</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #172d45" x="641.484" y="344.469598" transform="rotate(-0 641.484 344.469598)">client latency = done − sent</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #172d45" x="473.976" y="441.206741" transform="rotate(-0 473.976 441.206741)">scheduled latency = done − planned = dispatch lag + client latency</text>
+   </g>
+  </g>
+  <g id="text_8">
+   <text style="font-weight: 700; font-size: 18px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172d45" x="51.48" y="38.008125" transform="rotate(-0 51.48 38.008125)">01 · Cùng một request, nhiều điểm đặt đồng hồ</text>
+  </g>
+  <g id="text_9">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #596777" x="51.48" y="59.4" transform="rotate(-0 51.48 59.4)">Định nghĩa của bài: client latency gồm pool/HTTP/parsing/validation; scheduled latency có thêm dispatch lag.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p80489bdb11">
+   <rect x="37.44" y="86.4" width="879.84" height="410.4"/>
+  </clipPath>
+ </defs>
+</svg>

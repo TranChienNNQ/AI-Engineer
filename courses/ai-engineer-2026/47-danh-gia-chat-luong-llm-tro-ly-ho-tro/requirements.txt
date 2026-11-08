@@ -1,0 +1,1 @@
+-r ../46-tich-hop-llm-tro-ly-ho-tro-ky-thuat/requirements.txt

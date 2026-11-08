@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="637.056375pt" height="390.24pt" viewBox="0 0 637.056375 390.24" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-07T09:36:55.211165</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 390.24 
+L 637.056375 390.24 
+L 637.056375 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 56.304 124.24608 
+L 332.514 124.24608 
+Q 339.8796 124.24608 339.8796 120.2544 
+L 339.8796 77.0112 
+Q 339.8796 73.01952 332.514 73.01952 
+L 56.304 73.01952 
+Q 48.9384 73.01952 48.9384 77.0112 
+L 48.9384 120.2544 
+Q 48.9384 124.24608 56.304 124.24608 
+z
+" clip-path="url(#pcbdecdcb2c)" style="fill: #255eaa; fill-opacity: 0.070588; stroke: #255eaa; stroke-width: 1.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 56.304 197.42688 
+L 332.514 197.42688 
+Q 339.8796 197.42688 339.8796 193.4352 
+L 339.8796 150.192 
+Q 339.8796 146.20032 332.514 146.20032 
+L 56.304 146.20032 
+Q 48.9384 146.20032 48.9384 150.192 
+L 48.9384 193.4352 
+Q 48.9384 197.42688 56.304 197.42688 
+z
+" clip-path="url(#pcbdecdcb2c)" style="fill: #20866e; fill-opacity: 0.070588; stroke: #20866e; stroke-width: 1.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 56.304 270.60768 
+L 332.514 270.60768 
+Q 339.8796 270.60768 339.8796 266.616 
+L 339.8796 223.3728 
+Q 339.8796 219.38112 332.514 219.38112 
+L 56.304 219.38112 
+Q 48.9384 219.38112 48.9384 223.3728 
+L 48.9384 266.616 
+Q 48.9384 270.60768 56.304 270.60768 
+z
+" clip-path="url(#pcbdecdcb2c)" style="fill: #de8a1d; fill-opacity: 0.070588; stroke: #de8a1d; stroke-width: 1.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 56.304 343.78848 
+L 332.514 343.78848 
+Q 339.8796 343.78848 339.8796 339.7968 
+L 339.8796 296.5536 
+Q 339.8796 292.56192 332.514 292.56192 
+L 56.304 292.56192 
+Q 48.9384 292.56192 48.9384 296.5536 
+L 48.9384 339.7968 
+Q 48.9384 343.78848 56.304 343.78848 
+z
+" clip-path="url(#pcbdecdcb2c)" style="fill: #bb4955; fill-opacity: 0.070588; stroke: #bb4955; stroke-width: 1.8; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="194.409" y="101.750456" transform="rotate(-0 194.409 101.750456)">Request / model graph</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start" x="369.342" y="101.710652" transform="rotate(-0 369.342 101.710652)">Latency toàn request, batch và dữ liệu</text>
+   </g>
+   <g id="patch_6">
+    <path d="M 194.409 123.918434 
+Q 194.409 134.393401 194.409 142.855906 
+" style="fill: none; stroke: #57677c; stroke-width: 1.8; stroke-linecap: round"/>
+    <path d="M 196.609 138.455906 
+L 194.409 142.855906 
+L 192.209 138.455906 
+" style="fill: none; stroke: #57677c; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="194.409" y="174.931256" transform="rotate(-0 194.409 174.931256)">Operator: matmul → bias → ReLU</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start" x="369.342" y="174.891452" transform="rotate(-0 369.342 174.891452)">Shape, dtype, stride và semantics</text>
+   </g>
+   <g id="patch_7">
+    <path d="M 194.409 197.099234 
+Q 194.409 207.574201 194.409 216.036706 
+" style="fill: none; stroke: #57677c; stroke-width: 1.8; stroke-linecap: round"/>
+    <path d="M 196.609 211.636706 
+L 194.409 216.036706 
+L 192.209 211.636706 
+" style="fill: none; stroke: #57677c; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="194.409" y="248.112056" transform="rotate(-0 194.409 248.112056)">Kernel / library implementation</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start" x="369.342" y="248.072252" transform="rotate(-0 369.342 248.072252)">Fusion, tile, layout và buffers</text>
+   </g>
+   <g id="patch_8">
+    <path d="M 194.409 270.280034 
+Q 194.409 280.755001 194.409 289.217506 
+" style="fill: none; stroke: #57677c; stroke-width: 1.8; stroke-linecap: round"/>
+    <path d="M 196.609 284.817506 
+L 194.409 289.217506 
+L 192.209 284.817506 
+" style="fill: none; stroke: #57677c; stroke-width: 1.8; stroke-linecap: round"/>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 12px; font-family: 'DejaVu Sans'; text-anchor: middle" x="194.409" y="321.292856" transform="rotate(-0 194.409 321.292856)">Instructions / hardware</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: start" x="369.342" y="321.253052" transform="rotate(-0 369.342 321.253052)">SIMD, matrix instructions và memory hierarchy</text>
+   </g>
+  </g>
+  <g id="text_9">
+   <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: middle" x="304.2" y="21.594219" transform="rotate(-0 304.2 21.594219)">Một công thức đi qua nhiều lớp trước khi phần cứng thực thi</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pcbdecdcb2c">
+   <rect x="7.2" y="50.4" width="613.8" height="332.64"/>
+  </clipPath>
+ </defs>
+</svg>

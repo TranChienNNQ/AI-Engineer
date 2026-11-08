@@ -2,448 +2,407 @@
 
 [Mục lục](../README.md) · [Bài 2](../02-dao-ham-gradient-descent/README.md) · [Bài tập](exercises.md) · [Lời giải](solutions.md)
 
-Biên soạn và kiểm tra ngày 04/11/2026. Các số liệu là ví dụ giả định, không phải phép đo hiệu năng thực. Bài này dùng NumPy để biểu diễn phép tính; chưa cần PyTorch hoặc GPU.
+Trạng thái: đã biên soạn, bổ sung trực giác hình học, phân tích cạm bẫy kỹ thuật và ứng dụng thực tế cho AI Engineer; mã thực hành và 4 hình minh họa đã kiểm tra trên Python 3.14.6 và NumPy 2.5.4.
 
-## 1. Mục tiêu và cách đọc
+---
 
-Sau bài học, người học có thể:
+## 1. Mục tiêu và điều kiện bắt đầu
 
-- Phân biệt scalar, vector, ma trận và tensor theo cách biểu diễn dữ liệu trong ML.
-- Đọc `shape`, `ndim`, `size`, `dtype` và giải thích ý nghĩa từng trục.
-- Tính tay tích vô hướng, tích ma trận–vector và tích hai ma trận nhỏ.
-- Phân biệt `*` với `@`, chuyển vị với reshape, và phát hiện broadcasting sai ý định.
-- Viết dự đoán và gradient của hồi quy nhiều đặc trưng bằng phép tính vector hóa.
-- Giải thích tensor ảnh hoặc chuỗi theo các trục, thay vì chỉ nhớ một bộ số kích thước.
+Sau bài này, bạn sẽ nắm được:
 
-Cần biết Python cơ bản, dự đoán $wx+b$ và gradient MSE từ bài 1–2. Có thể đọc hai lượt: phần 2–7 học biểu diễn và phép tính; phần 8–14 dùng chúng trong dữ liệu, gradient và tensor. Phần cài đặt nằm ở mục 13; vẫn có thể đọc và tính tay trước khi cài thư viện.
+- **Trực giác cốt lõi**: Hiểu rõ vì sao AI không thể thiếu ma trận và tensor, giải phóng bạn khỏi các vòng lặp `for` chậm chạp trong Python.
+- **Bản đồ các chiều không gian số**: Phân biệt rành mạch từ Scalar (0D), Vector (1D), Ma trận (2D) đến Tensor đa chiều (3D, 4D, ND).
+- **Phân biệt rạch ròi các phép tính**: Hiểu khác biệt bản chất giữa nhân từng phần tử (`*`) và nhân ma trận đại số (`@`), tránh các lỗi cú pháp tai hại.
+- **Quy tắc Broadcasting và cạm bẫy "Silent Bug"**: Nhận diện lỗi ngầm nguy hiểm nhất trong lập trình AI — phép toán vẫn chạy êm ru nhưng kết quả Loss sai hoàn toàn mà không báo Exception.
+- **Phép biến hình: Reshape vs Transpose**: Hiểu vì sao Reshape bừa bãi sẽ phá nát cấu trúc dữ liệu, và khi nào bắt buộc phải dùng Hoán vị trục (Transpose).
+- **Vector hóa Gradient ($X^T \mathbf{r}$)**: Nhìn thấy vẻ đẹp tinh gọn khi gom toàn bộ đạo hàm riêng của hàng nghìn mẫu và hàng trăm đặc trưng vào đúng một phép nhân ma trận duy nhất.
+- **Đọc hiểu cấu trúc Tensor trong AI thực tế**: Nắm vững các chuẩn quy ước như `(Batch, Seq_Len, Hidden_Dim)` trong LLM (Transformer) và `(N, C, H, W)` trong Thị giác máy tính (Computer Vision).
 
-## 2. Vì sao không tiếp tục dùng từng biến đơn lẻ?
+**Yêu cầu nền tảng**: Nắm vững phương trình $\hat y = wx + b$ và cách tính đạo hàm/gradient từ [Bài 1](../01-mo-hinh-hoc-tu-du-lieu/README.md) và [Bài 2](../02-dao-ham-gradient-descent/README.md). Cần cài đặt thư viện NumPy cơ bản.
 
-Ở bài 2, mỗi request có một đầu vào là số lô. Nếu thêm số truy vấn cơ sở dữ liệu, mỗi request cần hai con số. Với nhiều request, ta cần cách tổ chức để biết số nào thuộc request nào, đặc trưng nào.
+---
 
-Quy ước của bài:
+## 2. Vì sao AI bắt buộc phải dùng Ma trận thay cho biến đơn lẻ?
 
-- Một **hàng** tương ứng một mẫu/request.
-- Một **cột** tương ứng một đặc trưng, theo đúng thứ tự đã thống nhất.
-- Đáp án được giữ riêng, không ghép thành đặc trưng đầu vào.
+Ở Bài 1 và 2, ta chỉ có một đầu vào duy nhất: **Số lô dữ liệu** ($x$).
+Nhưng trong thực tế backend, thời gian xử lý (latency) của một request phụ thuộc vào nhiều yếu tố:
+1. Số lô bản ghi (Lô).
+2. Số truy vấn gọi sang Database (Query).
+3. Dung lượng payload (KB).
+4. Tải CPU hiện tại (%).
 
-| Mẫu | Số lô dữ liệu | Số truy vấn | Latency đích, ms |
-|---|---:|---:|---:|
-| 0 | 1 | 2 | 5 |
-| 1 | 2 | 3 | 8 |
-| 2 | 3 | 2 | 9 |
+Giả sử ta chỉ xét 2 yếu tố đầu tiên trên 3 request được ghi nhận:
 
-Mỗi lô vẫn có 100 bản ghi. Dữ liệu này được tạo theo $y=2\times\text{số lô}+1\times\text{số truy vấn}+1$ để có ví dụ tính được bằng tay. Quan hệ đó không được mặc định cho hệ thống thực.
+| Request ($i$) | Đặc trưng 1: Số lô | Đặc trưng 2: Số truy vấn DB | Đích thực tế: Latency ($y$, ms) |
+|:---:|:---:|:---:|:---:|
+| Request 0 | 1 lô | 2 query | 5 ms |
+| Request 1 | 2 lô | 3 query | 8 ms |
+| Request 2 | 3 lô | 2 query | 9 ms |
 
-## 3. Scalar và vector
+*(Dữ liệu giả định được tạo theo quy luật $y = 2 \times \text{lô} + 1 \times \text{truy vấn} + 1$ để phục vụ học tập).*
 
-**Scalar — số vô hướng** là một giá trị, chẳng hạn bias $b=1$. Trong code, Python `float` là kiểu số; muốn quan sát thuộc tính mảng 0 chiều, dùng `np.array(1.0)`.
+### Nếu lập trình bằng biến đơn lẻ:
+Bạn sẽ phải tạo hàng tá biến: `x0_batch, x0_query, x1_batch, x1_query...` và viết các vòng lặp `for` lồng nhau để duyệt qua từng mẫu, từng đặc trưng. Cách làm này:
+- **Code rườm rà, dễ nhầm lẫn chỉ số.**
+- **Cực kỳ chậm chạp trong Python**: Vòng lặp `for` của Python xử lý từng con số tuần tự, không thể tận dụng được sức mạnh tính toán song song của CPU đa lõi và GPU.
 
-**Vector** là một bộ thành phần có thứ tự. Đầu vào của request đầu tiên là $\mathbf{x}=(1,2)$: thành phần thứ nhất là số lô, thứ hai là số truy vấn. Vector trọng số $\mathbf{w}=(2,1)$ cho biết hệ số tương ứng từng đặc trưng.
-
-Thứ tự là một phần ý nghĩa: $(1,2)$ không tự động tương đương $(2,1)$. Các thành phần có thể mang đơn vị khác nhau; ở đây trọng số tương ứng có đơn vị ms/lô và ms/truy vấn.
-
-### Cộng và nhân với scalar
-
-Với hai vector đại số $\mathbf{a}=(2,1)$, $\mathbf{c}=(1,2)$:
+### Giải pháp của kỹ sư AI:
+Ta gom toàn bộ dữ liệu vào một **Ma trận (Matrix)** $X$ duy nhất:
+- Mỗi **hàng** là một Request (một mẫu dữ liệu).
+- Mỗi **cột** là một Đặc trưng (Feature) theo đúng thứ tự quy ước.
 
 $$
-\mathbf{a}+\mathbf{c}=(2+1,1+2)=(3,3),\qquad
-2\mathbf{a}=(4,2)
+X = \begin{bmatrix} 1 & 2 \\ 2 & 3 \\ 3 & 2 \end{bmatrix}, \qquad \mathbf{y} = \begin{bmatrix} 5 \\ 8 \\ 9 \end{bmatrix}
 $$
 
-Trong mặt phẳng, vector có thể được vẽ thành một mũi tên chỉ dịch chuyển. Cộng vector tương ứng ghép đầu–đuôi:
+Khi đó, toàn bộ quá trình tính toán dự đoán cho hàng triệu request sẽ được gói gọn trong **đúng một phép nhân ma trận**!
+
+---
+
+## 3. Bản đồ không gian số: Từ Scalar đến Tensor
+
+Hãy xây dựng một hình ảnh trực quan rõ ràng trong tâm trí:
+
+```text
+┌──────────────┐     ┌───────────────────────┐     ┌─────────────────────────────┐     ┌───────────────────────────────┐
+│ Scalar (0D)  │     │      Vector (1D)      │     │      Ma trận Matrix (2D)    │     │       Tensor Đa chiều (ND)    │
+│  Một con số  │ ──> │   Một danh sách số    │ ──> │   Một bảng số (Hàng x Cột)  │ ──> │ Khối hộp chứa nhiều bảng số   │
+│  Ví dụ: 5.0  │     │ Ví dụ: [1.0, 2.0, 3.0]│     │ Ví dụ: Bảng dữ liệu (3 x 2) │     │ Ví dụ: Cuốn sổ nhiều trang 2D │
+└──────────────┘     └───────────────────────┘     └─────────────────────────────┘     └───────────────────────────────┘
+```
+
+### 1. Scalar (Số vô hướng - 0 chiều):
+- Là một con số đơn lẻ, ví dụ bias $b = 1.0$ hoặc Loss = $9.66$.
+- Trong NumPy: Mảng có `ndim = 0`, `shape = ()`.
+
+### 2. Vector (1 chiều):
+- Là một danh sách các con số có thứ tự.
+- **Vector đặc trưng của Request 0**: $\mathbf{x}_0 = [1, 2]$ (1 lô, 2 query). Thứ tự mang ý nghĩa sống còn: $[1, 2]$ hoàn toàn khác $[2, 1]$!
+- **Vector trọng số**: $\mathbf{w} = [2, 1]$ (nghĩa là: $w_1 = 2\text{ ms/lô}$, $w_2 = 1\text{ ms/query}$).
+- Trong NumPy: Mảng có `ndim = 1`, `shape = (d,)` (ví dụ `shape = (2,)`).
 
 ![Cộng hai vector trong mặt phẳng, minh họa bằng mũi tên](figures/01-vector.png)
 
-*Hình 1. Đây là hình học của các vector đại số trừu tượng. Không coi trục số lô và trục số truy vấn là cùng đơn vị vật lý để suy khoảng cách thực tế.*
+*Hình 1. Trong hình học, vector được biểu diễn bằng mũi tên. Phép cộng hai vector $\mathbf{a}=(2,1)$ và $\mathbf{c}=(1,2)$ ghép đầu-đuôi tạo ra vector tổng $(3,3)$.*
 
-### Tích vô hướng: nhân từng cặp rồi cộng
+### Tích vô hướng (Dot Product): Trái tim của phép dự đoán
 
-Với hai vector cùng số thành phần:
-
-$$
-\mathbf{x}\cdot\mathbf{w}=\sum_{j=1}^{d}x_jw_j
-$$
-
-$d$ là số đặc trưng; $j$ là vị trí đặc trưng. Với request $(1,2)$ và trọng số $(2,1)$:
+Để tính dự đoán cho Request 0 với đầu vào $\mathbf{x} = [1, 2]$ và bộ trọng số $\mathbf{w} = [2, 1]$:
+Ta lấy từng đặc trưng nhân với trọng số tương ứng rồi cộng lại:
 
 $$
-\mathbf{x}\cdot\mathbf{w}=1\times2+2\times1=4
+\mathbf{x} \cdot \mathbf{w} = (1 \times 2) + (2 \times 1) = 2 + 2 = 4
 $$
 
-Thêm bias 1, dự đoán là 5 ms. Kết quả tích vô hướng là **một scalar**, không phải vector hai phần tử.
+Cộng thêm số hạng tự do (bias) $b = 1$, ta được dự đoán: $\hat y = 4 + 1 = 5\text{ ms}$.
+Kết quả của tích vô hướng giữa 2 vector luôn luôn là **MỘT SỐ VÔ HƯỚNG (Scalar)**.
 
-Độ dài Euclid của vector đại số được tính bằng $\|\mathbf{a}\|_2=\sqrt{\sum_j a_j^2}$; ví dụ $(3,4)$ có độ dài 5. Trong ML, dùng độ dài/khoảng cách trên đặc trưng khác đơn vị cần cân nhắc thang đo. Bài này chưa dùng norm của đầu vào để so độ giống nhau giữa request.
+---
 
-## 4. Ma trận: tổ chức nhiều mẫu, nhiều đặc trưng
+## 4. Bốn thuộc tính căn bản của mảng trong NumPy
 
-Gom ba vector đầu vào theo hàng:
+Khi debug code AI, 90% lỗi phát sinh từ việc không khớp kích thước mảng. Bạn cần thuộc lòng 4 thuộc tính sau của đối tượng `ndarray`:
 
-$$
-X=\begin{bmatrix}1&2\\2&3\\3&2\end{bmatrix},\qquad
-\mathbf{y}=\begin{bmatrix}5\\8\\9\end{bmatrix}
-$$
+| Thuộc tính | Ý nghĩa kỹ thuật | Câu hỏi trả lời | Ví dụ ma trận $X$ ở trên |
+|---|---|---|---|
+| `shape` | Kích thước từng trục (Tuple) | Mỗi chiều dài bao nhiêu? | `(3, 2)` (3 hàng, 2 cột) |
+| `ndim` | Số lượng trục (Number of dimensions) | Có mấy chiều? | `2` (Mảng 2 chiều) |
+| `size` | Tổng số lượng phần tử | Có tất cả bao nhiêu số? | `6` ($3 \times 2 = 6$) |
+| `dtype` | Kiểu dữ liệu phần tử | Lưu dưới dạng số gì? | `float64` hoặc `float32` |
 
-$X$ là ma trận 3 hàng, 2 cột. Viết $X\in\mathbb{R}^{n\times d}$ nghĩa là một ma trận số thực với $n$ mẫu và $d$ đặc trưng; ở đây $n=3,d=2$.
+### Cạm bẫy phân biệt: Vector 1D `(3,)` vs Ma trận hàng `(1, 3)` vs Ma trận cột `(3, 1)`
 
-$X_{ij}$ là giá trị ở hàng $i$, cột $j$. Công thức toán thường đánh chỉ số từ 1; **code NumPy đánh từ 0**. Vì thế `X[0, 1]` là số 2 ở hàng đầu, cột thứ hai.
+Đây là điểm gây nhầm lẫn kinh điển nhất cho người mới học:
 
 ```python
 import numpy as np
 
-X = np.array([[1.0, 2.0],
-              [2.0, 3.0],
-              [3.0, 2.0]])
-
-X[0]       # [1., 2.]: mẫu đầu tiên, shape (2,)
-X[:, 0]    # [1., 2., 3.]: đặc trưng số lô, shape (3,)
-X[:, 0:1]  # Cùng các giá trị nhưng giữ một trục cột, shape (3, 1)
+v = np.array([1.0, 2.0, 3.0])      # shape (3,)   -> ndim = 1 (Vector thuần túy)
+row = np.array([[1.0, 2.0, 3.0]])  # shape (1, 3) -> ndim = 2 (Ma trận 1 hàng, 3 cột)
+col = np.array([[1.0], [2.0], [3.0]]) # shape (3, 1) -> ndim = 2 (Ma trận 3 hàng, 1 cột)
 ```
 
-Trong lát cắt `:`, ta lấy tất cả vị trí trên trục đó. Việc dùng chỉ số đơn như `0` thường loại bỏ trục tương ứng, còn lát cắt `0:1` giữ trục có độ dài 1. Vì vậy cùng giá trị chưa chắc cùng shape.
+- Vector thuần túy `v` có shape `(3,)` **không có khái niệm hàng hay cột**! 
+- Do đó, phép chuyển vị `v.T` trên mảng 1D **không làm thay đổi shape** (vẫn là `(3,)`).
+- Muốn biến `v` thành cột thực sự, bạn phải bổ sung thêm 1 trục: `v[:, None]` hoặc `v.reshape(3, 1)`.
 
-## 5. Shape, số trục và kiểu dữ liệu
+---
 
-Trong NumPy, `ndarray` là kiểu mảng nhiều chiều. Cần phân biệt:
+## 5. Phép nhân: Phân biệt rạch ròi giữa `*` và `@`
 
-| Thuộc tính | Câu hỏi trả lời | Ví dụ với $X$ |
-|---|---|---|
-| `shape` | Mỗi trục dài bao nhiêu? | `(3, 2)` |
-| `ndim` | Có bao nhiêu trục? | `2` |
-| `size` | Tổng số phần tử? | `6` |
-| `dtype` | Mỗi phần tử có kiểu số gì? | `float64` trong ví dụ |
-
-Số phần tử bằng tích các kích thước; số trục bằng độ dài tuple `shape`. Đây là các thuộc tính được mô tả trong [NumPy: Array attributes](https://numpy.org/doc/stable/user/absolute_beginners.html#array-attributes).
-
-### Vector 3 thành phần không có nghĩa mảng 3 trục
-
-| Cách tạo | Shape | `ndim` | Cách đọc |
-|---|---|---:|---|
-| `np.array(3.0)` | `()` | 0 | Scalar dưới dạng mảng |
-| `np.array([1., 2., 3.])` | `(3,)` | 1 | Mảng 1 trục, 3 thành phần |
-| `np.array([[1., 2., 3.]])` | `(1, 3)` | 2 | Một hàng, 3 cột |
-| `np.array([[1.], [2.], [3.]])` | `(3, 1)` | 2 | Ba hàng, một cột |
-
-Trong đại số, vector thuộc $\mathbb R^3$ có ba tọa độ; trong NumPy, cách lưu `(3,)` có một trục. Hai cách dùng từ “chiều” này khác nhau. Dấu phẩy ở `(3,)` là cú pháp tuple một phần tử của Python.
-
-Một số tài liệu gọi số trục tensor là rank. Tuy nhiên **matrix rank — hạng ma trận** là khái niệm đại số khác. Khi nói về shape, bài này dùng `ndim`/số trục để tránh nhầm.
-
-`float32` dùng 4 byte/phần tử, `float64` dùng 8 byte; `uint8` dùng 1 byte. Ví dụ một mảng đặc gồm 6 số `float64` có 48 byte dữ liệu. `nbytes` không bao gồm toàn bộ chi phí đối tượng Python, và nhiều view có thể dùng chung vùng dữ liệu. Việc dùng NumPy không tự tạo đồ thị đạo hàm hay tự chuyển tính toán lên GPU.
-
-## 6. Nhân từng phần tử khác nhân ma trận
-
-Với `w = np.array([2.0, 1.0])`:
-
-```python
-X * w    # [[2., 2.], [4., 3.], [6., 2.]]; shape (3, 2)
-X @ w    # [4., 7., 8.]; shape (3,)
-```
-
-`*` nhân từng thành phần, ở đây có broadcasting vector trọng số lên mỗi hàng. `@` thực hiện tích ma trận–vector: mỗi hàng lấy tích vô hướng với `w`, nên hai đóng góp được cộng lại.
-
-### Dự đoán cho cả batch
-
-Gọi **batch** là một nhóm mẫu được tính cùng nhau. Ba dự đoán là:
-
-$$
-\hat{\mathbf y}=X\mathbf w+b\mathbf 1
-=\begin{bmatrix}1&2\\2&3\\3&2\end{bmatrix}
-\begin{bmatrix}2\\1\end{bmatrix}
-+\begin{bmatrix}1\\1\\1\end{bmatrix}
-=\begin{bmatrix}5\\8\\9\end{bmatrix}
-$$
-
-$\mathbf 1$ là vector toàn số 1 dài $n$; nó diễn đạt việc cộng cùng bias vào mỗi dự đoán. NumPy không cần tạo vector này, dùng `X @ w + b` với broadcasting scalar.
-
-Tính tay từng mẫu:
-
-- Mẫu 0: $1\times2+2\times1+1=5$ ms.
-- Mẫu 1: $2\times2+3\times1+1=8$ ms.
-- Mẫu 2: $3\times2+2\times1+1=9$ ms.
-
-Quy ước code cho một đầu ra:
+Trong Python / NumPy, ký hiệu `*` và `@` làm hai việc **hoàn toàn khác nhau**:
 
 ```text
-X:       (n, d)
-w:          (d,)
-X @ w:   (n,)
-b:       scalar
-y_pred:  (n,)
-y:       (n,)
+┌───────────────────────────────────────┬───────────────────────────────────────┐
+│        Ký hiệu: *                     │        Ký hiệu: @                     │
+│  (Element-wise Multiplication)        │  (Matrix Multiplication - Matmul)     │
+├───────────────────────────────────────┼───────────────────────────────────────┤
+│ Nhân từng phần tử tương ứng           │ Nhân ma trận đại số (Hàng nhân Cột)   │
+│ Hai mảng phải cùng shape (hoặc broad) │ Trục trong phải khớp: (M, K) @ (K, P) │
+│ Kết quả giữ nguyên số chiều           │ Kết quả có shape: (M, P)              │
+└───────────────────────────────────────┴───────────────────────────────────────┘
 ```
 
-Đó là **vectorization — vector hóa**: diễn đạt phép tính cả nhóm bằng phép toán mảng thay cho vòng lặp Python ở từng mẫu. Bên dưới vẫn có phép tính và vòng lặp được thư viện thực hiện. Cách viết này giúp kiểm tra cấu trúc và tận dụng thư viện số; không khẳng định mọi ví dụ nhỏ đều chạy nhanh hơn trong mọi môi trường.
+### 1. Phép dự đoán Vector hóa cho cả Batch (`X @ w + b`):
 
-### Nhân hai ma trận theo hàng–cột
-
-Nếu $A$ có shape $(m,k)$ và $B$ có shape $(k,p)$ thì $AB$ có shape $(m,p)$:
+Thay vì viết vòng lặp, ta tính dự đoán cho cả 3 request cùng lúc:
 
 $$
-(AB)_{ij}=\sum_{\ell=1}^{k}A_{i\ell}B_{\ell j}
+\hat{\mathbf{y}} = X \mathbf{w} + b = 
+\begin{bmatrix} 1 & 2 \\ 2 & 3 \\ 3 & 2 \end{bmatrix} 
+\begin{bmatrix} 2 \\ 1 \end{bmatrix} + 1 = 
+\begin{bmatrix} (1\times2 + 2\times1) + 1 \\ (2\times2 + 3\times1) + 1 \\ (3\times2 + 2\times1) + 1 \end{bmatrix} = 
+\begin{bmatrix} 5 \\ 8 \\ 9 \end{bmatrix}
 $$
 
-Hai kích thước bên trong phải bằng nhau, và mỗi ô kết quả cộng $k$ tích. Với dữ liệu $X$ ở trên và một ma trận đại số $W=\begin{bmatrix}2&1\\1&-1\end{bmatrix}$:
+Trong code Python:
 
-$$
-XW=\begin{bmatrix}4&-1\\7&-1\\8&1\end{bmatrix}
-$$
+```python
+y_hat = X @ w + b  # X shape (3, 2), w shape (2,) -> y_hat shape (3,)
+```
 
-Ví dụ ô hàng 2, cột 2 trong ký hiệu toán là $2\times1+3\times(-1)=-1$. Hai cột của kết quả có thể được hiểu là hai phép biến đổi có trọng số; không mặc định cả hai là latency vật lý.
+Toàn bộ phép tính phức tạp diễn ra chỉ trong **một biểu thức duy nhất**! Đây được gọi là **Vectorization (Vector hóa)**.
+
+### 2. Nhân hai ma trận đại số ($A @ B$):
+
+Để nhân được hai ma trận $A$ kích thước $(m \times k)$ và $B$ kích thước $(k \times p)$, **kích thước ở giữa bắt buộc phải bằng nhau**:
+
+```text
+       A               B              Kết quả C
+    (m x k)    @    (k x p)    ───>    (m x p)
+         ▲             ▲
+         └──────┬──────┘
+            Bắt buộc
+            phải bằng nhau!
+```
 
 ![Tích hai ma trận, tô màu một hàng và một cột để tính ô đầu tiên](figures/02-nhan-ma-tran.png)
 
-*Hình 2. Các trục bằng nhau ở phía trong được cộng qua; các trục phía ngoài xác định shape kết quả. `X @ W` không giống `X * W`; phép thứ hai còn không broadcast được với shape `(3,2)` và `(2,2)`.*
+*Hình 2. Lấy Hàng thứ $i$ của ma trận thứ nhất bắn tia (tích vô hướng) với Cột thứ $j$ của ma trận thứ hai để tạo ra phần tử tại vị trí $(i, j)$ của ma trận kết quả.*
 
-Thứ tự cũng quan trọng: nói chung $AB\ne BA$, ngay cả khi cả hai phép nhân đều có nghĩa. Ngữ nghĩa `@` cho mảng 1-D, 2-D và nhiều trục được đối chiếu với [NumPy: matmul](https://numpy.org/doc/stable/reference/generated/numpy.matmul.html). Tài liệu NumPy dùng quy tắc xử lý 1-D đặc biệt, nên hãy đọc shape thay vì áp dụng máy móc quy tắc ma trận 2-D.
+---
 
-## 7. Chuyển vị và phép gộp theo trục
+## 6. Broadcasting: Chiếc đũa thần và Cạm bẫy "Silent Bug"
 
-**Transpose — chuyển vị** của ma trận đổi hàng thành cột:
+### Nguyên lý Broadcasting:
+Khi bạn thực hiện phép tính giữa hai mảng khác kích thước (ví dụ ma trận `X` shape `(3, 2)` cộng với bias `b = 1.0` là một scalar), NumPy sẽ tự động "kéo giãn" (broadcast) con số 1.0 thành một ma trận toàn số 1 có cùng kích thước `(3, 2)` để cộng vào từng phần tử.
 
-$$
-X^T=\begin{bmatrix}1&2&3\\2&3&2\end{bmatrix}
-$$
+**Quy tắc so khớp (Từ phải sang trái)**:
+Hai chiều tương thích nếu chúng **bằng nhau**, hoặc **một trong hai bên có kích thước bằng 1**.
 
-`X.T` có shape `(2, 3)`. Nhưng nếu `v.shape == (3,)`, thì `v.T.shape` vẫn là `(3,)`: không có trục hàng/cột thứ hai để hoán đổi. Muốn một cột, dùng `v[:, None]` hoặc `v.reshape(3, 1)`; muốn một hàng, dùng `v[None, :]`. `None` thêm một trục độ dài 1. [NumPy: transpose](https://numpy.org/doc/stable/reference/generated/numpy.transpose.html)
+### Cạm bẫy tử thần thầm lặng (The Silent Bug):
+Đây là lỗi kinh điển khiến mô hình không học được mà lập trình viên tìm mòn mắt không thấy log lỗi:
 
-Với phép tính trung bình, `axis` xác định trục được gộp:
+Giả sử dự đoán của bạn hoàn toàn chính xác: `pred = np.array([5.0, 8.0, 9.0])` và nhãn `y = np.array([5.0, 8.0, 9.0])`.
+Sai số thực tế từng mẫu phải bằng $0$: `pred - y = [0., 0., 0.]`.
 
-```python
-X.mean(axis=0)  # [2., 2.333333...], shape (2,)
-X.mean(axis=1)  # [1.5, 2.5, 2.5], shape (3,)
-```
-
-- `axis=0`: gộp qua các hàng/mẫu, giữ một kết quả cho mỗi đặc trưng.
-- `axis=1`: gộp qua các cột, giữ một kết quả cho mỗi mẫu.
-
-Cách nhớ là **trục được chỉ định bị gộp lại**, trừ khi dùng `keepdims=True` để giữ trục độ dài 1. Trung bình theo hàng ở ví dụ chỉ minh họa cơ chế; trộn số lô và số truy vấn bằng trung bình không tự tạo ra một đại lượng nghiệp vụ có ý nghĩa.
-
-## 8. Broadcasting: tiện lợi nhưng phải đúng ý định
-
-Broadcasting cho phép phép toán theo phần tử giữa một số mảng khác shape. NumPy so các kích thước **từ phải sang trái**: tương thích nếu bằng nhau hoặc một bên bằng 1; trục còn thiếu được xem như có kích thước 1. [NumPy: Broadcasting](https://numpy.org/doc/stable/user/basics.broadcasting.html)
-
-| Phép toán | Shape kết quả | Diễn giải |
-|---|---|---|
-| `(3,2) + scalar` | `(3,2)` | Cộng cùng số vào mọi phần tử |
-| `(3,2) * (2,)` | `(3,2)` | Nhân theo từng cột bằng trọng số tương ứng |
-| `(3,1) + (2,)` | `(3,2)` | Tạo mọi cặp hàng–cột bằng broadcasting |
-| `(3,2) + (3,)` | Lỗi | Kích thước cuối 2 và 3 không tương thích |
-
-Việc hình dung “lặp lại mảng nhỏ” giúp hiểu giá trị, không có nghĩa NumPy luôn sao chép vật lý mảng đó. Ngược lại, kết quả của một phép broadcasting lớn vẫn có thể tốn nhiều bộ nhớ.
-
-### Lỗi không báo exception: loss so mọi cặp mẫu
-
-Giả sử dự đoán đúng hoàn toàn: `pred = np.array([5., 8., 9.])`, `y` giống nó.
+Nhưng nếu do sơ suất ở bước tiền xử lý, `pred` bị biến thành dạng cột `(3, 1)` còn `y` là dạng mảng 1D `(3,)`:
 
 ```python
-pred - y            # shape (3,), giá trị [0., 0., 0.]
-pred[:, None] - y   # shape (3,3), không còn so từng cặp tương ứng!
+pred_col = pred[:, None]  # shape (3, 1)
+residual = pred_col - y   # shape (3, 1) trừ (3,) ???
 ```
 
-Ở dòng thứ hai, `(3,1)` trừ `(3,)` được hiểu thành `(3,1)` trừ `(1,3)`. Kết quả:
+NumPy **không hề báo lỗi**! Nó tự động hiểu rằng:
+- Chiều 1 của bên trái (3) kết hợp với chiều 1 của bên phải (1) $\to$ thành 3.
+- Chiều 2 của bên trái (1) kết hợp với chiều 2 của bên phải (3) $\to$ thành 3.
+- Kết quả tạo ra một **ma trận vuông $(3 \times 3)$ so chéo mọi cặp mẫu**:
 
 $$
-\begin{bmatrix}5-5&5-8&5-9\\8-5&8-8&8-9\\9-5&9-8&9-9\end{bmatrix}
-=\begin{bmatrix}0&-3&-4\\3&0&-1\\4&1&0\end{bmatrix}
+\begin{bmatrix} 5-5 & 5-8 & 5-9 \\ 8-5 & 8-8 & 8-9 \\ 9-5 & 9-8 & 9-9 \end{bmatrix} = 
+\begin{bmatrix} 0 & -3 & -4 \\ 3 & 0 & -1 \\ 4 & 1 & 0 \end{bmatrix}
 $$
-
-Lấy trung bình bình phương cả ma trận cho $52/9\approx5.777778$ ms², dù dự đoán từng mẫu đang đúng.
 
 ![So sánh sai số đúng theo từng mẫu và sai số mọi cặp do broadcasting](figures/03-broadcasting.png)
 
-*Hình 3. Cột bên trái chỉ vẽ dọc ba sai số của mảng 1-D, không có nghĩa mảng đúng có shape `(3,1)`. Bên phải là phép tính khác, không phải lỗi làm tròn.*
+*Hình 3. Bên trái là phép trừ đúng từng cặp mẫu (Loss = 0). Bên phải là cạm bẫy Broadcasting tạo ra ma trận so chéo $3 \times 3$, khiến Loss bị tính nhầm thành $5.78\text{ ms}^2$ dù mô hình đang dự đoán đúng 100%!*
 
-Cách xử lý là thống nhất shape có chủ đích. Bài này chọn cả dự đoán và đích là `(n,)` rồi kiểm tra bằng điều kiện rõ ràng. Chọn cả hai là `(n,1)` cũng có thể đúng với một quy ước khác. Không dùng `reshape(-1)` như một cách che mọi lỗi mà chưa biết ý nghĩa trục ban đầu.
+> [!CAUTION]
+> **Kinh nghiệm sống còn của AI Engineer**:
+> Trước khi tính hàm mất mát (Loss), luôn viết assert kiểm tra shape hoặc đảm bảo cả hai mảng đều là vector 1D:
+> ```python
+> assert pred.shape == y.shape, f"Lệch shape: {pred.shape} vs {y.shape}"
+> ```
 
-## 9. Vector hóa gradient: nối trực tiếp với bài 2
+---
 
-Với $d$ đặc trưng:
+## 7. Vector hóa Gradient: Vẻ đẹp của $X^T \mathbf{r}$
+
+Hãy nhớ lại ở Bài 2:
+Với mỗi đặc trưng, đạo hàm riêng là: $\frac{\partial L}{\partial w_j} = \frac{2}{n}\sum_{i=1}^n r_i \cdot X_{ij}$.
+
+Nếu có 100 đặc trưng, chẳng lẽ ta phải viết 100 dòng code hoặc vòng lặp duyệt từng cột?
+Hãy nhìn vào phép nhân kỳ diệu giữa **Ma trận chuyển vị $X^T$** và **Vector sai số $\mathbf{r}$**:
 
 $$
-\hat{\mathbf y}=X\mathbf w+b\mathbf1,\quad
-\mathbf r=\hat{\mathbf y}-\mathbf y,\quad
-L=\frac1n\sum_{i=1}^{n}r_i^2
+X^T \mathbf{r} = 
+\begin{bmatrix} 1 & 2 & 3 \\ 2 & 3 & 2 \end{bmatrix} 
+\begin{bmatrix} r_1 \\ r_2 \\ r_3 \end{bmatrix} = 
+\begin{bmatrix} 1\cdot r_1 + 2\cdot r_2 + 3\cdot r_3 \\ 2\cdot r_1 + 3\cdot r_2 + 2\cdot r_3 \end{bmatrix}
 $$
 
-Từ cùng cách suy ra ở bài 2, gradient của trọng số thứ $j$ là $\frac{2}{n}\sum_i r_iX_{ij}$. Mỗi cột của $X$ cần một tổng có trọng số như vậy. Ghép tất cả lại:
+Hàng thứ nhất của $X^T$ (toàn bộ giá trị của đặc trưng 1 trên mọi mẫu) nhân với vector sai số $\mathbf{r}$ $\implies$ **Ra ngay tổng đạo hàm của $w_1$**!
+Hàng thứ hai của $X^T$ nhân với $\mathbf{r}$ $\implies$ **Ra ngay tổng đạo hàm của $w_2$**!
 
-$$
-\nabla_{\mathbf w}L=\frac{2}{n}X^T\mathbf r,\qquad
-\frac{\partial L}{\partial b}=\frac{2}{n}\sum_i r_i
-$$
-
-Kiểm tra shape trước khi tính số:
-
+Kiểm tra kích thước (Shape Check):
 ```text
-X.T:       (d, n)
-r:            (n,)
-X.T @ r:   (d,)      ← một gradient cho mỗi trọng số
-mean(r):   scalar    ← gradient bias dùng 2 * mean(r)
+X.T:          (d, n)      -> (2, 3)
+r:               (n,)     -> (3,)
+─────────────────────────────────────────────
+X.T @ r:      (d,)        -> (2,)   (Một gradient cho mỗi trọng số!)
 ```
 
-Chia cho số **mẫu $n$**, không phải số đặc trưng $d$. Công thức vẫn dùng MSE chia cho $n$, đúng quy ước bài 2.
-
-### Tính tay một bước với hai đặc trưng
-
-Khởi đầu $\mathbf w=(1,0),b=0$, learning rate $\alpha=0.01$.
-
-| Mẫu | Đầu vào | Dự đoán | Đích | Sai số |
-|---|---|---:|---:|---:|
-| 0 | (1, 2) | 1 | 5 | −4 |
-| 1 | (2, 3) | 2 | 8 | −6 |
-| 2 | (3, 2) | 3 | 9 | −6 |
-
-Loss ban đầu là $(16+36+36)/3=88/3\approx29.333333$ ms².
-
-$$
-X^T\mathbf r=
-\begin{bmatrix}1&2&3\\2&3&2\end{bmatrix}
-\begin{bmatrix}-4\\-6\\-6\end{bmatrix}
-=\begin{bmatrix}-34\\-38\end{bmatrix}
-$$
-
-Do đó $\nabla_{\mathbf w}L=(-68/3,-76/3)$ và $\partial L/\partial b=-32/3$. Cập nhật đồng thời:
-
-$$
-\mathbf w_{\text{mới}}=(92/75,19/75)\approx(1.226667,0.253333),\quad
-b_{\text{mới}}=8/75\approx0.106667
-$$
-
-Dự đoán mới là $(1.84,3.32,4.293333\ldots)$, loss mới xấp xỉ **18.013570 ms²**. Đây là cùng cơ chế gradient descent của bài 2, được viết gọn cho nhiều mẫu và nhiều đặc trưng.
-
-Trong code:
+### Toàn bộ thuật toán Gradient Descent đa biến trong 5 dòng code:
 
 ```python
-pred = X @ w + b
-r = pred - y                  # Chỉ làm sau khi đã kiểm tra shape.
+# 1. Dự đoán cho cả batch
+y_hat = X @ w + b
+
+# 2. Tính vector sai số từng mẫu
+r = y_hat - y
+
+# 3. Tính gradient cho toàn bộ trọng số w và bias b
 dw = (2.0 / len(y)) * (X.T @ r)
 db = 2.0 * np.mean(r)
-w, b = w - lr * dw, b - lr * db
+
+# 4. Cập nhật đồng thời tất cả tham số
+w = w - lr * dw
+b = b - lr * db
 ```
 
-Lab có cả công thức vector hóa và vòng lặp độc lập để đối chiếu kết quả. Chưa có phép đánh giá ngoài dữ liệu huấn luyện trong ví dụ hai đặc trưng này; train loss giảm không phải bằng chứng tổng quát hóa.
+Không còn bất kỳ vòng lặp `for` nào! Đoạn code trên chạy được cho dữ liệu có 2 đặc trưng, 100 đặc trưng, hay 10.000 đặc trưng trên hàng triệu mẫu với tốc độ tối đa của phần cứng.
 
-## 10. Tensor: nhiều trục hơn, cùng nguyên tắc đọc shape
+---
 
-Trong lập trình Deep Learning, ta thường làm việc với **tensor dưới dạng mảng số nhiều chiều**: scalar 0 trục, vector 1 trục, ma trận 2 trục và các mảng nhiều trục hơn. Đây là cách dùng thực hành, chưa phải định nghĩa tensor trừu tượng theo quy tắc biến đổi tọa độ trong toán/vật lý.
+## 8. Tensor trong AI hiện đại: Đọc hiểu ý nghĩa các trục
 
-PyTorch dùng tensor cho dữ liệu, đầu ra và tham số; tensor có các thuộc tính shape, dtype và device. Bài này chỉ dùng NumPy để học phép tính; phần PyTorch và tính gradient tự động sẽ học sau. [PyTorch: Tensors](https://docs.pytorch.org/tutorials/beginner/basics/tensorqs_tutorial.html)
+Khi bước vào Deep Learning, dữ liệu không chỉ dừng lại ở bảng 2 chiều mà được tổ chức thành **Tensor đa chiều**:
 
-Shape cần đi cùng **ý nghĩa trục**, không chỉ các con số:
+### 1. Dữ liệu chuỗi văn bản trong LLM (Transformer) — Tensor 3D `(B, T, D)`:
+Khi bạn gửi một câu hỏi vào ChatGPT:
+- **`B` (Batch size)**: Số lượng câu hỏi được xử lý song song (ví dụ: 16 câu).
+- **`T` (Sequence Length / Tokens)**: Chiều dài tối đa của câu (ví dụ: 512 token).
+- **`D` (Hidden Dimension / Embedding)**: Mỗi từ được biểu diễn bằng một vector số thực (ví dụ: 768 hoặc 4096 chiều).
+- Tensor đầu vào có shape: `(16, 512, 4096)`.
 
-| Loại dữ liệu / quy ước | Shape ví dụ | Ý nghĩa |
-|---|---|---|
-| Dữ liệu bảng | `(32, 10)` | 32 mẫu, 10 đặc trưng |
-| Batch ảnh NHWC | `(2, 2, 3, 3)` | 2 ảnh, cao 2, rộng 3, 3 kênh |
-| Batch ảnh NCHW | `(2, 3, 2, 3)` | Cùng các trục nhưng kênh đứng trước chiều cao/rộng |
-| Biểu diễn chuỗi BTD | `(32, 128, 768)` | 32 chuỗi, 128 vị trí, 768 thành phần biểu diễn tại mỗi vị trí |
-
-`N` hoặc `B` là số mẫu, `H/W` là cao/rộng, `C` là kênh; `T` là độ dài chuỗi, `D` là kích thước biểu diễn. Đây là nhãn do người thiết kế quy ước, không phải tên trục tự được NumPy lưu. Số 128 hay 768 chỉ là ví dụ, không phải kích thước bắt buộc của mô hình hiện đại.
-
-Một mảng `(32,128,768)` có 3 trục, không có nghĩa đó là “32 không gian ba chiều”. Các trục có vai trò khác nhau. Chiều dài chuỗi khác nhau còn cần padding/mask hoặc cách biểu diễn khác; sẽ học khi làm dữ liệu chuỗi.
+### 2. Dữ liệu hình ảnh trong Computer Vision — Tensor 4D:
+- Chuẩn **NHWC** (TensorFlow / Keras): `(Batch, Height, Width, Channels)` — ví dụ `(32, 224, 224, 3)`.
+- Chuẩn **NCHW** (PyTorch / GPU cuDNN): `(Batch, Channels, Height, Width)` — ví dụ `(32, 3, 224, 224)`.
 
 ![Tensor ảnh được tách thành hai mẫu và ba kênh để quan sát giá trị](figures/04-tensor.png)
 
-*Hình 4. Dữ liệu là các số 0–35 do `arange` tạo; màu nền chỉ giúp phân biệt kênh, không phải ảnh RGB thực được dựng lại. Mỗi ô vẫn có đúng một chỉ số trên bốn trục N,H,W,C.*
+*Hình 4. Minh họa Tensor 4D gồm 2 ảnh, kích thước $2 \times 3$, mỗi ảnh có 3 kênh màu (R, G, B).*
 
-## 11. Reshape khác hoán vị trục
+---
 
-**Reshape** đổi cách chia dãy phần tử theo shape mới, phải giữ tổng số phần tử. Với thứ tự mặc định C, đọc/ghi theo thứ tự chỉ số mà trục cuối thay đổi nhanh nhất. `np.arange(6).reshape(2,3)` tạo `[[0,1,2],[3,4,5]]`.
+## 9. Phép biến hình: Reshape khác hoàn toàn Transpose!
 
-**Transpose/hoán vị trục** đổi vị trí trục, giữ mối liên hệ giữa giá trị và các chỉ số mang ý nghĩa. Với mảng nhiều trục cần chỉ rõ thứ tự mong muốn; dùng `.T` không đối số sẽ đảo ngược toàn bộ trục, không tự suy ra batch hay channel. [NumPy: reshape](https://numpy.org/doc/stable/reference/generated/numpy.reshape.html), [transpose](https://numpy.org/doc/stable/reference/generated/numpy.transpose.html)
+Đây là một trong những hiểu lầm nguy hiểm nhất khi xử lý ảnh hoặc âm thanh:
 
-Ví dụ thực hành:
+```text
+┌───────────────────────────────────────┬───────────────────────────────────────┐
+│        Reshape                        │        Transpose (Hoán vị trục)       │
+├───────────────────────────────────────┼───────────────────────────────────────┤
+│ Bốc dữ liệu theo thứ tự bộ nhớ phẳng  │ Xoay góc nhìn các trục tọa độ         │
+│ (flatten) rồi nhồi vào hình dạng mới. │ Bảo toàn vị trí thực tế của dữ liệu.  │
+│ KHÔNG BẢO TOÀN cấu trúc không gian!   │ BẢO TOÀN mối quan hệ ngữ nghĩa!       │
+└───────────────────────────────────────┴───────────────────────────────────────┘
+```
+
+### Ví dụ thực tế chứng minh:
+Giả sử bạn có một lô ảnh đang ở định dạng NHWC `(2, 2, 3, 3)` và muốn chuyển sang chuẩn NCHW `(2, 3, 2, 3)` để đưa vào mô hình PyTorch:
 
 ```python
-images = np.arange(36, dtype=np.uint8).reshape(2, 2, 3, 3)  # NHWC
-nchw = images.transpose(0, 3, 1, 2)                        # NCHW
-wrong = images.reshape(2, 3, 2, 3)                        # Cùng shape đích, sai ánh xạ
+images = np.arange(36, dtype=np.uint8).reshape(2, 2, 3, 3)  # Định dạng NHWC
 
-images[1, 0, 2, 1]  # 25
-nchw[1, 1, 0, 2]    # 25: cùng ảnh, pixel và kênh
-wrong[1, 1, 0, 2]   # 26: không còn cùng vị trí có ý nghĩa
+# CÁCH ĐÚNG: Dùng transpose để đổi chỗ trục Channel (trục 3) lên trước Height (trục 1)
+correct_nchw = images.transpose(0, 3, 1, 2)  # shape (2, 3, 2, 3)
+
+# CÁCH SAI: Dùng reshape ép kích thước
+wrong_nchw = images.reshape(2, 3, 2, 3)      # shape cũng là (2, 3, 2, 3) nhưng...
 ```
 
-`transpose(0,3,1,2)` nghĩa là trục đầu ra lần lượt lấy từ trục cũ 0, 3, 1, 2. Tổng phần tử và shape kết quả đúng chưa đủ chứng minh dữ liệu được bố trí đúng.
+Hãy kiểm tra giá trị của cùng một pixel tại vị trí cụ thể:
+- `images[1, 0, 2, 1]` có giá trị là **25**.
+- `correct_nchw[1, 1, 0, 2]` giữ nguyên giá trị **25** (pixel màu đỏ vẫn nằm đúng vị trí đó trên bức ảnh).
+- `wrong_nchw[1, 1, 0, 2]` biến thành giá trị **26**! Màu sắc và điểm ảnh đã bị xáo trộn lung tung, làm ảnh bị xé nát cấu trúc không gian.
 
-`images.reshape(2, -1)` cho shape `(2,18)`: mỗi ảnh được trải phẳng thành 18 số. `-1` yêu cầu NumPy suy một kích thước còn thiếu, chỉ được có một trục như vậy. Không làm mất giá trị số trong phép reshape này, nhưng thông tin cấu trúc không gian không còn hiện thành các trục riêng. Không thể reshape 36 phần tử thành `(2,20)`.
+> [!IMPORTANT]
+> Chỉ dùng `reshape` khi bạn muốn trải phẳng dữ liệu (Flatten: ví dụ biến ảnh thành vector `(Batch, -1)`). Khi muốn đổi thứ tự các chiều mang ngữ nghĩa (như chuyển Channel lên đầu), **bắt buộc phải dùng `transpose` / `permute`**.
 
-Reshape và transpose có thể trả view dùng chung dữ liệu; reshape trong một số trường hợp phải sao chép. Đừng mặc định đổi shape là miễn phí, hoặc sửa view luôn độc lập với bản gốc. Phần quản lý bộ nhớ sẽ học sâu khi tối ưu.
+---
 
-## 12. Nối sang mạng neural và batch matmul
+## 10. Thực hành Python với NumPy
 
-Một lớp biến đổi tuyến tính cho $n$ mẫu, $d$ đầu vào và $k$ đầu ra có thể viết:
+Toàn bộ mã nguồn nằm trong tệp [lab.py](lab.py). Bạn có thể chạy từng mode độc lập để quan sát:
 
-$$
-Z=XW+\mathbf b
-$$
-
-Trong code, `X` có shape `(n,d)`, `W` có shape `(d,k)`, bias có shape `(k,)` và `Z` có shape `(n,k)`. Bias được broadcast theo từng hàng. Kết quả có thể đi qua hàm kích hoạt; chưa có activation thì đây vẫn chỉ là phép biến đổi affine.
-
-Với dữ liệu nhiều trục, chẳng hạn `(B,T,D) @ (D,K)`, NumPy có thể tạo `(B,T,K)`, dùng chung ma trận biến đổi cho các vị trí. `@` khi đó không nhân theo mọi trục tùy ý; nó có quy tắc cho các trục cuối và broadcasting trên các trục trước. Viết ý nghĩa và shape trước khi dùng.
-
-## 13. Thực hành và môi trường
-
-Mã: [lab.py](lab.py). Môi trường đã kiểm tra: **Python 3.14.6, NumPy 2.5.4**. Từ bài này, code thực hành cần NumPy; bài 1–2 vẫn chỉ dùng thư viện chuẩn. Không cần GPU hay tài khoản AI.
-
-Nếu chưa có NumPy, từ thư mục bài 3, tạo môi trường ảo. Lệnh cài cần mạng:
-
-```bash
-python3 -m venv .venv
-.venv/bin/python -m pip install -r requirements.txt
-.venv/bin/python lab.py --mode all
-```
-
-Ví dụ dùng cú pháp macOS/Linux; trên Windows dùng `.venv\Scripts\python`. Nếu Python đang dùng đã cài NumPy, chạy trực tiếp:
-
+### 1. Quan sát thuộc tính mảng và broadcasting:
 ```bash
 python3 lab.py --mode shapes
-python3 lab.py --mode predict
-python3 lab.py --mode gradient
 python3 lab.py --mode broadcast
-python3 lab.py --mode tensor
 ```
 
-`--mode all` chạy cả năm phần trên. Nếu terminal ở gốc bộ tài liệu, thay `lab.py` bằng `03-vector-ma-tran-tensor/lab.py`.
+### 2. Kiểm tra Vector hóa Gradient:
+```bash
+python3 lab.py --mode gradient
+```
+Kết quả in ra:
+```text
+initial MSE: 29.333333333333332
+dw: [-22.666667 -25.333333] ; db: -10.666666666666666
+matches explicit loops: True
+after one update, w: [1.226667 0.253333] ; b: 0.10666666666666666
+new MSE: 18.013570370370374
+```
+Dòng `matches explicit loops: True` chứng minh công thức ma trận `X.T @ r` cho kết quả chính xác 100% đến từng số lẻ so với việc chạy vòng lặp lồng nhau!
 
-Kết quả chính để đối chiếu:
-
-| Mode | Kết quả cần quan sát |
-|---|---|
-| `shapes` | Scalar `()`, vector `(3,)`, hàng `(1,3)`, cột `(3,1)`; `v.T` vẫn `(3,)` |
-| `predict` | `X @ w + 1` bằng `[5,8,9]`; trung bình theo cột `[2, 2.333333...]` |
-| `gradient` | `dw≈[-22.666667,-25.333333]`, `db≈-10.666667`; loss sau cập nhật ≈18.013570 |
-| `broadcast` | Loss đúng bằng 0; phép broadcasting sai ý định cho ≈5.777778 |
-| `tensor` | NHWC `(2,2,3,3)`; NCHW `(2,3,2,3)`; giá trị kiểm tra 25, 25 và 26 |
-
-Để chạy nhiều bước thay vì chỉ một bước tính tay:
-
+### 3. Huấn luyện hoàn chỉnh 10.000 bước bằng phép toán ma trận:
 ```bash
 python3 lab.py --mode train --lr 0.01 --steps 10000
 ```
-
-Kết quả gần `w=[2.000157,1.000602]`, `b=0.998232`, train MSE khoảng $9.94\times10^{-8}$. Chưa đúng tuyệt đối sau số bước hữu hạn; cấu hình này không phải khuyến nghị learning rate/số bước cho mọi dữ liệu. Các mode minh họa ngoài `train` không dùng tùy chọn `--lr`/`--steps`.
-
-## 14. Hình minh họa, hiểu nhầm và bước tiếp theo
-
-Hình đã có PNG và SVG trong [thư mục figures](figures/). Không cần thư viện vẽ chỉ để đọc bài. Muốn tái tạo hình, từ thư mục bài 3 dùng môi trường ảo ở trên:
-
-```bash
-.venv/bin/python -m pip install -r requirements-figures.txt
-.venv/bin/python make_figures.py
+Kết quả:
+```text
+w: [2.000157 1.000602] ; b: 0.998232
+train MSE: 9.936969557714934e-08
 ```
+Mô hình tự động tìm ra trọng số $w_1 \approx 2.0$, $w_2 \approx 1.0$, $b \approx 1.0$, khôi phục chính xác quy luật ẩn trong dữ liệu backend!
 
-Mã vẽ: [make_figures.py](make_figures.py); phụ thuộc thực hành: [requirements.txt](requirements.txt); phụ thuộc vẽ: [requirements-figures.txt](requirements-figures.txt). Hình đã kiểm tra với Matplotlib 3.11.2, NumPy 2.5.4. Các gói ghim phiên bản cần một Python/nền tảng tương thích.
+---
 
-Các điểm cần tự kiểm tra:
+## 11. Các ứng dụng thực tế của AI Engineer
 
-- Đúng shape chưa chắc đúng thứ tự đặc trưng hoặc đúng ý nghĩa trục.
-- Broadcasting hợp lệ không đồng nghĩa phép tính đúng mục tiêu.
-- `*`, `@`, reshape và transpose giải quyết các việc khác nhau.
-- Số trục mảng khác số thành phần vector và khác hạng ma trận.
-- Tensor không mặc định là mảng 3 trục, không mặc định nằm trên GPU và không mặc định đang theo dõi gradient.
+1. **Tối ưu hóa thông lượng (Throughput) bằng Batching**:
+   - Thay vì gửi từng prompt vào LLM, ta gom 16 hoặc 32 prompt lại thành một Tensor `(Batch, Seq_Len)`. Phép nhân ma trận trên GPU Tensor Core sẽ tính toán song song toàn bộ 32 request cùng lúc, tăng thông lượng xử lý lên gấp hàng chục lần với cùng chi phí phần cứng.
+2. **Kỹ thuật Embedding Lookup**:
+   - Mỗi token từ vựng được mã hóa thành một ID số nguyên. Việc tra cứu vector embedding thực chất là phép nhân ma trận giữa vector One-Hot và ma trận trọng số $W_{\text{embed}}$.
+3. **Debug lỗi kích thước Tensor (Shape Mismatch)**:
+   - Trong quá trình xây dựng pipeline RAG hoặc fine-tuning mô hình, kỹ năng đọc và in `tensor.shape` sau mỗi tầng là công cụ số 1 để phát hiện lỗi tràn chiều, lệch trục và sai lệch ngữ nghĩa dữ liệu.
 
-Làm [bài tập](exercises.md), rồi đọc [lời giải](solutions.md). Có thể học tiếp khi tự ghi được shape dự đoán/gradient và tìm ra lỗi so cặp mẫu do broadcasting. Chưa cần học nghịch đảo ma trận, eigenvalue hay phân rã ma trận để đạt mục tiêu của bài này.
+---
 
-**Học tiếp:** [Bài 4 — Xác suất, thống kê và bất định](../04-xac-suat-thong-ke-bat-dinh/README.md), có ví dụ tính tay, mô phỏng lấy mẫu và hình minh họa. Nguồn và phần đã đọc: [danh mục nguồn](../SOURCES.md).
+## 12. Tổng kết và bước tiếp theo
+
+| Khái niệm | Ý nghĩa kỹ thuật | Trong code NumPy |
+|---|---|---|
+| **Scalar** | Đại lượng 0 chiều | `np.array(1.0)` (`shape = ()`) |
+| **Vector** | Danh sách 1 chiều | `np.array([1, 2])` (`shape = (2,)`) |
+| **Matrix** | Bảng số 2 chiều (Hàng x Cột) | `X` (`shape = (n, d)`) |
+| **Tensor** | Mảng số đa chiều | `(Batch, Seq_Len, Dim)` hoặc `(N, C, H, W)` |
+| **`*`** | Nhân từng phần tử tương ứng | `A * B` (Element-wise) |
+| **`@`** | Nhân ma trận đại số (Hàng nhân Cột) | `X @ w` (Matrix Multiplication) |
+| **`X.T @ r`** | Vector hóa Gradient cho mọi trọng số | Gom toàn bộ vòng lặp tính đạo hàm vào 1 dòng |
+| **Transpose** | Hoán vị trục, bảo toàn vị trí không gian | `img.transpose(0, 3, 1, 2)` |
+
+**Tự kiểm tra kiến thức:**
+1. Mở [exercises.md](exercises.md) và làm các bài tập: tính tay tích ma trận (Bài 3), phân tích cạm bẫy broadcasting (Bài 4), phân biệt reshape/transpose (Bài 6).
+2. Đối chiếu chi tiết với [solutions.md](solutions.md).
+
+**Học tiếp:**
+[Bài 4 — Xác suất, thống kê và bất định](../04-xac-suat-thong-ke-bat-dinh/README.md). Bạn sẽ bước vào thế giới của xác suất: làm sao mô hình biết nó đang tự tin hay phân vân, và cách AI xử lý nhiễu dữ liệu trong thực tế.
+
+---
+
+*Tài liệu tham khảo đối chiếu chuẩn:*
+- [NumPy Documentation: Array Attributes](https://numpy.org/doc/stable/user/absolute_beginners.html#array-attributes)
+- [NumPy Documentation: Broadcasting Rules](https://numpy.org/doc/stable/user/basics.broadcasting.html)
+- [PyTorch Documentation: Tensor Fundamentals](https://docs.pytorch.org/tutorials/beginner/basics/tensorqs_tutorial.html)

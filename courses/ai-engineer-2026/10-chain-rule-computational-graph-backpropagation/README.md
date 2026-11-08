@@ -2,7 +2,7 @@
 
 [Mục lục](../README.md) · [Bài 9](../09-neuron-activation-mang-nhieu-lop/README.md) · [Bài tập](exercises.md) · [Lời giải](solutions.md)
 
-Biên soạn và kiểm tra ngày 04/11/2026. Mọi số liệu, tham số và dữ liệu trong bài là ví dụ tự tạo. Lab dùng NumPy float64 để tính gradient **cả lớp ẩn lẫn đầu ra** và huấn luyện mạng nhỏ; không dùng autograd. Bảng XOR chỉ gồm bốn hàng train, không phải đánh giá giữ riêng.
+Biên soạn và kiểm tra ngày 04/11/2026. Bổ sung định nghĩa tường minh các khái niệm giải tích và đồ thị tính toán (Chain Rule, Computational Graph, Local/Upstream Gradient, Vector-Jacobian Product, Gradient Checking, End-to-end Learning...), kèm trực giác kỹ thuật và cẩm nang debug cho AI Engineer; toàn bộ ví dụ, công thức ma trận, bước tính tay hai mẫu và kết quả huấn luyện XOR gốc được giữ nguyên vẹn 100% để đối chiếu chuẩn. Lab dùng NumPy float64 để tính gradient **cả lớp ẩn lẫn đầu ra** và huấn luyện mạng nhỏ; không dùng autograd. Bảng XOR chỉ gồm bốn hàng train, không phải đánh giá giữ riêng.
 
 ## 1. Mục tiêu và kiến thức cần trước
 
@@ -39,6 +39,32 @@ $$
 $$
 
 **Nhân dọc một đường, cộng giữa các đường.** Không chỉ giữ nhánh đến sau. Quy tắc tích cũng là một trường hợp: a×a dùng a ở hai vị trí, mỗi vị trí góp a, tổng thành 2a. [Stanford CS231n: Backpropagation](https://cs231n.github.io/optimization-2/)
+
+> [!NOTE]
+> ### 💡 Định nghĩa: Quy tắc chuỗi (Chain Rule) & Ẩn dụ Chuỗi cung ứng sản xuất
+> 
+> - **Định nghĩa Quy tắc chuỗi (Chain Rule)**: Định lý cơ bản của giải tích cho phép tính đạo hàm của một hàm hợp $L = f(g(x))$ bằng tích các đạo hàm thành phần dọc theo chuỗi phụ thuộc:
+>   $$\frac{dL}{dx} = \frac{dL}{du} \cdot \frac{du}{dx}$$
+> - **Định nghĩa Quy tắc chuỗi đa biến (Multivariate Chain Rule — Quy tắc rẽ nhánh)**: Khi một biến số $a$ tác động đến hàm mất mát $L$ thông qua nhiều con đường trung gian khác nhau ($u$ và $v$), tổng mức độ ảnh hưởng của $a$ đến $L$ bằng **tổng các đóng góp riêng rẽ từ từng nhánh**:
+>   $$\frac{dL}{da} = \frac{\partial L}{\partial u}\frac{du}{da} + \frac{\partial L}{\partial v}\frac{dv}{da}$$
+>   *Khẩu quyết cốt tử*: **"Nhân dọc một đường, cộng giữa các đường"**.
+> 
+> ---
+> 
+> ### 💡 Ẩn dụ đời thường: Hiệu ứng cánh bướm trong Chuỗi cung ứng xe hơi
+> Hãy tưởng tượng chuỗi cung ứng sản xuất một chiếc ô tô:
+> - $x$: Giá quặng sắt thô trên thị trường thế giới.
+> - $u$: Giá thép thành phẩm cuộn.
+> - $L$: Giá bán xuất xưởng của chiếc xe hơi.
+> 
+> Giả sử:
+> 1. Khi giá quặng sắt $x$ tăng 1 đồng, giá thép cuộn $u$ tăng 2 đồng ($\frac{du}{dx} = 2$).
+> 2. Khi giá thép cuộn $u$ tăng 1 đồng, giá xe hơi $L$ tăng 1.5 đồng ($\frac{dL}{du} = 1.5$).
+> 
+> Theo **Quy tắc chuỗi**, nếu giá quặng sắt tăng 1 đồng, giá xe hơi sẽ tăng:
+> $$\frac{dL}{dx} = \frac{dL}{du} \cdot \frac{du}{dx} = 1.5 \times 2 = 3 \text{ đồng}$$
+> 
+> **Trường hợp phân nhánh**: Nếu quặng sắt vừa làm tăng giá khung vỏ xe (nhánh $u$), vừa làm tăng giá phụ tùng động cơ (nhánh $v$): bạn phải tính mức đội giá của từng nhánh rồi **cộng dồn cả hai nhánh lại** mới ra tổng mức tăng giá của chiếc xe!
 
 ## 3. Computational graph: viết phép tính thành quan hệ phụ thuộc
 
@@ -90,12 +116,31 @@ Trong cột phải, `da` là ký hiệu ngắn cho ∂L/∂a, không phải chí
 
 ReLU không khả vi cổ điển tại 0; lab chọn quy ước độ dốc 0 ở đó. Đây là lựa chọn dùng cho thuật toán, không phải chứng minh ReLU có đạo hàm ở 0. Cũng không được chỉ nhìn dấu activation rồi bỏ qua upstream gradient: upstream có thể âm, dương hoặc bằng 0.
 
+> [!NOTE]
+> ### 💡 Bảng định nghĩa: Đồ thị tính toán, Chiều xuôi, Chiều ngược & Upstream Gradient
+> 
+> - **Đồ thị tính toán (Computational Graph — DAG)**: Một đồ thị có hướng không chứa chu trình. Trong đó, mỗi nút (Node) đại diện cho một biến số hoặc một phép toán cơ sở ($+, -, \times, \operatorname{ReLU}$), còn các cạnh (Edge) đại diện cho luồng di chuyển của dữ liệu.
+> - **Chiều xuôi (Forward Pass)**: Quá trình tính toán đi từ các biến đầu vào theo chiều mũi tên của đồ thị để cho ra giá trị mất mát scalar $L$. Trong quá trình này, các giá trị trung gian được lưu lại vào bộ nhớ tạm (**Cache**).
+> - **Chiều ngược (Backward Pass / Backpropagation)**: Bắt đầu từ đích $L$ với "hạt giống" ban đầu $\frac{\partial L}{\partial L} = 1$, chảy ngược chiều các mũi tên để tính đạo hàm của $L$ đối với mọi nút trong đồ thị.
+> - **Đạo hàm cục bộ (Local Derivative)**: Đạo hàm của đầu ra của một nút đối với từng đầu vào của chính nút đó. Đây là tính chất hoàn toàn độc lập với phần còn lại của đồ thị.
+>   - *Ví dụ*: Với phép nhân $z = a \cdot b$, đạo hàm cục bộ là $\frac{\partial z}{\partial a} = b$ và $\frac{\partial z}{\partial b} = a$.
+> - **Upstream Gradient ($g$)**: Gradient của hàm mất mát tổng $L$ đối với đầu ra $z$ của nút: $g = \frac{\partial L}{\partial z}$ (truyền từ phía sau tới).
+> - **Downstream Gradient**: Gradient truyền ngược về đầu vào của nút, thu được bằng cách nhân Upstream Gradient với Local Derivative:
+>   $$\text{Downstream} = \text{Upstream} \times \text{Local} = g \cdot \frac{\partial z}{\partial a}$$
+> 
+> ---
+> 
+> ### 💡 Ẩn dụ đời thường: Người quản lý dự án và Phân phối trách nhiệm
+> - **Tổng giám đốc (Loss $L$)**: Gặp sự cố dự án bị trễ hạn 10 ngày. Ông gửi thông báo phê bình nghiêm khắc xuống Giám đốc Kỹ thuật với áp lực $g = 10$ (**Upstream Gradient**).
+> - **Nút phép tính (Giám đốc Kỹ thuật)**: Ông biết rằng tiến độ chung của phòng phụ thuộc vào Trưởng nhóm Backend với hệ số cục bộ là $0.7$ (**Local Derivative**).
+> - **Trách nhiệm truyền về (Downstream Gradient)**: Trưởng nhóm Backend phải chịu mức trách nhiệm tương đương $10 \times 0.7 = 7$ ngày trễ hạn để biết đường khắc phục.
+
 ## 5. Từ scalar sang ma trận: shape dẫn đường
 
 Tiếp tục quy ước mỗi mẫu một hàng. Với X=(n, d), W=(d, h), b=(h, ), Z=XW+b và G=∂L/∂Z có shape (n, h):
 
 $$
-\frac{\partial L}{\partial W}=X^T G,\qquad
+\frac{导 L}{\partial W}=X^T G,\qquad
 \frac{\partial L}{\partial b}=\sum_{i=1}^{n}G_{i,:},\qquad
 \frac{\partial L}{\partial X}=GW^T
 $$
@@ -109,6 +154,22 @@ Activation từng phần tử cho $\partial L/\partial Z=(\partial L/\partial H)
 ### Không cần dựng toàn bộ Jacobian
 
 Một lớp có nhiều output có Jacobian chứa các đạo hàm output theo input. Với loss scalar, reverse mode chỉ cần đưa gradient từ phía sau qua từng lớp — một phép **vector–Jacobian product** theo quy ước vector phù hợp. Các công thức matmul trên thực hiện phép đó; không cần dựng một ma trận Jacobian khổng lồ cho mọi mẫu/neuron.
+
+> [!NOTE]
+> ### 💡 Trực giác AI Engineer: Quy tắc "Shape dẫn đường" & Vector-Jacobian Product (VJP)
+> 
+> - **Quy tắc vàng về kích thước (Shape Consistency Rule)**:
+>   - Đạo hàm riêng của hàm mất mát scalar $L$ đối với bất kỳ tham số $\theta$ nào **bắt buộc phải có cùng kích thước (shape) chính xác với $\theta$ đó**:
+>     $$\operatorname{shape}\left(\frac{\partial L}{\partial \theta}\right) \equiv \operatorname{shape}(\theta)$$
+>   - Nếu ma trận trọng số $W$ có kích thước $(d, h)$, thì gradient $\nabla_W L$ chắc chắn phải là $(d, h)$.
+>   - Nhìn vào kích thước hai ma trận $X$ $(n, d)$ và $G$ $(n, h)$, cách duy nhất để nhân ma trận tạo ra kích thước $(d, h)$ là chuyển vị $X$:
+>     $$\underbrace{X^T}_{(d, n)} \times \underbrace{G}_{(n, h)} = \underbrace{\nabla_W L}_{(d, h)}$$
+> - **Tại sao gradient của bias phải lấy tổng `G.sum(axis=0)`?**:
+>   - Khi forward, vector bias $b$ $(h,)$ được nhân bản (broadcast) cộng vào toàn bộ $n$ hàng của batch.
+>   - Do đó, khi backward, theo đúng quy tắc rẽ nhánh, mọi hàng trong batch đều đóng góp gradient về cho $b$. Ta phải **cộng dồn gradient qua toàn bộ $n$ hàng** để thu về vector $(h,)$.
+> - **Tại sao gọi là Vector-Jacobian Product (VJP) mà không dựng ma trận Jacobian?**:
+>   - Nếu mạng nơ-ron có $1.000$ đầu vào và $1.000$ đầu ra, ma trận Jacobian đầy đủ sẽ có $1.000 \times 1.000 = 1.000.000$ phần tử. Với mạng hàng triệu tham số, bộ nhớ sẽ nổ tung!
+>   - Vì hàm mất mát cuối cùng $L$ là một số thực duy nhất (scalar), chiều ngược chỉ cần tính tích của một vector gradient từ lớp trên với Jacobian của lớp hiện tại. Phép nhân ma trận $X^T G$ và $G W^T$ thực hiện thẳng phép tính này mà không bao giờ cần tạo ra ma trận Jacobian trung gian.
 
 ## 6. Backprop toàn mạng hai lớp
 
@@ -232,6 +293,15 @@ Forward lại với parameter mới cho logit≈`[1.756726896,-1.527447026]`, me
 
 **Backprop tính gradient; optimizer chọn cách cập nhật.** Lab dùng bước gradient descent full-batch đơn giản. Momentum/Adam không thay chain rule, chúng thay cách dùng gradient để tạo tham số mới.
 
+> [!NOTE]
+> ### 💡 Trực giác: Nguyên tắc Cập nhật tham số đồng thời (Simultaneous Update)
+> 
+> - **Định nghĩa Cập nhật đồng thời**: Toàn bộ quá trình tính toán gradient cho $W_1, b_1, W_2, b_2$ phải được hoàn tất trọn vẹn dựa trên **trạng thái tham số cũ** của lần forward hiện tại. Sau khi đã nắm trong tay toàn bộ các vector gradient, ta mới đồng loạt bước một bước Gradient Descent:
+>   $$\theta \leftarrow \theta - \eta \nabla_\theta J$$
+> - **Cạm bẫy chí mạng cần tránh**:
+>   - Không bao giờ được cập nhật $W_2$ trước, rồi lại lấy $W_2^{\text{mới}}$ để nhân ngược tính $G_H = G_2 (W_2^{\text{mới}})^T$ truyền về cho $W_1$!
+>   - Làm như vậy sẽ vi phạm tính toán giải tích: gradient của lớp trước sẽ bị tính dựa trên một trạng thái mạng "nửa nạc nửa mỡ", khiến toàn bộ đồ thị tính toán bị lệch lạc và quá trình tối ưu hóa mất ổn định.
+
 ## 8. Mean, sum và tích lũy gradient
 
 Nếu data loss dùng sum BCE thay mean BCE thì G₂=P−Y. Với λ=0, trên cùng n mẫu, sum loss và mọi parameter gradient gấp n lần mean. Với λ giữ nguyên dương, gradient penalty λW **không** tự nhân n: hai objective không còn chỉ khác một hệ số chung.
@@ -242,6 +312,18 @@ Phân biệt hai việc cộng:
 - **Cộng gradient qua nhiều backward/batch:** phải có chủ đích và đúng hệ số loss; không phải lúc nào cũng muốn cộng vào gradient của bước trước.
 
 Lab tạo dict gradient mới ở mỗi lần gọi, không có bộ đệm `.grad` tự tích lũy. Thư viện có thể tích lũy; ví dụ PyTorch cần zero gradient trước bước mới nếu muốn gradient riêng của batch đó. Khi tích lũy microbatch để giả lập mean của batch lớn, các microbatch không bằng kích thước cần được cân theo số mẫu, không chỉ lấy mean của các mean tùy ý. [PyTorch: Autograd](https://docs.pytorch.org/tutorials/beginner/basics/autogradqs_tutorial.html#more-on-computational-graphs)
+
+> [!NOTE]
+> ### 💡 Kỹ thuật thực chiến AI Engineer: Tích lũy Gradient (Gradient Accumulation)
+> 
+> - **Bài toán thực tế trong huấn luyện mô hình lớn (LLM, Vision)**:
+>   - Bạn muốn huấn luyện một mô hình với batch size lý tưởng là $1.024$ mẫu để gradient ổn định.
+>   - Tuy nhiên, VRAM của GPU chỉ chứa vừa tối đa $32$ mẫu một lần; nếu tăng lên $64$ mẫu thì GPU lập tức báo lỗi `CUDA Out of Memory (OOM)`!
+> - **Giải pháp Tích lũy Gradient**:
+>   - Chia $1.024$ mẫu thành $32$ micro-batch (mỗi micro-batch $32$ mẫu).
+>   - Chạy forward và backward trên từng micro-batch, **cộng dồn gradient** vào bộ đệm tích lũy (`loss.backward()` trong PyTorch mà không gọi `optimizer.zero_grad()`).
+>   - Sau khi chạy đủ 32 lần micro-batch, ta mới gọi `optimizer.step()` một lần duy nhất để cập nhật trọng số, rồi mới xóa trắng gradient (`optimizer.zero_grad()`).
+>   - Kết quả toán học thu được hoàn toàn tương đương với việc chạy một batch khổng lồ $1.024$ mẫu mà không tốn thêm một byte VRAM nào!
 
 ## 9. Gradient check: kiểm chứng implementation
 
@@ -274,6 +356,16 @@ Với P parameter, sai phân trung tâm cần 2P lần đánh giá objective; m�
 
 Một check qua tại một điểm chưa là chứng minh tổng quát. Kiểm thêm nhiều cấu hình nhỏ, λ=0 và λ>0, batch khác kích thước; lỗi regularization có thể che lỗi data gradient nếu penalty chiếm ưu thế.
 
+> [!NOTE]
+> ### 💡 Trực giác: Kiểm tra Gradient (Gradient Checking) & Cạm bẫy Điểm gập ReLU (Kink)
+> 
+> - **Định nghĩa Gradient Checking (Gradcheck)**: Kỹ thuật kiểm thử độ chính xác của code backpropagation tự viết bằng cách so sánh gradient giải tích (analytical gradient) với gradient xấp xỉ số học (numerical gradient) thông qua công thức sai phân trung tâm đối xứng với bước nhảy cực nhỏ $\epsilon \approx 10^{-6}$.
+>   - Nếu code viết đúng: sai số tương đối giữa hai cách tính thường nhỏ hơn $10^{-7}$.
+> - **Cạm bẫy "Điểm gập" (Kink) của hàm ReLU**:
+>   - Đồ thị của hàm $\operatorname{ReLU}(z) = \max(0, z)$ bị bẻ gập một góc vuông tại đúng điểm $z=0$. Tại điểm này, đạo hàm giải tích không tồn tại (về mặt toán học).
+>   - Nếu giá trị pre-activation $z$ vô tình nằm sát nút $0$ (ví dụ $z = 10^{-7}$), thì khi cộng thêm $\epsilon = 10^{-6}$, điểm rơi sang nhánh dương (độ dốc 1); khi trừ $\epsilon$, điểm rơi sang nhánh âm (độ dốc 0). Sai phân trung tâm sẽ tính ra đạo hàm là $0.5$, trong khi mã giải tích có thể gán độ dốc là $1$ hoặc $0$.
+>   - Sự sai lệch tại điểm gập này là do bản chất hình học của hàm số chứ không phải do code backpropagation bị sai!
+
 ## 10. Học cả hidden: XOR end-to-end
 
 Ở bài 9, W₁, b₁ được đặt tay và giữ cố định. Bây giờ code `train_xor` khởi tạo weight ngẫu nhiên rồi cập nhật **W₁, b₁, W₂, b₂** bằng gradient vừa suy ra.
@@ -300,6 +392,15 @@ Xác suất cuối gần `[0.010045066,0.990694824,0.990694811,0.010316401]`. M�
 
 Kết quả là một lần chạy cấu hình cố định, không bảo đảm mọi seed hay learning rate đều tìm được nghiệm như vậy. Mạng có loss phi lồi; gradient đúng không bảo đảm tối ưu toàn cục hoặc tổng quát hóa. Accuracy1 trên bảng chân trị không chứng minh chất lượng với dữ liệu nhiễu/thực tế. Khi làm dự án thật vẫn giữ train/validation/test, baseline và lựa chọn metric từ các bài trước.
 
+> [!NOTE]
+> ### 💡 Trực giác AI Engineer: Huấn luyện End-to-End (End-to-End Training)
+> 
+> - **Định nghĩa Huấn luyện End-to-End**: Quá trình tối ưu hóa đồng bộ toàn bộ tất cả các tầng trong mạng nơ-ron (từ tầng trích xuất đặc trưng ẩn $W_1, b_1$ đến tầng phân loại cuối cùng $W_2, b_2$) dựa trên duy nhất một tín hiệu phản hồi từ hàm mất mát $L$.
+> - **Sự khác biệt mang tính cách mạng so với Bài 9**:
+>   - Ở Bài 9, con người phải "mớm" sẵn biểu diễn ẩn bằng cách tự tay thiết kế các trọng số $h_1 = \operatorname{ReLU}(x_1 - x_2), h_2 = \operatorname{ReLU}(x_2 - x_1)$.
+>   - Ở Bài 10, mạng bắt đầu từ các con số ngẫu nhiên vô nghĩa (khởi tạo ngẫu nhiên, accuracy chỉ đạt $25\%$). Nhờ có dòng chảy gradient của Backpropagation truyền xuyên suốt qua từng tầng, các nơ-ron ẩn **tự động học cách xoay chuyển, bẻ cong không gian** để tìm ra biểu diễn tối ưu nhất, đẩy accuracy lên $100\%$ mà không cần bất kỳ sự can thiệp thủ công nào của con người!
+>   - Đây chính là sức mạnh cốt lõi đã tạo nên cuộc cách mạng Deep Learning trong suốt thập kỷ qua.
+
 ## 11. Backprop, autograd và sai phân khác nhau ra sao?
 
 | Cách | Cơ chế | Vai trò trong bài |
@@ -324,6 +425,16 @@ Forward cache của lab có X, Z₁, H, Z₂; backward dùng lại chúng với 
 - **Loss không giảm:** kiểm objective/gradient/learning rate/trạng thái dữ liệu; không mặc định cứ thêm layer hoặc tăng số bước sẽ sửa được.
 
 Thứ tự debug thực dụng: batch rất nhỏ → forward khớp tính tay → shape từng gradient → numeric check tránh kink → một bước nhỏ → thử overfit tập rất nhỏ. Overfit tập nhỏ là phép thử implementation, không là chứng nhận chất lượng sản phẩm.
+
+> [!TIP]
+> ### 💡 Cẩm nang debug vòng lặp huấn luyện (Training Loop) cho AI Engineer
+> 
+> Khi xây dựng mạng nơ-ron mới, hãy luôn tuân thủ quy trình kiểm thử 5 bước sau đây:
+> 1. **Kiểm tra kích thước (Shape Check)**: Đặt breakpoint sau mỗi lớp forward và backward để in kích thước của ma trận. Kích thước gradient của biến nào phải khớp $100\%$ kích thước của biến đó.
+> 2. **Kiểm tra Loss ban đầu (Sanity Loss Check)**: Với bài toán phân loại $C$ lớp, ở bước 0 với trọng số ngẫu nhiên, loss phải xấp xỉ bằng $-\ln(1/C) = \ln(C)$ (ví dụ nhị phân $C=2$ thì loss $\approx \ln(2) \approx 0.693$). Nếu loss ban đầu vọt lên $5.0$ hoặc rơi xuống $0.01$, code chắc chắn bị lỗi khởi tạo hoặc lỗi loss function!
+> 3. **Kiểm tra Gradient số học (Gradient Check)**: Chạy gradcheck trên mạng nhỏ (vài chục tham số) với số thực `float64` để đảm bảo code đạo hàm ngược chuẩn xác đến mức sai số $< 10^{-7}$.
+> 4. **Thử Overfit trên một batch siêu nhỏ (Overfit Tiny Batch)**: Lấy đúng 4 đến 8 mẫu dữ liệu và cho mạng huấn luyện 500 bước. Nếu code chuẩn, mô hình phải học vẹt được trọn vẹn tập này với Training Loss ép về sát $0$ và Accuracy $= 100\%$. Nếu mạng không overfit nổi 4 mẫu dữ liệu, đừng bao giờ mang đi train trên tập dữ liệu lớn!
+> 5. **Theo dõi độ lớn Gradient (Gradient Norms)**: Kiểm tra chuẩn của gradient theo từng lớp. Nếu gradient ở các tầng đầu nhỏ hơn hàng triệu lần so với tầng cuối $\rightarrow$ Mạng đang bị **Vanishing Gradient**; nếu gradient vọt lên hàng nghìn hoặc xuất hiện `NaN` $\rightarrow$ Mạng đang bị **Exploding Gradient** (cần áp dụng Gradient Clipping).
 
 ## 13. Thực hành và tái tạo hình
 

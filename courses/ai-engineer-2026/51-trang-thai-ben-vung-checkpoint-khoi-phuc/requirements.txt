@@ -1,0 +1,1 @@
+-r ../50-lap-ke-hoach-kiem-chung-doi-ke-hoach/requirements.txt

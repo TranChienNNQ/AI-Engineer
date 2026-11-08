@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="936pt" height="540pt" viewBox="0 0 936 540" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-05T11:13:15.540280</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 540 
+L 936 540 
+L 936 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 67.896 248.801143 
+L 223.56 248.801143 
+Q 231.6816 248.801143 231.6816 241.765714 
+L 231.6816 159.685714 
+Q 231.6816 152.650286 223.56 152.650286 
+L 67.896 152.650286 
+Q 59.7744 152.650286 59.7744 159.685714 
+L 59.7744 241.765714 
+Q 59.7744 248.801143 67.896 248.801143 
+z
+" clip-path="url(#p7d0f2ccc70)" style="fill: #2863a5; fill-opacity: 0.070588; stroke: #2863a5; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 291.24 248.801143 
+L 446.904 248.801143 
+Q 455.0256 248.801143 455.0256 241.765714 
+L 455.0256 159.685714 
+Q 455.0256 152.650286 446.904 152.650286 
+L 291.24 152.650286 
+Q 283.1184 152.650286 283.1184 159.685714 
+L 283.1184 241.765714 
+Q 283.1184 248.801143 291.24 248.801143 
+z
+" clip-path="url(#p7d0f2ccc70)" style="fill: #d89a24; fill-opacity: 0.070588; stroke: #d89a24; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 514.584 248.801143 
+L 649.944 248.801143 
+Q 658.0656 248.801143 658.0656 241.765714 
+L 658.0656 159.685714 
+Q 658.0656 152.650286 649.944 152.650286 
+L 514.584 152.650286 
+Q 506.4624 152.650286 506.4624 159.685714 
+L 506.4624 241.765714 
+Q 506.4624 248.801143 514.584 248.801143 
+z
+" clip-path="url(#p7d0f2ccc70)" style="fill: #2863a5; fill-opacity: 0.070588; stroke: #2863a5; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 724.392 248.801143 
+L 873.288 248.801143 
+Q 881.4096 248.801143 881.4096 241.765714 
+L 881.4096 159.685714 
+Q 881.4096 152.650286 873.288 152.650286 
+L 724.392 152.650286 
+Q 716.2704 152.650286 716.2704 159.685714 
+L 716.2704 241.765714 
+Q 716.2704 248.801143 724.392 248.801143 
+z
+" clip-path="url(#p7d0f2ccc70)" style="fill: #227b62; fill-opacity: 0.070588; stroke: #227b62; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 235.710097 200.725714 
+Q 257.397821 200.725714 277.408494 200.725714 
+" clip-path="url(#p7d0f2ccc70)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 271.408494 197.725714 
+L 277.408494 200.725714 
+L 271.408494 203.725714 
+z
+" clip-path="url(#p7d0f2ccc70)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 459.054097 200.725714 
+Q 480.741821 200.725714 500.752494 200.725714 
+" clip-path="url(#p7d0f2ccc70)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 494.752494 197.725714 
+L 500.752494 200.725714 
+L 494.752494 203.725714 
+z
+" clip-path="url(#p7d0f2ccc70)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 662.095336 200.725714 
+Q 687.166722 200.725714 710.561057 200.725714 
+" clip-path="url(#p7d0f2ccc70)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 704.561057 197.725714 
+L 710.561057 200.725714 
+L 704.561057 203.725714 
+z
+" clip-path="url(#p7d0f2ccc70)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 67.896 418.824 
+L 284.472 418.824 
+Q 292.5936 418.824 292.5936 411.788571 
+L 292.5936 329.708571 
+Q 292.5936 322.673143 284.472 322.673143 
+L 67.896 322.673143 
+Q 59.7744 322.673143 59.7744 329.708571 
+L 59.7744 411.788571 
+Q 59.7744 418.824 67.896 418.824 
+z
+" clip-path="url(#p7d0f2ccc70)" style="fill: #2863a5; fill-opacity: 0.070588; stroke: #2863a5; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 365.688 418.824 
+L 582.264 418.824 
+Q 590.3856 418.824 590.3856 411.788571 
+L 590.3856 329.708571 
+Q 590.3856 322.673143 582.264 322.673143 
+L 365.688 322.673143 
+Q 357.5664 322.673143 357.5664 329.708571 
+L 357.5664 411.788571 
+Q 357.5664 418.824 365.688 418.824 
+z
+" clip-path="url(#p7d0f2ccc70)" style="fill: #2863a5; fill-opacity: 0.070588; stroke: #2863a5; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 663.48 418.824 
+L 873.288 418.824 
+Q 881.4096 418.824 881.4096 411.788571 
+L 881.4096 329.708571 
+Q 881.4096 322.673143 873.288 322.673143 
+L 663.48 322.673143 
+Q 655.3584 322.673143 655.3584 329.708571 
+L 655.3584 411.788571 
+Q 655.3584 418.824 663.48 418.824 
+z
+" clip-path="url(#p7d0f2ccc70)" style="fill: #227b62; fill-opacity: 0.070588; stroke: #227b62; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(123.433469 196.371027)">HTTP API</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(111.128781 211.485089)">Validate input</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(340.512625 196.365558)">ADMISSION</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(327.575906 211.485089)">Ready / capacity</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(551.939 195.792121)">FIFO QUEUE</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(552.952281 211.685089)">Q entry chờ</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(772.235312 196.365558)">c WORKER</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(763.723594 212.538996)">Model đã load</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(154.66525 366.388415)">PREDICT</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(107.937125 381.593103)">Giữ request, await terminal</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(455.635375 365.458728)">JOB API</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(407.859594 381.507946)">202 + Location → poll GET</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(727.384781 365.995446)">RESULT / ERROR</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(710.093375 382.476696)">State + version + hash</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="477.36" y="473.348571" transform="rotate(-0 477.36 473.348571)">Queue/job record trong RAM không là broker bền; async def không tự làm CPU inference non-blocking.</text>
+   </g>
+  </g>
+  <g id="text_9">
+   <text style="font-weight: 700; font-size: 18px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172d45" x="51.48" y="37.324688" transform="rotate(-0 51.48 37.324688)">01 · Một model dùng chung, nhiều request cần điều phối</text>
+  </g>
+  <g id="text_10">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #596777" x="51.48" y="59.4" transform="rotate(-0 51.48 59.4)">Lifespan load/warm-up trước ready. API sync response và job 202 dùng cùng bounded service.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p7d0f2ccc70">
+   <rect x="37.44" y="86.4" width="879.84" height="410.4"/>
+  </clipPath>
+ </defs>
+</svg>

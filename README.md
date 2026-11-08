@@ -2,7 +2,7 @@
 
 ## Bộ tài liệu đang biên soạn
 
-[AI Engineer 2026 — từ nền tảng đến hệ thống ứng dụng](courses/ai-engineer-2026/README.md): dành cho người có nền backend, học Deep Learning từ cơ bản. Có đề cương toàn bộ và bài 1–29 kèm thực hành, bài tập, lời giải; bài 2–29 có hình minh họa. Các bài chưa viết được ghi rõ trong đề cương.
+[AI Engineer 2026 — từ nền tảng đến hệ thống ứng dụng](courses/ai-engineer-2026/README.md): dành cho người có nền backend, học Deep Learning từ cơ bản. Có đề cương toàn bộ và bài 1–51 kèm thực hành, bài tập, lời giải; bài 2–51 có hình minh họa. Các bài chưa viết được ghi rõ trong đề cương. Có thêm [nhánh AI Agent nâng cao bài 48–57](courses/ai-engineer-2026/AGENT-TRACK.md) với bài 48–51 đã biên soạn, bài 52–57 còn ở mức đề cương.
 
 Bộ điều phối đã bổ sung [quy trình biên soạn tài liệu](.agents/skills/learn-domain/references/workflows/course-authoring.md). Khi đã chọn học theo tài liệu, yêu cầu “viết bài tiếp theo” sẽ cập nhật bộ tài liệu và mục lục.
 

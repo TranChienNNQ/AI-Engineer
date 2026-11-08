@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="936pt" height="540pt" viewBox="0 0 936 540" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-05T13:03:20.459971</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 540 
+L 936 540 
+L 936 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 58.4208 242.352 
+L 233.0352 242.352 
+Q 241.1568 242.352 241.1568 235.316571 
+L 241.1568 171.997714 
+Q 241.1568 164.962286 233.0352 164.962286 
+L 58.4208 164.962286 
+Q 50.2992 164.962286 50.2992 171.997714 
+L 50.2992 235.316571 
+Q 50.2992 242.352 58.4208 242.352 
+z
+" clip-path="url(#p027ac2504a)" style="fill: #2863a5; fill-opacity: 0.070588; stroke: #2863a5; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 245.861684 203.657143 
+Q 254.01595 203.657143 260.493165 203.657143 
+" clip-path="url(#p027ac2504a)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 254.493165 200.657143 
+L 260.493165 203.657143 
+L 254.493165 206.657143 
+z
+" clip-path="url(#p027ac2504a)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 278.3808 242.352 
+L 452.9952 242.352 
+Q 461.1168 242.352 461.1168 235.316571 
+L 461.1168 171.997714 
+Q 461.1168 164.962286 452.9952 164.962286 
+L 278.3808 164.962286 
+Q 270.2592 164.962286 270.2592 171.997714 
+L 270.2592 235.316571 
+Q 270.2592 242.352 278.3808 242.352 
+z
+" clip-path="url(#p027ac2504a)" style="fill: #2863a5; fill-opacity: 0.070588; stroke: #2863a5; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 465.821684 203.657143 
+Q 473.97595 203.657143 480.453165 203.657143 
+" clip-path="url(#p027ac2504a)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 474.453165 200.657143 
+L 480.453165 203.657143 
+L 474.453165 206.657143 
+z
+" clip-path="url(#p027ac2504a)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 498.3408 242.352 
+L 672.9552 242.352 
+Q 681.0768 242.352 681.0768 235.316571 
+L 681.0768 171.997714 
+Q 681.0768 164.962286 672.9552 164.962286 
+L 498.3408 164.962286 
+Q 490.2192 164.962286 490.2192 171.997714 
+L 490.2192 235.316571 
+Q 490.2192 242.352 498.3408 242.352 
+z
+" clip-path="url(#p027ac2504a)" style="fill: #2863a5; fill-opacity: 0.070588; stroke: #2863a5; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 685.781684 203.657143 
+Q 693.93595 203.657143 700.413165 203.657143 
+" clip-path="url(#p027ac2504a)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 694.413165 200.657143 
+L 700.413165 203.657143 
+L 694.413165 206.657143 
+z
+" clip-path="url(#p027ac2504a)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 718.3008 242.352 
+L 892.9152 242.352 
+Q 901.0368 242.352 901.0368 235.316571 
+L 901.0368 171.997714 
+Q 901.0368 164.962286 892.9152 164.962286 
+L 718.3008 164.962286 
+Q 710.1792 164.962286 710.1792 171.997714 
+L 710.1792 235.316571 
+Q 710.1792 242.352 718.3008 242.352 
+z
+" clip-path="url(#p027ac2504a)" style="fill: #227b62; fill-opacity: 0.070588; stroke: #227b62; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_9">
+    <path d="M 136.2528 400.649143 
+L 415.7712 400.649143 
+Q 423.8928 400.649143 423.8928 393.613714 
+L 423.8928 324.432 
+Q 423.8928 317.396571 415.7712 317.396571 
+L 136.2528 317.396571 
+Q 128.1312 317.396571 128.1312 324.432 
+L 128.1312 393.613714 
+Q 128.1312 400.649143 136.2528 400.649143 
+z
+" clip-path="url(#p027ac2504a)" style="fill: #bd4949; fill-opacity: 0.070588; stroke: #bd4949; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 538.9488 400.649143 
+L 818.4672 400.649143 
+Q 826.5888 400.649143 826.5888 393.613714 
+L 826.5888 324.432 
+Q 826.5888 317.396571 818.4672 317.396571 
+L 538.9488 317.396571 
+Q 530.8272 317.396571 530.8272 324.432 
+L 530.8272 393.613714 
+Q 530.8272 400.649143 538.9488 400.649143 
+z
+" clip-path="url(#p027ac2504a)" style="fill: #227b62; fill-opacity: 0.070588; stroke: #227b62; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 488.995805 245.314418 
+Q 382.609491 279.873801 277.818181 313.915051 
+" clip-path="url(#p027ac2504a)" style="fill: none; stroke: #bd4949; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 284.451507 314.914549 
+L 277.818181 313.915051 
+L 282.597775 309.20809 
+z
+" clip-path="url(#p027ac2504a)" style="fill: #bd4949; stroke: #bd4949; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_12">
+    <path d="M 787.012523 245.785693 
+Q 734.544052 279.874252 683.481889 313.049137 
+" clip-path="url(#p027ac2504a)" style="fill: none; stroke: #227b62; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 690.147677 312.295962 
+L 683.481889 313.049137 
+L 686.878822 307.264602 
+z
+" clip-path="url(#p027ac2504a)" style="fill: #227b62; stroke: #227b62; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(114.610813 199.296987)">BUILD ONCE</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(97.576437 214.416518)">Objects + manifest</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(338.316125 199.296987)">CONTRACT</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(325.597375 214.416518)">Data / split / API</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(564.263625 198.723549)">QUALITY</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(526.580812 214.992299)">Same validation / slices</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(782.255656 199.296987)">APPROVE</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(746.716594 214.416518)">Report + policy binding</text>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(223.833875 353.867388)">FAIL → giữ pointer cũ</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(185.53075 369.982232)">Không approval cho slice-regression</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(627.979875 354.750982)">ACTIVATE → recheck</text>
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(582.018937 369.782232)">Artifact / approval / policy / generation</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="477.36" y="464.554286" transform="rotate(-0 477.36 464.554286)">CI PASS nghĩa đạt policy trên fixture; không tự chứng minh outcome online.</text>
+   </g>
+  </g>
+  <g id="text_8">
+   <text style="font-weight: 700; font-size: 18px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172d45" x="51.48" y="38.008125" transform="rotate(-0 51.48 38.008125)">03 · CI kiểm artifact, rồi controller kiểm liên kết approval</text>
+  </g>
+  <g id="text_9">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #596777" x="51.48" y="59.4" transform="rotate(-0 51.48 59.4)">ci_runner tiêu thụ registry đã build. Không train/build lại để thay artifact sau khi PASS.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p027ac2504a">
+   <rect x="37.44" y="86.4" width="879.84" height="410.4"/>
+  </clipPath>
+ </defs>
+</svg>

@@ -2,7 +2,9 @@
 
 [Mục lục](../README.md) · [Bài 6](../06-hoi-quy-phan-loai/README.md) · [Bài tập](exercises.md) · [Lời giải](solutions.md)
 
-Biên soạn và kiểm tra ngày 04/11/2026. Mọi dữ liệu, điểm số và chi phí trong bài là ví dụ tự tạo để học, không phải kết quả của hệ thống đang vận hành. Lab dùng NumPy và các điểm số dựng sẵn; không huấn luyện lại bộ phân loại bài 6.
+Biên soạn và kiểm tra ngày 04/11/2026. Bổ sung các khối giải thích tường minh, trực giác kỹ thuật và ví dụ thực tế cho AI Engineer; toàn bộ dữ liệu, điểm số, bảng đếm và chi phí gốc được giữ nguyên vẹn để đối chiếu chuẩn. Lab dùng NumPy và các điểm số dựng sẵn; không huấn luyện lại bộ phân loại bài 6.
+
+---
 
 ## 1. Mục tiêu và kiến thức cần trước
 
@@ -16,6 +18,8 @@ Sau bài này, người học có thể:
 - Hiểu ảnh hưởng của tỷ lệ lớp, class weight và resampling đến đánh giá.
 
 Cần kiến thức xác suất ở [bài 4](../04-xac-suat-thong-ke-bat-dinh/README.md), ranh giới dữ liệu ở [bài 5](../05-train-validation-test-ro-ri-du-lieu/README.md), xác suất/ngưỡng ở bài 6. Phần 2–7 là cốt lõi; phần 8–10 mở rộng về xếp hạng và đa lớp; phần 11–13 nối sang thực hành hệ thống. Không cần học thuộc mọi chỉ số một lượt.
+
+---
 
 ## 2. Trước khi đếm: positive là lớp nào?
 
@@ -37,6 +41,16 @@ Positive là lớp được chọn để theo dõi, không mang nghĩa “tốt�
 | TN — true negative | 0 | 0 | Để đúng ticket thông thường ở luồng thường |
 
 True/false nói dự đoán đúng/sai; positive/negative nói nhãn dự đoán. Không học FP thành “mọi dự đoán sai”: FN cũng là sai, nhưng theo hướng khác.
+
+> [!NOTE]
+> ### 💡 Ẩn dụ đời thường: Chó bảo vệ trông nhà
+> Để không bao giờ nhầm lẫn giữa TP, FP, FN, TN, hãy tưởng tượng một chú chó trông nhà:
+> - **TP (True Positive — Bắt đúng kẻ gian)**: Trộm lẻn vào nhà ($y=1$) và chó sủa inh ỏi báo động ($\hat y=1$). Nhiệm vụ hoàn thành xuất sắc!
+> - **FP (False Positive — Báo động giả)**: Người giao hàng hoặc lá rơi ($y=0$) mà chó sủa ầm ĩ ($\hat y=1$). Làm phiền chủ nhà thức giấc (tốn công kiểm tra nhầm).
+> - **FN (False Negative — Bỏ sót tai họa)**: Trộm lẻn vào nhà ($y=1$) nhưng chó ngủ say không sủa ($\hat y=0$). Tai họa ập đến: nhà bị mất trộm!
+> - **TN (True Negative — Yên bình)**: Người qua đường bình thường ($y=0$) và chó nằm im không sủa ($\hat y=0$). Mọi thứ diễn ra êm đẹp.
+
+---
 
 ## 3. Confusion matrix: bảng đếm trước, tỷ lệ sau
 
@@ -65,6 +79,8 @@ Kiểm tra tổng: 950+30+5+15=1000; số positive thật=5+15=20; số cảnh b
 *Hình 1. Ba cách nhìn cùng bảng. Ô TP theo hàng là recall=15/20; ô TP theo cột là precision=15/45. Các panel tỷ lệ dùng thang màu riêng 0–100%, panel đếm dùng thang số lượng. Không so độ đậm giữa hai loại thang.*
 
 Chuẩn hóa theo hàng trả lời “trong mỗi lớp thật, bị chia đi đâu?”. Chuẩn hóa theo cột trả lời “trong mỗi nhóm dự đoán, nguồn thật là gì?”. Nếu một hàng/cột có tổng 0, tỷ lệ ở đó không xác định; không tùy tiện coi là 100%.
+
+---
 
 ## 4. Precision và recall: khác câu hỏi, khác điều kiện
 
@@ -100,6 +116,18 @@ $$
 Specificity là tỷ lệ bắt đúng negative; FPR là tỷ lệ báo nhầm trong **negative thật**. Chúng cộng bằng 1 khi có negative thật. Với ví dụ: accuracy=965/1000=96.5%; specificity=950/980≈96.94%; FPR=30/980≈3.06%.
 
 Đừng nhầm FPR với `1−precision`: `1−precision=FP/(TP+FP)` là tỷ lệ cảnh báo sai **trong các cảnh báo**. Ở đây FPR chỉ 3.06% nhưng 66.67% cảnh báo là sai. Lượng negative lớn giải thích sự khác biệt này.
+
+> [!TIP]
+> ### 💡 Trực giác đời thường: Chuyện thám tử truy bắt tội phạm
+> - **Precision (Độ chuẩn xác / Tính chính xác)**: Trả lời câu hỏi: *"Trong số những người thám tử đã còng tay bắt giữ, có bao nhiêu người thực sự là tội phạm?"*
+>   - Nếu thám tử còng tay 45 người mà chỉ có 15 kẻ phạm tội thật (30 người vô tội bị bắt nhầm) $\implies$ Precision thấp, chỉ đạt $15/45 = 33.3\%$.
+> - **Recall (Độ bao phủ / Khả năng bắt trọn)**: Trả lời câu hỏi: *"Trong toàn bộ 20 tên tội phạm đang lẩn trốn trong thành phố, thám tử đã tóm được bao nhiêu tên?"*
+>   - Thám tử tóm được 15 tên, để xổng 5 tên $\implies$ Recall đạt $15/20 = 75\%$.
+> - **Sự đánh đổi muôn thuở (Trade-off)**:
+>   - *Muốn Recall 100% cực dễ*: Cứ ra lệnh bắt giam toàn bộ 1.000 người dân trong thị trấn! Đảm bảo không bỏ sót tên tội phạm nào ($Recall = 100\%$), nhưng bắt nhầm 980 người vô tội ($Precision = 2\%$).
+>   - *Muốn Precision 100% cũng rất dễ*: Thám tử chỉ bắt đúng 1 tên duy nhất mà mình tận mắt thấy hắn đang ăn trộm. Bắt 1 trúng 1 ($Precision = 100\%$), nhưng để xổng 19 tên còn lại ($Recall = 5\%$).
+
+---
 
 ## 5. Vì sao accuracy 98% vẫn có thể bỏ sót hết?
 
@@ -138,6 +166,17 @@ $$
 
 Ví dụ cho khoảng 0.859694; baseline luôn 0 cho (0+1)/2=0.5. Nó cho hai lớp trọng lượng bằng nhau khi trung bình recall; không đòi cân bằng lại số mẫu trước khi tính. [scikit-learn: Balanced accuracy](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.balanced_accuracy_score.html)
 
+> [!WARNING]
+> ### 💡 Cạm bẫy "Mô hình lười biếng" & Vì sao F1 dùng Trung bình điều hòa?
+> - **Cái bẫy Accuracy 98%**: Trong dữ liệu có 980 vé thường và 20 vé khẩn cấp, một lập trình viên lười biếng chỉ cần viết đúng 1 dòng code: `return 0` (luôn đoán vé thường). Mô hình này đạt **Accuracy 98%** tuyệt đẹp, nhưng nó là rác rưởi vì **Recall = 0%** — toàn bộ sự cố nghiêm trọng của khách hàng bị bỏ rơi!
+> - **Tại sao F1 phải dùng Trung bình điều hòa (Harmonic Mean)?**
+>   - Giả sử một mô hình có $P = 100\%$ nhưng $R = 0\%$.
+>   - Nếu lấy trung bình cộng: $(100\% + 0\%) / 2 = 50\%$ $\implies$ Đánh lừa rằng mô hình đạt loại khá!
+>   - Nếu lấy trung bình điều hòa: $F_1 = \frac{2 \times 1 \times 0}{1 + 0} = \mathbf{0.0}$!
+>   - Trung bình điều hòa trừng phạt cực kỳ nặng nề nếu một trong hai chỉ số bị kéo về sát số 0. Nó ép mô hình phải cân bằng cả hai yếu tố: không được quá nhát gan (Recall thấp) và không được đoán bừa (Precision thấp).
+
+---
+
 ## 6. Mẫu số bằng 0: thiếu định nghĩa, không phải tự nhiên hoàn hảo
 
 | Tình huống | Hệ quả theo công thức |
@@ -153,6 +192,8 @@ Lab binary mặc định trả `NaN` cho tỷ lệ không xác định. Có th�
 
 Thư viện có quy ước khác nhau. Ví dụ `precision_score` của scikit-learn mặc định trả 0 và cảnh báo khi chia 0; có tùy chọn khác. Bài không gọi API ấy, nên không coi mặc định lab giống mọi thư viện. [scikit-learn: precision_score](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_score.html)
 
+---
+
 ## 7. Đổi ngưỡng: chọn theo câu hỏi của sản phẩm
 
 Bài 6 đã tách score và quyết định. Bây giờ nhìn tác động lên metric. Giữ cố định các score validation sau; chưa khẳng định chúng đã được hiệu chuẩn thành xác suất:
@@ -166,11 +207,11 @@ Quy tắc hòa: score≥τ thì đoán 1. Ví dụ τ=0.5 chọn sáu mẫu đ�
 
 Giả định **FP=1,FN=5**, xét đúng ba ứng viên:
 
-| τ | TP | FP | FN | TN | Precision | Recall | F1 | Accuracy | Chi phí |
+| Ngưỡng τ | TP | FP | FN | TN | Precision | Recall | F1 | Accuracy | Chi phí ($FP + 5 \times FN$) |
 |---:|---:|---:|---:|---:|---:|---:|---:|---:|---:|
-| 0.7 | 2 | 2 | 2 | 6 | 0.5 | 0.5 | 0.5 | 0.666667 | 12 |
-| 0.5 | 3 | 3 | 1 | 5 | 0.5 | 0.75 | 0.6 | 0.666667 | 8 |
-| 0.4 | 4 | 4 | 0 | 4 | 0.5 | 1 | 0.666667 | 0.666667 | **4** |
+| **0.7** | 2 | 2 | 2 | 6 | 0.5 | 0.50 | 0.500000 | 0.666667 | 2 + 5×2 = **12** |
+| **0.5** | 3 | 3 | 1 | 5 | 0.5 | 0.75 | 0.600000 | 0.666667 | 3 + 5×1 = **8** |
+| **0.4** | 4 | 4 | 0 | 4 | 0.5 | 1.00 | 0.666667 | 0.666667 | 4 + 5×0 = **4 (Tối ưu!)** |
 
 Chọn 0.4 bằng **validation cost** trong ba ứng viên, không tuyên bố nó là tối ưu trên mọi ngưỡng hoặc mọi phân bố. Nếu nhiều ngưỡng bằng cost, lab định trước chọn ngưỡng lớn hơn. Cost ở mục này khác mục 5; không trộn hai cấu hình.
 
@@ -183,6 +224,15 @@ Với score cố định, hạ ngưỡng không làm giảm TP hoặc FP; do đ�
 Sau chốt τ=0.4 mới truy cập bộ test riêng trong lab. Kết quả test có TN=3,FP=3,FN=1,TP=1: accuracy=0.5,P=0.25,R=0.5,F1=1/3,cost=8. Baseline luôn 0 có accuracy=0.75,cost=10. **Không chọn lại ngưỡng sau khi nhìn các kết quả này.** Tập test có 8 mẫu tự tạo chỉ minh họa giao thức, không ước lượng chất lượng triển khai.
 
 Một mục tiêu khác có thể là “recall cao nhất với precision≥0.8” hoặc “không quá K cảnh báo/ngày”. Cần quy định cách xử lý khi không ngưỡng nào đạt điều kiện; không hạ yêu cầu sau khi xem test. Score có thứ tự tốt chưa chắc đã có ngưỡng đáp ứng được nhu cầu.
+
+> [!NOTE]
+> ### 💡 Trực giác: Accuracy giữ nguyên nhưng chi phí giảm gấp 3 lần!
+> Hãy nhìn bảng quét ngưỡng: Cả 3 ngưỡng $\tau = 0.7, 0.5, 0.4$ đều cho ra **Accuracy giống hệt nhau là $66.7\%$**!
+> - Nếu chỉ nhìn Accuracy, bạn sẽ nghĩ đổi ngưỡng chẳng có tác dụng gì.
+> - Nhưng nhìn vào cột Chi phí: Ngưỡng $0.4$ kéo chi phí thiệt hại từ **12 đơn vị xuống chỉ còn 4 đơn vị**!
+> - *Lý do*: Vì chi phí bỏ sót ($FN=5$) đắt gấp 5 lần chi phí báo nhầm ($FP=1$). Việc hạ ngưỡng xuống $0.4$ chấp nhận tăng thêm 2 cảnh báo nhầm để triệt tiêu hoàn toàn 2 ca bỏ sót tai hại ($FN=0$).
+
+---
 
 ## 8. PR, ROC và average precision — phần mở rộng
 
@@ -231,6 +281,15 @@ ROC-AUC ví dụ=0.875. Có thể kiểm tra độc lập bằng bốn cặp pos
 
 Khi positive hiếm, PR cho thấy trực tiếp tỷ lệ cảnh báo đúng. ROC vẫn hữu ích để xem TPR theo FPR, nhưng FPR nhỏ trên rất nhiều negative có thể tạo nhiều báo nhầm. Không kết luận “ROC vô dụng” hay so AP giữa hai tập có tỷ lệ positive khác mà bỏ qua bối cảnh.
 
+> [!TIP]
+> ### 💡 Quy tắc sống còn của AI Engineer: Khi nào dùng ROC-AUC và khi nào dùng PR-AUC?
+> - **Khi dữ liệu cân bằng (50/50 hoặc 40/60)**: **ROC-AUC** là lựa chọn tuyệt vời để đo lường khả năng xếp hạng tổng thể của mô hình.
+> - **Khi dữ liệu mất cân bằng nghiêm trọng (Lớp hiếm < 5%, ví dụ phát hiện gian lận 0.1%)**: **BẮT BUỘC DÙNG PR CURVE & AP!**
+>   - *Tại sao?* Trục hoành của ROC là $\text{FPR} = \frac{FP}{TN + FP}$. Vì $TN$ quá khổng lồ (hàng triệu người lương thiện), nên dù có báo nhầm $FP = 10.000$ lần thì mẫu số quá lớn vẫn làm $\text{FPR}$ bé xíu. Kết quả là đường ROC-AUC vẫn cao ngất ngưởng ($0.98$) đánh lừa kỹ sư rằng mô hình siêu phàm!
+>   - Ngược lại, trục tung của PR Curve là $\text{Precision} = \frac{TP}{TP + FP}$. $FP$ đứng cạnh $TP$ nên lập tức phơi bày sự yếu kém: báo nhầm $10.000$ lần sẽ kéo tụt Precision và đường PR-AUC xuống sát đáy!
+
+---
+
 ## 9. Tỷ lệ lớp thay đổi thì precision thay đổi thế nào?
 
 Gọi π=P(Y=1) là **prevalence — tỷ lệ positive thật**. Giữ một ngưỡng, giả định TPR và FPR giữ nguyên giữa hai quần thể. Từ quy tắc xác suất điều kiện:
@@ -250,16 +309,24 @@ $$
 
 Giả định TPR=0.8,FPR=0.02, xét 10000 mẫu mỗi quần thể:
 
-| π | TP kỳ vọng | FN kỳ vọng | FP kỳ vọng | TN kỳ vọng | Precision |
+| Tỷ lệ lớp thật (π) | TP kỳ vọng | FN kỳ vọng | FP kỳ vọng | TN kỳ vọng | Precision kỳ vọng |
 |---:|---:|---:|---:|---:|---:|
-| 10% | 800 | 200 | 180 | 8820 | 800/980≈81.63% |
-| 1% | 80 | 20 | 198 | 9702 | 80/278≈28.78% |
+| **10%** | 800 | 200 | 180 | 8820 | 800 / (800+180) ≈ **81.63%** |
+| **1%** | 80 | 20 | 198 | 9702 | 80 / (80+198) ≈ **28.78%** |
 
 ![Tỷ lệ positive giảm có thể làm precision giảm dù TPR và FPR cố định](figures/04-ty-le-lop-precision.png)
 
 *Hình 4. Số lượng là kỳ vọng từ giả định, không phải kết quả mô phỏng hoặc đo triển khai. Trục tỷ lệ lớp ở panel phải dùng logarit; đường cong không phải bảo đảm khi đặc trưng/nhãn cũng đổi.*
 
 Vì thế precision đo trên test cân bằng 50/50 không tự là precision khi vận hành với positive 1%. Khi chỉ đổi π còn phân bố score điều kiện theo lớp giữ nguyên, đường ROC lý thuyết giữ nguyên, PR thường thay đổi; nếu phân bố điều kiện cũng đổi thì TPR/FPR có thể đổi luôn. Với bộ hữu hạn còn có biến động lấy mẫu.
+
+> [!CAUTION]
+> ### 💡 Cảnh báo thực chiến: Đừng dùng Precision phòng Lab để quảng cáo ngoài đời!
+> - Trong phòng thí nghiệm, kỹ sư thường lấy mẫu cân bằng $10\%$ để test $\to$ Precision đạt tới **$81.63\%$**.
+> - Nhưng khi đem mô hình ra phục vụ thực tế ngoài đời, nơi tỷ lệ bệnh hiếm hoặc gian lận thực tế chỉ là $1\%$ $\to$ Precision lập tức rơi tự do xuống còn **$28.78\%$**!
+> - Mô hình không hề bị lỗi hay thay đổi, chính **Tỷ lệ nền trong tự nhiên ($\pi$)** đã thay đổi cấu trúc của mẫu số Precision.
+
+---
 
 ## 10. Đa lớp: macro, micro, weighted đang trung bình cái gì?
 
@@ -274,11 +341,11 @@ Thật account                    1          1        0
 
 Tổng hàng — **support**, số mẫu thật từng lớp — là `[90,8,2]`; tổng cột là `[92,6,2]`. Đối với từng lớp c, coi c là positive và gộp các lớp còn lại thành negative: TP là ô chéo, FN là phần còn lại của hàng c, FP là phần còn lại của cột c.
 
-| Lớp | Support | Precision | Recall | F1 |
+| Lớp | Support (Số lượng thật) | Precision | Recall | F1-Score |
 |---|---:|---:|---:|---:|
-| billing | 90 | 87/92≈0.945652 | 87/90≈0.966667 | 174/182≈0.956044 |
-| technical | 8 | 3/6=0.5 | 3/8=0.375 | 6/14≈0.428571 |
-| account | 2 | 0/2=0 | 0/2=0 | 0 |
+| **billing** | 90 | 87/92 ≈ 0.945652 | 87/90 ≈ 0.966667 | **0.956044** (Rất tốt) |
+| **technical** | 8 | 3/6 = 0.500000 | 3/8 = 0.375000 | **0.428571** (Kém) |
+| **account** | 2 | 0/2 = 0.000000 | 0/2 = 0.000000 | **0.000000 (Tê liệt hoàn toàn!)** |
 
 Các tỷ lệ 0 trong bảng đều có mẫu số dương. Với lớp vắng mặt ở bài khác cần ghi rõ quy ước; báo cáo đa lớp của lab dùng `zero_division=0`, khác mặc định `NaN` của hàm binary.
 
@@ -293,6 +360,16 @@ Ví dụ cho micro: tổng TP=90, tổng FP=10, tổng FN=10, nên F1=180/200=0.
 *Hình 5. Accuracy và weighted-F1 cao vẫn đi cùng recall/F1 bằng 0 ở account. Account chỉ có hai mẫu nên ước lượng cũng rất mong manh; không xem macro score như giải pháp thay cho thu thập thêm dữ liệu.*
 
 Với nhiều nhãn đồng thời ở bài 6, có thể lập một ma trận 2×2 cho từng nhãn. Micro/macro vẫn cần định nghĩa rõ trục gộp; “đúng toàn bộ tập nhãn của một mẫu” là metric khác. Lab bài này chưa triển khai báo cáo multi-label.
+
+> [!NOTE]
+> ### 💡 Phân tích thực tế: Vì sao Weighted-F1 cao mà khách hàng vẫn than phiền?
+> - Nhìn vào bảng kết quả: **Accuracy = 90%** và **Weighted-F1 = 89.5%** trông cực kỳ ấn tượng!
+> - Nhưng nếu nhìn kỹ: Lớp `account` có **F1 = 0%** — mô hình đoán sai toàn bộ 100% các vấn đề về tài khoản!
+> - Weighted-F1 che giấu sự yếu kém này vì lớp `billing` quá đông (90 mẫu) lấn át hoàn toàn lớp `account` (chỉ 2 mẫu).
+> - **Macro-F1 = 46.15%**: Đối xử công bằng với mọi phòng ban (không thiên vị lớp đông). Con số 46.15% phản ánh trung thực rằng mô hình đang bị què quặt một mảng nghiệp vụ quan trọng.
+> - 👉 *Bài học AI Engineer*: Khi muốn đảm bảo **mọi nhóm khách hàng đều được phục vụ tốt**, hãy theo dõi **Macro-F1**!
+
+---
 
 ## 11. Xử lý mất cân bằng: dữ liệu, mục tiêu học và quyết định
 
@@ -328,6 +405,17 @@ Chia dữ liệu theo nhóm/thời gian phù hợp trước. Trong từng vòng 
 
 Resample toàn bộ rồi mới chia có thể đưa bản sao hoặc thông tin tạo mẫu qua ranh giới, đồng thời đổi phân bố đánh giá. Pipeline giúp đóng gói các bước nhưng vẫn cần splitter đúng như bài 5. [imbalanced-learn: Data leakage](https://imbalanced-learn.org/stable/common_pitfalls.html)
 
+> [!TIP]
+> ### 💡 Hai kỹ thuật xử lý mất cân bằng phổ biến trong Production
+> 1. **Class Weight (Trọng số lớp trong hàm mất mát)**:
+>    - Không cần nhân bản thêm dữ liệu, ta chỉ cần chỉnh hàm Loss: Mỗi lần mô hình đoán sai lớp hiếm (gian lận), ta phạt nặng gấp 50 lần so với đoán sai lớp thông thường (`class_weight='balanced'`).
+>    - Phương pháp này vừa an toàn, vừa không làm tốn thêm RAM hay tăng thời gian huấn luyện.
+> 2. **Cạm bẫy Resampling Leakage**:
+>    - Nếu bạn dùng kỹ thuật sinh mẫu tổng hợp (SMOTE) hoặc nhân bản mẫu (Oversampling) **TRƯỚC KHI** chia Train/Validation/Test, bạn đã phạm lỗi rò rỉ dữ liệu nghiêm trọng! Các bản sao của tập Test sẽ bị lọt vào tập Train.
+>    - 👉 *Quy tắc*: Luôn chia Train/Validation/Test trước; kỹ thuật Resampling chỉ được phép thực hiện bên trong tập Train!
+
+---
+
 ## 12. Báo cáo để người khác ra quyết định được
 
 Một báo cáo ngắn nên ghi:
@@ -339,6 +427,8 @@ Một báo cáo ngắn nên ghi:
 - Quy ước mẫu số 0, lớp/nhóm ít mẫu, giới hạn đại diện của tập đánh giá.
 
 Không suy recall của toàn bộ hệ thống nếu chỉ gán nhãn các cảnh báo: còn chưa biết FN trong phần không báo. Không dùng “precision=90%” một mình mà bỏ số cảnh báo — 9/10 khác 9000/10000 về bằng chứng thống kê. Có thể quay lại khoảng tin cậy bài 4; với nhiều request cùng user/ngày, phải xét phụ thuộc thay vì giả định mọi hàng độc lập.
+
+---
 
 ## 13. Thực hành và tái tạo hình
 
@@ -386,6 +476,8 @@ Hình PNG/SVG đã có trong [figures](figures/). Để tái tạo bằng cùng 
 ```
 
 Mã vẽ: [make_figures.py](make_figures.py), phụ thuộc [requirements.txt](requirements.txt) và [requirements-figures.txt](requirements-figures.txt). Đã kiểm tra Matplotlib 3.11.2; các phiên bản ghim cần Python/nền tảng tương thích. Hình lấy từ cùng công thức/mảng số với lab, không sao chép hình của nguồn.
+
+---
 
 ## 14. Tự kiểm tra và học tiếp
 

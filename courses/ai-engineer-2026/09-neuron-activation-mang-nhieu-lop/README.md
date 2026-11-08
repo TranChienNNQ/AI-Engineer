@@ -2,7 +2,7 @@
 
 [Mục lục](../README.md) · [Bài 8](../08-cay-quyet-dinh-boosting-baseline/README.md) · [Bài tập](exercises.md) · [Lời giải](solutions.md)
 
-Biên soạn và kiểm tra ngày 04/11/2026. Ví dụ, trọng số và dữ liệu trong bài đều tự tạo để học. Code NumPy thực hiện truyền xuôi và một thí nghiệm **chỉ huấn luyện lớp đầu ra trên feature cố định**; chưa huấn luyện toàn bộ mạng bằng backpropagation. Bài 10 sẽ giải thích cơ chế cập nhật xuyên các lớp.
+Biên soạn và kiểm tra ngày 04/11/2026. Bổ sung định nghĩa tường minh các khái niệm cốt lõi (Neuron, Pre-activation, Activation, MLP, Collapse, Representation...), trực giác kỹ thuật và ví dụ thực tế cho AI Engineer; toàn bộ ví dụ, công thức, số liệu tính tay batch và bảng so sánh gốc được giữ nguyên vẹn để đối chiếu chuẩn. Code NumPy thực hiện truyền xuôi và một thí nghiệm **chỉ huấn luyện lớp đầu ra trên feature cố định**; chưa huấn luyện toàn bộ mạng bằng backpropagation. Bài 10 sẽ giải thích cơ chế cập nhật xuyên các lớp.
 
 ## 1. Mục tiêu và đường nối từ ML sang Deep Learning
 
@@ -56,6 +56,40 @@ Một neuron có activation identity là một dự đoán affine như hồi quy
 
 *Hình 1. Weight gắn với kết nối, bias gắn với đầu ra mỗi neuron. Mạng 2→2→1 có 9 tham số nếu hai lớp affine đều có bias; activation trong hình không có tham số học.*
 
+> [!NOTE]
+> ### 💡 Bảng tra cứu định nghĩa các khái niệm nền tảng của Neuron
+> 
+> - **Neuron nhân tạo (Artificial Neuron)**: Đơn vị tính toán nguyên tử của mạng nơ-ron. Nó nhận một tập các tín hiệu số đầu vào, nhân với trọng số tương ứng, cộng thêm độ lệch (bias), rồi đưa qua một hàm phi tuyến để phát ra tín hiệu kích hoạt đầu ra.
+> - **Trọng số (Weights — $w$)**: Hệ số thể hiện độ quan trọng hoặc sức mạnh dẫn truyền của từng tín hiệu đầu vào. Trọng số dương đóng vai trò kích thích (tăng khả năng kích hoạt), trọng số âm đóng vai trò ức chế (giảm khả năng kích hoạt).
+> - **Hệ số chệch (Bias — $b$)**: Tham số dịch chuyển tự do của neuron. Nó hoạt động như một **ngưỡng kích hoạt nội tại**: ngay cả khi mọi đầu vào $x$ đều bằng 0, neuron vẫn có thể phát ra giá trị khác 0 nhờ có bias.
+> - **Pre-activation ($z$)**: Giá trị tổ hợp tuyến tính thô trước khi đưa qua hàm phi tuyến: $z = \mathbf{w}^T \mathbf{x} + b$.
+> - **Hàm kích hoạt (Activation Function — $\phi$)**: "Chiếc công tắc" phi tuyến quyết định cách biến đổi pre-activation $z$ thành tín hiệu kích hoạt thực tế.
+> - **Activation ($a$)**: Giá trị đầu ra sau khi đã đi qua hàm kích hoạt ($a = \phi(z)$), được dùng làm đầu vào cho tầng nơ-ron tiếp theo.
+> - **Logit**: Tên gọi chuyên ngành của giá trị $z$ ở tầng đầu ra (Output layer) trong bài toán phân loại, đại diện cho "điểm số thô" chưa được chuẩn hóa thành xác suất.
+> 
+> ---
+> 
+> ### 💡 Ẩn dụ đời thường: Quyết định đi xem phim cuối tuần
+> Hãy hình dung bộ não của bạn như một neuron đưa ra quyết định: *"Có nên đi xem phim vào tối thứ Bảy không?"*:
+> - **Đầu vào ($x$)**:
+>   - $x_1$: Phim có được đánh giá cao trên IMDb không? ($1$: hay, $0$: dở).
+>   - $x_2$: Bạn bè có rủ đi cùng không? ($1$: có rủ, $0$: không ai rủ).
+> - **Trọng số ($w$)**:
+>   - $w_1 = 3.0$: Bạn là người cực kỳ đam mê điện ảnh (phim hay là yếu tố quyết định hàng đầu).
+>   - $w_2 = 1.0$: Bạn bè đi cùng thì vui, nhưng đi một mình cũng chẳng sao.
+> - **Bias ($b = -2.5$)**: Bạn là người hướng nội, bản tính lười ra đường vào cuối tuần, cần một động lực đủ lớn để vượt qua ngưỡng lười này.
+> 
+> **Kịch bản thực tế**:
+> 1. *Phim dở tệ ($x_1=0$) nhưng bạn bè rủ đi ($x_2=1$)*:
+>    $$z = 3.0(0) + 1.0(1) - 2.5 = -1.5 < 0$$
+>    Pre-activation âm $\rightarrow$ Quyết định ở nhà ngủ!
+> 2. *Phim bom tấn đỉnh cao ($x_1=1$) dù không ai đi cùng ($x_2=0$)*:
+>    $$z = 3.0(1) + 1.0(0) - 2.5 = +0.5 > 0$$
+>    Pre-activation dương $\rightarrow$ Xách xe đi rạp ngay lập tức!
+> 
+> > [!TIP]
+> > **Ứng dụng AI Engineer**: Hiểu rõ sự khác biệt giữa $z$ (logit) và $a$ (activation) giúp bạn tránh lỗi bug phổ biến nhất khi code PyTorch/TensorFlow: Không bao giờ áp dụng hàm `Sigmoid` ở layer cuối rồi lại truyền kết quả vào loss function `nn.BCEWithLogitsLoss`, vì thư viện này theo thiết kế đã tự động gắn sẵn Sigmoid bên trong!
+
 ## 3. Activation: tính phi tuyến đến từ đâu?
 
 Nếu φ(z)=z thì không thêm phi tuyến. Các hàm dưới đây tác động **theo từng phần tử**, giữ nguyên shape:
@@ -93,6 +127,21 @@ Giá trị GELU không phải xác suất dù Φ nằm trong [0,1]; tích với 
 ![Các hàm sigmoid, tanh, ReLU, Leaky ReLU và GELU](figures/02-activation.png)
 
 *Hình 2. Các panel dùng trục phù hợp từng hàm; không so độ cao như thể chúng luôn cùng miền đầu ra. Đường GELU lấy từ công thức zΦ(z), không phải hình của tài liệu thư viện.*
+
+> [!NOTE]
+> ### 💡 Trực giác: Tại sao mạng nơ-ron bắt buộc phải có tính phi tuyến? (Ẩn dụ chiếc kéo gấp giấy)
+> 
+> - **Ẩn dụ chiếc kéo và nếp gấp Origami**:
+>   - Nếu không có hàm kích hoạt phi tuyến, việc nhân ma trận liên tiếp nhiều tầng cũng chỉ giống như việc bạn vẽ một đường thẳng trên tờ giấy phẳng. Dù có xếp chồng 1.000 tầng nơ-ron thì mô hình vẫn chỉ là một hàm bậc nhất phẳng lì ($y = ax + b$).
+>   - Hàm kích hoạt phi tuyến giống như **nhát kéo cắt và nếp gấp giấy**: nó bẻ gập mặt phẳng không gian, cho phép mạng nơ-ron uốn lượn, bao bọc và xấp xỉ bất kỳ hình thù dữ liệu phức tạp nào trong thế giới thực.
+> 
+> - **Hai "căn bệnh" kinh điển cần ghi nhớ khi thiết kế mạng**:
+>   1. **Triệt tiêu Gradient (Vanishing Gradient)** của Sigmoid & Tanh:
+>      - Nhìn vào đồ thị Sigmoid và Tanh ở Hình 2: khi $|z|$ lớn (ví dụ $z = 10$ hoặc $z = -10$), đồ thị nằm ngang bẹt dí. Đạo hàm tại đây gần như bằng $0$ ($\sigma'(10) \approx 0.000045$).
+>      - Khi mạng nơ-ron sâu 10–20 lớp, quy tắc dây xích (Chain Rule) nhân liên tiếp các đạo hàm nhỏ này lại với nhau. Kết quả là gradient truyền ngược về các tầng đầu tiên bị triệt tiêu thành $0$, khiến các tầng đầu hoàn toàn ngừng học!
+>   2. **Hiện tượng "Neuron chết" (Dying ReLU)**:
+>      - Với hàm ReLU: nếu vì một lý do nào đó mà trọng số $w, b$ làm cho pre-activation $z < 0$ trên **mọi mẫu dữ liệu trong tập train**, thì đầu ra luôn là $0$ và đạo hàm luôn là $0$.
+>      - Neuron này bị "hôn mê sâu" vĩnh viễn: không có tín hiệu gradient nào chạy qua nó để cập nhật trọng số nữa. Đó là lý do ra đời **Leaky ReLU** (giữ một rãnh nghiêng nhẹ $0.1z$ ở phía âm) và **GELU** (kích hoạt mượt mà trong các mô hình Transformer như GPT, BERT).
 
 ## 4. Từ neuron đến lớp dense và MLP
 
@@ -173,6 +222,25 @@ Lớp 1 có d×h+h=2×2+2=6; lớp 2 có h×k+k=2×1+1=3; tổng **9**. Số bat
 
 Tổng quát cho dense widths `(d₀,d₁,…,d_L)` có bias mỗi lớp: $\sum_{\ell=1}^{L}(d_{\ell-1}d_\ell+d_\ell)$. Số activation trung gian tăng theo batch, nhưng chúng không phải weight mới.
 
+> [!NOTE]
+> ### 💡 Trực giác kiến trúc & Công thức đếm tham số cho AI Engineer
+> 
+> - **Định nghĩa Kiến trúc mạng**:
+>   - **Lớp Dense (Fully Connected — FC)**: Lớp kết nối đầy đủ mà mỗi neuron nhận tín hiệu từ mọi neuron của lớp phía trước.
+>   - **Độ rộng (Width — $h$)**: Số lượng neuron trong một lớp ẩn. Càng rộng thì mạng càng có khả năng trích xuất nhiều đặc trưng song song.
+>   - **Độ sâu (Depth — $L$)**: Số tầng biến đổi liên tiếp. Càng sâu thì mạng càng có khả năng trừu tượng hóa các khái niệm cấp cao (ví dụ: điểm ảnh $\rightarrow$ cạnh nét $\rightarrow$ bộ phận $\rightarrow$ khuôn mặt).
+>   - **Truyền xuôi (Forward Propagation)**: Luồng tính toán đẩy dữ liệu từ đầu vào $X$, qua từng lớp ẩn, đến đầu ra để sinh dự đoán.
+> 
+> - **Tại sao phải tính toán theo Ma trận Batch (Vectorization)?**:
+>   - Thay vì dùng vòng lặp `for` chạy từng mẫu một (cực kỳ chậm trong Python), ta gom $n$ mẫu vào ma trận $X$ kích thước $(n, d)$.
+>   - Phép nhân ma trận $X W + b$ cho phép GPU kích hoạt hàng ngàn luồng (threads) tính toán song song cùng một lúc.
+> 
+> - **Quy tắc vàng đếm tham số trong hệ thống thực tế**:
+>   $$\text{Số tham số một lớp} = (d_{\text{vào}} \times d_{\text{ra}}) + d_{\text{ra}}$$
+>   Trong đó $(d_{\text{vào}} \times d_{\text{ra}})$ là số trọng số của ma trận $W$, còn $d_{\text{ra}}$ là số hệ số bias.
+>   > [!IMPORTANT]
+>   > **Lưu ý cốt tử**: Kích thước batch $n$ **không hề làm tăng số tham số của mô hình**! Dù bạn chạy batch 1 mẫu hay 1 triệu mẫu, mạng vẫn chỉ có đúng bấy nhiêu trọng số $W, b$. Kích thước batch chỉ làm tăng dung lượng RAM bộ nhớ tạm (Activation Memory) để lưu trữ các ma trận trung gian $Z$ và $H$.
+
 ## 6. Vì sao nhiều lớp affine chưa đủ?
 
 Tạm bỏ ReLU, thay bằng identity. Khi ấy:
@@ -190,6 +258,16 @@ $$
 Nếu chỉ thêm sigmoid ở cuối một chuỗi affine, ta vẫn có logistic trên x gốc, biên ở ngưỡng 0.5 là affine. Phi tuyến hidden mới tạo ra họ biểu diễn khác; sigmoid output một mình không giải được XOR trên hai feature gốc. Phép gộp được đối chiếu với [Dive into Deep Learning: MLP](https://d2l.ai/chapter_multilayer-perceptrons/mlp.html#from-linear-to-nonlinear).
 
 Một lớp giữa hẹp còn có thể giới hạn rank của W_eq; vì vậy “gộp được thành affine” không có nghĩa mọi kiến trúc hẹp đều biểu diễn được mọi ma trận affine kích thước lớn. Ta chưa cần học sâu rank để dùng công thức gộp này.
+
+> [!NOTE]
+> ### 💡 Trực giác: Hiện tượng suy biến tuyến tính (Linear Collapse)
+> 
+> - **Định nghĩa Hiện tượng Suy biến tuyến tính**: Nếu không có hàm kích hoạt phi tuyến xen kẽ ở giữa các tầng ẩn, thì một mạng nơ-ron sâu 100 lớp hay 1.000 lớp cũng **hoàn toàn tương đương về mặt toán học với một mô hình hồi quy tuyến tính 1 lớp duy nhất**!
+> 
+> - **Ẩn dụ đời thường: Chuỗi thấu kính phóng đại**:
+>   - Giả sử bạn nhìn qua một chiếc kính lúp phóng to gấp 2 lần ($W^{(1)}=2$), rồi nhìn tiếp qua một chiếc kính lúp thứ hai phóng to gấp 3 lần ($W^{(2)}=3$).
+>   - Chung cuộc, bạn chỉ đơn giản là đang nhìn qua một thấu kính duy nhất có độ phóng đại $W_{\text{eq}} = 2 \times 3 = 6$ lần. Dù bạn có xếp 100 thấu kính thẳng hàng, hình ảnh qua kính vẫn chỉ bị phóng to, thu nhỏ phẳng lì, không bao giờ có thể biến một bức tranh phẳng 2D thành hình khối 3D uốn lượn được!
+>   - Muốn tạo ra hình khối đa chiều, bạn bắt buộc phải đặt vào giữa các thấu kính một lăng kính khúc xạ phi tuyến (ReLU, Tanh, Sigmoid).
 
 ## 7. XOR: thay biểu diễn trước khi phân loại
 
@@ -224,6 +302,17 @@ BCE trên bốn hàng=ln(1+e⁻²)≈0.126928. Toàn bộ 9 trọng số/bias c�
 
 *Hình 4. Biên z=0 ứng với |x₁−x₂|=0.5 trong mặt phẳng X. Bảng XOR chỉ định nhãn ở bốn góc; màu ở các vị trí giữa góc là cách mạng mở rộng dự đoán, không phải nhãn thật đã biết ở đó. Hai điểm (0,0),(1,1) trùng vị trí hidden và cùng nhãn.*
 
+> [!NOTE]
+> ### 💡 Trực giác: Học biểu diễn (Representation Learning) & Ẩn dụ "Gấp đôi tờ giấy"
+> 
+> - **Định nghĩa Học biểu diễn (Representation Learning)**: Thay vì cố gắng phân loại trực tiếp trên dữ liệu thô ban đầu (vốn rất rối rắm và không thể phân tách bằng đường thẳng), mạng nơ-ron sử dụng các tầng ẩn để **biến đổi và sắp xếp lại không gian dữ liệu**. Không gian mới này (Hidden Space) giúp các cụm dữ liệu phân tách rõ rệt, biến bài toán phi tuyến phức tạp thành bài toán phân loại tuyến tính đơn giản.
+> 
+> - **Ẩn dụ "Gấp đôi tờ giấy hình vuông"**:
+>   - Tưởng tượng một tờ giấy vuông với 4 góc: hai góc chéo đối diện nhau chấm màu Đỏ (nhãn 0), hai góc chéo còn lại chấm màu Xanh (nhãn 1).
+>   - Trên mặt phẳng giấy ban đầu ($X$), **không có một nhát kéo thẳng duy nhất nào** có thể cắt rời toàn bộ các chấm Đỏ ra khỏi các chấm Xanh!
+>   - Nhưng nếu bạn **gấp đôi tờ giấy lại theo đường chéo** (phép biến đổi phi tuyến ReLU): hai chấm Đỏ ở $(0, 0)$ và $(1, 1)$ bị ép chập lại trùng khít vào cùng một vị trí $H=(0, 0)$!
+>   - Bây giờ, bạn chỉ cần dùng một nhát kéo thẳng duy nhất (đường phân tách $h_1 + h_2 = 0.5$ ở output layer) là cắt đôi tách biệt hoàn toàn hai màu! Đó chính là cách mạng nơ-ron giải quyết bài toán XOR.
+
 ## 8. Chọn đầu ra theo ý nghĩa bài toán
 
 Hidden activation và output transformation có vai trò khác nhau. Không áp một activation cuối chỉ vì đã chọn nó cho hidden.
@@ -240,6 +329,20 @@ Softmax không phải activation từng phần tử độc lập: một p_j ph�
 Trong lab, output layer giữ identity và trả logit; chỉ gọi sigmoid/softmax khi cần diễn giải. BCE được tính ổn định trực tiếp từ logit như bài 6. Với API đã kết hợp sigmoid và BCE, không sigmoid thêm một lần trước khi truyền vào loss. Ví dụ `BCEWithLogitsLoss` có hợp đồng ấy; bài **chỉ đọc tài liệu, chưa chạy API PyTorch**. [PyTorch: BCEWithLogitsLoss](https://docs.pytorch.org/docs/2.15/generated/torch.nn.BCEWithLogitsLoss.html)
 
 Sigmoid hai lần làm biến đổi thêm số: z=0 → p=0.5 → sigmoid(p)≈0.622459. Đó không còn là xác suất ban đầu. Với z hữu hạn rất lớn, lab vẫn dùng sigmoid hai nhánh và `logaddexp` để tránh một số overflow/loss vô hạn do làm tròn p, không bảo đảm mọi phép nhân ma trận với mọi số float đều an toàn.
+
+> [!NOTE]
+> ### 💡 Thiết kế Output Head và Các lỗi kinh điển trong Production
+> 
+> - **Định nghĩa các loại Output Head**:
+>   - **Regression Head**: Tầng ra giữ nguyên giá trị số thực liên tục (Identity). Dùng cho dự báo giá nhà, latency, số lượng token. Loss: MSE hoặc MAE.
+>   - **Binary Head**: Tầng ra phát 1 logit, chuyển qua Sigmoid để tính xác suất $p \in [0, 1]$. Dùng cho bài toán phát hiện spam, gian lận thẻ. Loss: Binary Cross-Entropy (BCE).
+>   - **Multiclass Head (Softmax)**: Tầng ra gồm $C$ logits, chuẩn hóa qua Softmax sao cho $\sum p_i = 1$. Dùng cho bài toán **loại trừ lẫn nhau** (1 ảnh chỉ có thể là Chó, Mèo hoặc Chim). Loss: Categorical Cross-Entropy.
+>   - **Multilabel Head (Independent Sigmoids)**: Tầng ra gồm $C$ logits, nhưng mỗi logit đi qua một hàm Sigmoid độc lập. Dùng cho bài toán **nhiều nhãn cùng lúc** (1 bài báo có thể vừa là Kinh tế, vừa là Công nghệ). Loss: Tổng BCE trên từng nhãn.
+> 
+> > [!WARNING]
+> > ### ⚠️ Hai cạm bẫy thiết kế hệ thống cần tránh:
+> > 1. **Dùng nhầm Softmax cho bài toán Multilabel**: Softmax ép tổng các xác suất phải bằng 1. Nếu văn bản vừa nói về "Thể thao" vừa nói về "Giải trí", việc áp dụng Softmax sẽ khiến xác suất của chủ đề này dìm chết xác suất của chủ đề kia! Với multilabel, bắt buộc phải dùng các hàm Sigmoid độc lập.
+> > 2. **Cạm bẫy Sigmoid 2 lần**: Viết code gọi `p = sigmoid(z)` rồi lại quăng vào hàm `nn.BCEWithLogitsLoss(p, y)`. Vì hàm loss này đã tự động bọc sẵn Sigmoid, kết quả là bạn tính $\sigma(\sigma(z))$, khiến xác suất $0.5$ bị biến dạng thành $0.622$, triệt tiêu gradient và phá hỏng quá trình huấn luyện!
 
 ## 9. Kiến trúc, tham số và việc học là ba thứ khác nhau
 
@@ -280,6 +383,18 @@ Head trên H cho p gần `[0.143150,0.856850,0.856850,0.143150]`. Khác bộ w=(
 *Hình 5. Cả hai đường là train, không phải validation/test. Objective có penalty khác data loss. Hình xác suất bên phải dùng head đã fit, không dùng weight head đặt tay ở mục 7.*
 
 Không có validation/test trong thí nghiệm bảng chân trị này; không tuning để báo một điểm test đẹp. Accuracy=100% trên bốn hàng fit không ước lượng được chất lượng ngoài mẫu, calibration hay độ bền trước nhiễu. Khi học end-to-end trên dữ liệu thật vẫn cần toàn bộ quy trình bài 5–8.
+
+> [!NOTE]
+> ### 💡 Ứng dụng AI Engineer: Bản chất của Transfer Learning & Fine-tuning
+> 
+> - **Định nghĩa Feature Extractor (Backbone) và Classification Head**:
+>   - **Feature Extractor (Backbone)**: Phần thân gồm các tầng ẩn phía trước, nhận dữ liệu thô (ảnh, chuỗi text, vector x) và biến đổi chúng thành vector đặc trưng cô đọng giàu ý nghĩa (Embedding).
+>   - **Task Head**: Tầng nơ-ron cuối cùng nhận vector Embedding đó để đưa ra phán quyết (phân loại nhãn hoặc dự báo số thực).
+> 
+> - **Cơ chế Transfer Learning trong các mô hình AI hiện đại**:
+>   - Thí nghiệm trong Mục 10 (cố định trọng số ẩn $W^{(1)}, b^{(1)}$ và chỉ huấn luyện tầng output $w, b$) chính là mô hình toán học thu nhỏ của phương pháp **Feature Extraction Transfer Learning**:
+>   - Khi ứng dụng vào thực tế (như dùng mô hình ngôn ngữ BERT, LLaMA hoặc mô hình thị giác ResNet, CLIP), kỹ sư AI thường **đóng băng (freeze)** toàn bộ hàng trăm triệu tham số của Backbone đã được huấn luyện sẵn từ hàng tỷ dữ liệu trên mạng. Ta chỉ cần gắn thêm một Classification Head nhỏ xíu và huấn luyện riêng Head đó trên tập dữ liệu nội bộ của công ty.
+>   - Kỹ thuật này giúp tiết kiệm $99\%$ thời gian và chi phí tính toán GPU, đồng thời hạn chế tối đa nguy cơ quá khớp (overfitting) khi dữ liệu công ty có số lượng ít!
 
 ## 11. Những nhầm lẫn cần tự phát hiện
 

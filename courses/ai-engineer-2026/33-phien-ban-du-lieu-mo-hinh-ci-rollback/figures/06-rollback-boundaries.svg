@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="936pt" height="540pt" viewBox="0 0 936 540" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-05T13:03:20.793434</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 540 
+L 936 540 
+L 936 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 75.3408 283.392 
+L 432.6912 283.392 
+Q 440.8128 283.392 440.8128 276.356571 
+L 440.8128 177.860571 
+Q 440.8128 170.825143 432.6912 170.825143 
+L 75.3408 170.825143 
+Q 67.2192 170.825143 67.2192 177.860571 
+L 67.2192 276.356571 
+Q 67.2192 283.392 75.3408 283.392 
+z
+" clip-path="url(#p9bf9281388)" style="fill: #227b62; fill-opacity: 0.070588; stroke: #227b62; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 522.0288 283.392 
+L 879.3792 283.392 
+Q 887.5008 283.392 887.5008 276.356571 
+L 887.5008 177.860571 
+Q 887.5008 170.825143 879.3792 170.825143 
+L 522.0288 170.825143 
+Q 513.9072 170.825143 513.9072 177.860571 
+L 513.9072 276.356571 
+Q 513.9072 283.392 522.0288 283.392 
+z
+" clip-path="url(#p9bf9281388)" style="fill: #bd4949; fill-opacity: 0.070588; stroke: #bd4949; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 129.4848 429.963429 
+L 825.2352 429.963429 
+Q 833.3568 429.963429 833.3568 422.928 
+L 833.3568 359.609143 
+Q 833.3568 352.573714 825.2352 352.573714 
+L 129.4848 352.573714 
+Q 121.3632 352.573714 121.3632 359.609143 
+L 121.3632 422.928 
+Q 121.3632 429.963429 129.4848 429.963429 
+z
+" clip-path="url(#p9bf9281388)" style="fill: #d89a24; fill-opacity: 0.070588; stroke: #d89a24; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 254.016 287.740691 
+Q 254.016 317.983467 254.016 346.549193 
+" clip-path="url(#p9bf9281388)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 257.016 340.549193 
+L 254.016 346.549193 
+L 251.016 340.549193 
+z
+" clip-path="url(#p9bf9281388)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 700.704 287.740691 
+Q 700.704 317.983467 700.704 346.549193 
+" clip-path="url(#p9bf9281388)" style="fill: none; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+    <path d="M 703.704 340.549193 
+L 700.704 346.549193 
+L 697.704 340.549193 
+z
+" clip-path="url(#p9bf9281388)" style="fill: #596777; stroke: #596777; stroke-width: 1.5; stroke-linecap: round"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(180.324594 214.245446)">BUNDLE CÓ THỂ CHỌN LẠI</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(162.245922 230.143884)">Model / threshold / preprocessing</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(159.163344 247.743884)">Contract + retained dependencies</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(652.267047 215.086775)">CẦN XỬ LÝ RIÊNG</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(626.455719 230.870915)">Email/tool write đã commit</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; fill: #172d45" transform="translate(612.618922 248.219118)">DB schema / data mất / in-flight</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #172d45" x="477.36" y="394.539665" transform="rotate(-0 477.36 394.539665)">Kiểm target còn load được → compatibility → switch → observed version / smoke / quality</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="477.36" y="476.28" transform="rotate(-0 477.36 476.28)">Có thể cần compensation, forward fix hoặc fallback có quyền; old weights chưa đủ.</text>
+   </g>
+  </g>
+  <g id="text_5">
+   <text style="font-weight: 700; font-size: 18px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #172d45" x="51.48" y="35.997187" transform="rotate(-0 51.48 35.997187)">06 · Rollback không tự hoàn tác mọi trạng thái</text>
+  </g>
+  <g id="text_6">
+   <text style="font-size: 10px; font-family: 'DejaVu Sans'; text-anchor: start; fill: #596777" x="51.48" y="59.4" transform="rotate(-0 51.48 59.4)">Lab model read-only: chuyển pointer trong SQLite, chưa có external effects hoặc migration.</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p9bf9281388">
+   <rect x="37.44" y="86.4" width="879.84" height="410.4"/>
+  </clipPath>
+ </defs>
+</svg>

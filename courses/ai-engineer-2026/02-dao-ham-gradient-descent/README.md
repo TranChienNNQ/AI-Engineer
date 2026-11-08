@@ -2,362 +2,410 @@
 
 [Mục lục](../README.md) · [Bài 1](../01-mo-hinh-hoc-tu-du-lieu/README.md) · [Bài tập](exercises.md) · [Lời giải](solutions.md)
 
-Biên soạn và kiểm tra mã ngày 04/11/2026. Các ví dụ, phép tính và đồ thị được tạo cho bài học, không phải dữ liệu benchmark. Bài gồm hai lượt đọc: phần 1–6 xây trực giác một biến; phần 7–12 áp dụng vào mô hình có hai tham số.
+Trạng thái: đã biên soạn, bổ sung trực giác kỹ thuật và ứng dụng thực tế cho AI Engineer; mã thực hành và hình minh họa đã kiểm tra trên Python 3.14.6. Bài học được chia làm hai chặng: chặng 1 (mục 1–6) xây dựng trực giác một biến; chặng 2 (mục 7–12) áp dụng trực tiếp vào mô hình hai tham số thực tế.
+
+---
 
 ## 1. Mục tiêu và điều kiện bắt đầu
 
-Sau bài này, người học có thể:
+Sau bài này, bạn sẽ nắm được:
 
-- Giải thích đạo hàm bằng mức thay đổi đầu ra khi đầu vào thay đổi rất nhỏ.
-- Phân biệt giá trị hàm với độ dốc của hàm tại một điểm.
-- Tính tay một bước gradient descent, hiểu dấu trừ và learning rate.
-- Tính gradient MSE theo $w,b$ và cập nhật hai tham số từ cùng trạng thái cũ.
-- Chạy code, kiểm tra gradient bằng sai phân và nhận diện vài dạng hội tụ/phân kỳ.
+- **Trực giác cốt lõi**: Hiểu đạo hàm không phải là giải tích hàn lâm, mà là "la bàn đo độ nhạy" giúp cỗ máy biết cần tinh chỉnh tham số theo hướng nào.
+- **Phép ẩn dụ người leo núi**: Nắm vững cơ chế của thuật toán Gradient Descent (Xuống dốc theo độ dốc) để tìm điểm tối ưu.
+- **Bản chất của Learning Rate ($\alpha$)**: Hiểu rõ sải bước chân của thuật toán: tại sao bước quá ngắn thì chậm chạp, bước quá dài thì sảy chân lao xuống vực (Loss = NaN).
+- **Từ 1 biến sang nhiều biến**: Hiểu đạo hàm riêng và vector Gradient khi mô hình có nhiều núm vặn cùng lúc ($w$ và $b$).
+- **Tính toán từng bước bằng tay**: Tự tính trọn vẹn một bước cập nhật tham số và hiểu vì sao phải cập nhật đồng thời (simultaneous update).
+- **Kỹ thuật Gradient Checking**: Biết cách viết unit test kiểm tra công thức đạo hàm bằng sai phân số trong công việc thực tế của kỹ sư AI.
 
-Cần biết hàm $\hat y=wx+b$, MSE, vòng lặp và hàm Python từ [bài 1](../01-mo-hinh-hoc-tu-du-lieu/README.md). Không cần học trước đạo hàm; bài này giải thích từ phép chia thông thường. Khi gặp công thức dài, đi theo ví dụ số trước rồi quay lại ký hiệu.
+**Yêu cầu nền tảng**: Cần nắm vững khái niệm mô hình $\hat y = wx + b$ và hàm mất mát MSE từ [Bài 1](../01-mo-hinh-hoc-tu-du-lieu/README.md). Không cần học trước giải tích hay đạo hàm; bài này bắt đầu từ phép chia độ dốc thông thường trong đời sống.
 
-## 2. Vấn đề của việc thử mọi ứng viên
+---
 
-Bài 1 thử 41 giá trị cho mỗi tham số, tổng cộng 1681 cặp $(w,b)$. Nếu có $d$ tham số và thử $k$ giá trị cho mỗi tham số, số tổ hợp là $k^d$. Với 10 tham số, mỗi tham số chỉ 10 ứng viên cũng đã là $10^{10}$ tổ hợp.
+## 2. Vì sao không thể tiếp tục "dò quét trên lưới" (Grid Search)?
 
-Ta muốn dùng thông tin ngay tại bộ tham số hiện có để chọn hướng điều chỉnh. Đạo hàm cung cấp thông tin cục bộ ấy. Thuật toán gradient descent lặp việc tính gradient và cập nhật tham số; đây là cơ chế được trình bày trong [Google: Gradient descent](https://developers.google.com/machine-learning/crash-course/linear-regression/gradient-descent). Phép tìm kiếm và dữ liệu minh họa dưới đây do bộ tài liệu xây riêng.
+Ở Bài 1, ta đã tìm tham số $w$ và $b$ bằng cách thử lần lượt từng nấc trên lưới (Grid Search). Với 2 tham số, mỗi tham số thử 41 nấc, máy tính phải tính $41 \times 41 = 1681$ lần.
 
-## 3. Bắt đầu từ độ dốc: đầu vào tăng thì đầu ra đổi bao nhiêu?
+Điều gì xảy ra khi hệ thống lớn dần?
+- Nếu mô hình có $d$ tham số và mỗi tham số thử $k$ nấc, số lượng phép tính là $k^d$ (**Bùng nổ tổ hợp - Curse of Dimensionality**).
+- Với một mô hình chỉ cần 10 tham số, mỗi tham số thử vỏn vẹn 10 nấc: bạn phải tính $10^{10}$ (10 tỷ) lần.
+- Với các mô hình AI hiện đại như LLaMA hay GPT có từ 7 tỷ đến hàng trăm tỷ tham số: toàn bộ máy tính trên Trái Đất chạy suốt hàng triệu năm cũng không thể thử hết các nấc!
 
-Với đường thẳng $g(w)=3w+1$, tăng $w$ từ 2 lên 4 làm giá trị tăng từ 7 lên 13. Độ dốc là:
+Thay vì "bịt mắt mò mẫm" khắp bản đồ, ta cần một cơ chế thông minh hơn: **Đứng ngay tại vị trí hiện tại, cảm nhận mặt đất đang dốc về hướng nào, rồi bước một bước theo hướng dốc xuống**.
+
+Công cụ giúp ta cảm nhận độ dốc đó chính là **Đạo hàm (Derivative)** và **Gradient**.
+
+```text
+[Grid Search - Bài 1]          [Gradient Descent - Bài 2]
+Thử mù mịt tất cả các ô        Đứng tại chỗ đo độ dốc và bước xuống đáy
+   ┌───┬───┬───┬───┐                     ●  (Vị trí hiện tại)
+   │ ? │ ? │ ? │ ? │                      \
+   ├───┼───┼───┼───┤                       \  (Bước theo độ dốc)
+   │ ? │ ? │ ? │ ? │                        \
+   ├───┼───┼───┼───┤                         ▼
+   │ ? │ ★ │ ? │ ? │                          ●───┐
+   └───┴───┴───┴───┘                              ▼
+(1681 phép tính vô hướng)                     ★ Đáy thung lũng (Loss nhỏ nhất)
+```
+
+---
+
+## 3. Trực giác về đạo hàm: Đầu vào nhích nhẹ thì đầu ra đổi bao nhiêu?
+
+Hãy tạm gác lại các định nghĩa toán học trừu tượng. Trong kỹ thuật và đời sống, **đạo hàm chính là thước đo độ nhạy (sensitivity)**:
+
+> **Đạo hàm = Tỷ lệ thay đổi đầu ra khi đầu vào thay đổi một lượng cực nhỏ.**
+
+### Hai ví dụ gần gũi trong đời sống:
+1. **Chân ga ô tô**: Bạn nhấn sâu chân ga thêm $1\text{ cm}$, tốc độ xe tăng thêm $15\text{ km/h}$. 
+   - Độ dốc (đạo hàm) = $+15\text{ km/h trên mỗi cm ga}$.
+2. **Độ nhạy chuột máy tính (DPI)**: Bạn rê chuột sang phải $1\text{ mm}$, con trỏ dịch $10\text{ pixel}$.
+   - Độ dốc = $+10\text{ px/mm}$.
+
+### Thử nghiệm trên một hàm mất mát đơn giản:
+
+Để dễ hình dung trước khi quay lại bài toán 2 tham số, ta xét một hàm mất mát đồ chơi một biến (toy loss):
 
 $$
-\frac{\text{thay đổi đầu ra}}{\text{thay đổi đầu vào}}
-=\frac{13-7}{4-2}=3
+f(w) = (w - 2)^2
 $$
 
-Đường thẳng này có độ dốc 3 ở mọi điểm. Với đường cong, độ dốc thay đổi theo vị trí.
+Hàm này có giá trị nhỏ nhất bằng $0$ khi $w = 2$. Giả sử ta đang đứng ở vị trí $w = 5$, khi đó Loss là $f(5) = (5 - 2)^2 = 9$.
 
-Để nhìn rõ, tạm dùng một hàm mất mát đơn giản, không có đơn vị vật lý:
+Nếu ta nhích nhẹ $w$ thêm một khoảng nhỏ $h = 0.1$ (tức $w$ lên $5.1$), Loss mới là $f(5.1) = (5.1 - 2)^2 = 9.61$.
 
-$$
-f(w)=(w-2)^2
-$$
-
-Đây là bài toán một tham số để học toán, **khác MSE hồi quy hai tham số** ở phần sau. Nó có giá trị nhỏ nhất 0 tại $w=2$.
-
-Ở $w=5$, $f(5)=9$. Tăng thêm $h=0.1$ thì $f(5.1)=9.61$. Độ dốc trung bình trên khoảng nhỏ đó là:
+Tỷ lệ biến thiên (độ dốc trung bình) là:
 
 $$
-\frac{f(5.1)-f(5)}{0.1}=\frac{9.61-9}{0.1}=6.1
+\frac{\text{Thay đổi của Loss}}{\text{Thay đổi của } w} = \frac{f(5.1) - f(5)}{0.1} = \frac{9.61 - 9}{0.1} = 6.1
 $$
 
-Ở đây $h$ là lượng thay đổi đầu vào, không phải learning rate.
+Hãy quan sát khi ta thu nhỏ khoảng nhích $h$ lại:
 
-| $h$ | $[f(5+h)-f(5)]/h$ |
-|---:|---:|
-| 1 | 7 |
-| 0.1 | 6.1 |
-| 0.01 | 6.01 |
-| 0.001 | 6.001 |
+| Bước nhích $h$ | Vị trí mới $5 + h$ | Loss mới $f(5+h)$ | Độ dốc $[f(5+h) - f(5)] / h$ |
+|---:|---:|---:|---:|
+| $1.0$ | $6.0$ | $16.00$ | $7.000$ |
+| $0.1$ | $5.1$ | $9.61$ | $6.100$ |
+| $0.01$ | $5.01$ | $9.0601$ | $6.010$ |
+| $0.001$ | $5.001$ | $9.006001$ | $6.001$ |
 
-Các giá trị tiến gần 6. Đạo hàm tại 5 chính là giới hạn của độ dốc này khi khoảng thay đổi tiến về 0:
-
-$$
-f'(5)=\lim_{h\to0}\frac{f(5+h)-f(5)}{h}=6
-$$
-
-Dấu phẩy trong $f'$ đọc là “đạo hàm”. Ký hiệu $h\to0$ nghĩa là xét những khoảng nhỏ dần, **không thay trực tiếp $h=0$ vào phép chia**.
+Khi $h$ co dần về $0$, độ dốc hội tụ chính xác về con số **$6$**. Con số $6$ này chính là **đạo hàm của $f$ tại $w = 5$**, ký hiệu là $f'(5) = 6$ (hoặc $\frac{df}{dw} = 6$).
 
 ![Đường cong loss, tiếp tuyến tại w=5 và một cát tuyến gần đó](figures/01-dao-ham.png)
 
-*Hình 1. Đường xanh là hàm, đường cam là tiếp tuyến biểu diễn độ dốc tại đúng một điểm. Cát tuyến xanh lá dùng hai điểm cách nhau 0.8 nên có độ dốc 6.8, chưa bằng đạo hàm 6. Đồ thị tính từ công thức, không phải hình vẽ ước lượng.*
+*Hình 1. Đường màu xanh là hàm Loss $f(w)=(w-2)^2$. Đường màu cam là tiếp tuyến tại điểm $w=5$, có độ dốc đúng bằng $6$. Đường cát tuyến màu xanh lá nối giữa hai điểm cách nhau $h=0.8$ cho độ dốc $6.8$, xấp xỉ tiếp tuyến.*
 
-### Suy ra công thức đạo hàm, không cần học thuộc trước
+### Công thức tổng quát cho hàm này
 
-Khai triển tử số với $w$ bất kỳ:
-
-$$
-\frac{(w+h-2)^2-(w-2)^2}{h}
-=\frac{2(w-2)h+h^2}{h}=2(w-2)+h
-$$
-
-Khi $h\to0$, phần còn lại là:
+Bằng đại số đơn giản, ta có thể rút ra đạo hàm tại vị trí $w$ bất kỳ mà không cần bấm máy tính nhiều lần:
 
 $$
-f'(w)=2(w-2)
+\frac{f(w+h) - f(w)}{h} = \frac{(w + h - 2)^2 - (w - 2)^2}{h} = \frac{2(w - 2)h + h^2}{h} = 2(w - 2) + h
 $$
 
-Trong ngôn ngữ vi phân, cũng có thể viết $df/dw$. Nó là mức nhạy cục bộ của $f$ đối với $w$, không phải giá trị loss.
-
-## 4. Dấu của đạo hàm cho biết hướng nào?
-
-| Vị trí | Giá trị hàm | Đạo hàm | Ý nghĩa khi tăng nhẹ $w$ |
-|---|---:|---:|---|
-| $w=5$ | 9 | 6 | Hàm tăng; giảm $w$ có thể giúp giảm hàm |
-| $w=1$ | 1 | −2 | Hàm giảm; tăng $w$ có thể giúp giảm hàm |
-| $w=2$ | 0 | 0 | Độ dốc bằng 0 tại cực tiểu của hàm này |
-
-Một cách đọc chính xác hơn là xấp xỉ tuyến tính:
+Khi khoảng nhích $h$ triệt tiêu dần về $0$:
 
 $$
-f(w+\Delta w)\approx f(w)+f'(w)\Delta w
+f'(w) = 2(w - 2)
 $$
 
-$\Delta w$ là thay đổi nhỏ của tham số. Muốn phần thay đổi dự kiến âm, chọn $\Delta w$ ngược dấu với $f'(w)$.
+- Ở $w = 5 \implies f'(5) = 2(5 - 2) = 6$.
+- Ở $w = 1 \implies f'(1) = 2(1 - 2) = -2$.
+- Ở $w = 2 \implies f'(2) = 2(2 - 2) = 0$.
 
-Từ “nhỏ” quan trọng: đạo hàm mô tả lân cận hiện tại, không bảo đảm một bước rất lớn sẽ làm hàm giảm. Và đạo hàm bằng 0 cũng không luôn là cực tiểu: chẳng hạn $q(w)=-w^2$ có đạo hàm bằng 0 tại 0 nhưng đó là cực đại. Với hàm nhiều biến còn có điểm yên ngựa; các kiến trúc sâu sẽ cần thận trọng hơn ví dụ parabol này.
+---
 
-## 5. Gradient descent một biến: đi ngược độ dốc
+## 4. Dấu của đạo hàm: Chiếc la bàn chỉ đường
 
-Quy tắc cập nhật là:
+Con số đạo hàm nói cho ta biết điều gì? Hãy quan sát bảng chỉ dẫn:
+
+| Vị trí $w$ | Giá trị Loss $f(w)$ | Đạo hàm $f'(w)$ | Ý nghĩa khi tăng nhẹ $w$ | Hành động để GIẢM Loss |
+|:---:|:---:|:---:|---|---|
+| $w = 5$ | $9$ | **$+6$ (Dương)** | Tiến tới $\implies$ Loss tăng lên (lên dốc) | **Lùi lại** (Giảm $w$) |
+| $w = 1$ | $1$ | **$-2$ (Âm)** | Tiến tới $\implies$ Loss giảm xuống (xuống dốc) | **Tiến tới** (Tăng $w$) |
+| $w = 2$ | $0$ | **$0$ (Bằng phẳng)** | Đang ở đáy thung lũng (cực tiểu) | **Dừng lại** |
+
+> [!IMPORTANT]
+> **Quy tắc vàng**:
+> - Nếu đạo hàm **Dương** ($f' > 0$): Muốn giảm Loss, ta phải đi về bên trái (giảm $w$).
+> - Nếu đạo hàm **Âm** ($f' < 0$): Muốn giảm Loss, ta phải đi về bên phải (tăng $w$).
+> 
+> Nhận xét thấy: **Hướng đi để giảm Loss luôn luôn NGƯỢC DẤU với đạo hàm!**
+
+---
+
+## 5. Thuật toán Gradient Descent: Từng bước bước xuống dốc
+
+Từ phát hiện trên, ta có công thức cập nhật tham số kinh điển của Machine Learning:
 
 $$
-w_{t+1}=w_t-\alpha f'(w_t)
+w_{\text{mới}} = w_{\text{cũ}} - \alpha \cdot f'(w_{\text{cũ}})
 $$
 
-- $t$ là số thứ tự trạng thái: $t=0$ là trước lần cập nhật đầu tiên.
-- $\alpha>0$ là **learning rate — hệ số điều chỉnh độ lớn bước cập nhật**.
-- Dấu trừ chọn hướng ngược đạo hàm.
-- Kích thước bước thực tế là $|\alpha f'(w_t)|$, không chỉ $\alpha$.
+Hay viết theo ký hiệu bước lặp thời gian $t$:
 
-Với $w_0=5$, $\alpha=0.1$:
+$$
+w_{t+1} = w_t - \alpha \cdot f'(w_t)
+$$
 
-1. Tính loss cũ: $f(5)=9$.
-2. Tính đạo hàm tại điểm cũ: $f'(5)=2(5-2)=6$.
-3. Cập nhật: $w_1=5-0.1\times6=4.4$.
-4. Tính lại loss: $f(4.4)=(4.4-2)^2=5.76$.
+### Trong công thức này có 3 thành phần:
+1. **$w_t$**: Vị trí tham số hiện tại.
+2. **$f'(w_t)$**: La bàn chỉ hướng dốc (đạo hàm).
+3. **Dấu trừ ($-$)**: Đảm bảo ta luôn đi **ngược chiều dốc** (đi xuống thung lũng, không leo lên đỉnh núi).
+4. **$\alpha$ (Alpha - Learning Rate)**: Hệ số tốc độ học, đóng vai trò **độ dài của mỗi sải bước chân**.
 
-Lần tiếp theo phải tính lại đạo hàm ở **4.4**, không dùng mãi độ dốc tại 5.
+### Tự tính tay từng bước cập nhật
 
-| Số lần cập nhật | $w$ | $f(w)$ |
-|---:|---:|---:|
-| 0 | 5.00000 | 9.00000 |
-| 1 | 4.40000 | 5.76000 |
-| 2 | 3.92000 | 3.68640 |
-| 3 | 3.53600 | 2.359296 |
-| 4 | 3.22880 | 1.50994944 |
-| 5 | 2.98304 | 0.9663676416 |
+Bắt đầu từ vị trí xuất phát $w_0 = 5$, chọn sải bước $\alpha = 0.1$:
 
-Ta không cần thử toàn bộ các giá trị $w$ trong một khoảng. Mỗi vòng dùng đạo hàm ở vị trí hiện tại để tính vị trí tiếp theo.
+- **Bước 1**:
+  - Đạo hàm tại chỗ đứng: $f'(5) = 2(5 - 2) = 6$.
+  - Cập nhật vị trí mới: $w_1 = 5 - 0.1 \times 6 = 4.4$.
+  - Loss mới: $f(4.4) = (4.4 - 2)^2 = 5.76$ *(đã giảm mạnh từ 9.00 xuống 5.76!)*.
+- **Bước 2**:
+  - Tại vị trí mới $w_1 = 4.4$, tính lại đạo hàm: $f'(4.4) = 2(4.4 - 2) = 4.8$.
+  - Cập nhật tiếp: $w_2 = 4.4 - 0.1 \times 4.8 = 3.92$.
+  - Loss mới: $f(3.92) = (3.92 - 2)^2 = 3.6864$.
 
-## 6. Learning rate: nhỏ quá, vừa đủ, lớn quá
+Bảng theo dõi hành trình 5 bước đầu tiên:
+
+| Bước ($t$) | Vị trí tham số $w_t$ | Đạo hàm $f'(w_t)$ | Bước nhảy $\alpha \cdot f'$ | Loss $f(w_t)$ |
+|---:|---:|---:|---:|---:|
+| 0 | $5.0000$ | $+6.0000$ | $0.6000$ | $9.0000$ |
+| 1 | $4.4000$ | $+4.8000$ | $0.4800$ | $5.7600$ |
+| 2 | $3.9200$ | $+3.8400$ | $0.3840$ | $3.6864$ |
+| 3 | $3.5360$ | $+3.0720$ | $0.3072$ | $2.3593$ |
+| 4 | $3.2288$ | $+2.4576$ | $0.2458$ | $1.5099$ |
+| 5 | $2.9830$ | $+1.9661$ | $0.1966$ | $0.9664$ |
+
+Nhận xét quan trọng: Càng tiến gần đáy thung lũng ($w=2$), độ dốc $f'$ **tự động thoải dần và nhỏ lại**, khiến các bước chân tự động ngắn lại, giúp mô hình tiếp cận đáy một cách êm ái mà không bị vượt quá trớn!
+
+---
+
+## 6. Learning Rate ($\alpha$): Sải bước chân quyết định sống còn
+
+Trong kỹ thuật AI, Learning Rate là siêu tham số (hyperparameter) nhạy cảm nhất. Hình ảnh ẩn dụ dưới đây giải thích rõ hành vi của 4 trường hợp:
 
 ![So sánh đường đi của tham số và loss khi thay đổi learning rate](figures/02-learning-rate.png)
 
-*Hình 2. Cùng hàm một biến và điểm bắt đầu $w_0=5$, chạy 12 cập nhật. Hình phải dùng trục logarit để nhìn được các mức loss khác nhau; khoảng cách bằng nhau trên trục đứng biểu diễn tỷ lệ, không phải chênh lệch tuyệt đối.*
+*Hình 2. Thử nghiệm trên cùng hàm $f(w)=(w-2)^2$ từ vị trí $w_0=5$ qua 12 bước cập nhật. Đồ thị bên phải biểu diễn Loss theo thang đo Logarit để quan sát sự khác biệt qua các bậc độ lớn.*
 
-Với đúng hàm $f(w)=(w-2)^2$:
+1. **Quá nhỏ ($\alpha = 0.01$) — "Bước rón rén"**:
+   - Sau 12 bước, $w$ mới chỉ bò từ $5.0$ về $4.35$, Loss vẫn còn cao ($5.54$). Cần hàng nghìn bước mới tới đích $\implies$ Tốn kém chi phí máy chủ và thời gian huấn luyện.
+2. **Vừa vặn ($\alpha = 0.25$) — "Hội tụ mượt mà"**:
+   - Khoảng cách đến nghiệm giảm một nửa sau mỗi bước. Sau 12 bước, $w = 2.0007$, Loss chạm ngưỡng $5 \times 10^{-7}$ $\implies$ Hoàn hảo!
+3. **Chạm ngưỡng rung lắc ($\alpha = 1.0$) — "Bị kẹt giữa hai sườn dốc"**:
+   - Bước quá dài, nhảy từ sườn bên này $w=5$ sang thẳng sườn đối diện $w=-1$, rồi lại bật ngược về $w=5$. Loss đứng im ở mức $9.0$ suốt 12 bước.
+4. **Quá lớn ($\alpha = 1.1$) — "Sảy chân xuống vực (Phân kỳ / Exploding)"**:
+   - Nhảy vọt qua sườn dốc và văng ngày càng xa: từ $5 \to -1.6 \to 6.32 \to \dots \to 28.7$. Loss bùng nổ lên $715$! Trong thực tế, các giá trị này sẽ nhanh chóng tràn số thành `inf` hoặc `NaN` (Not a Number).
 
-- $\alpha=0.01$: tiến chậm trong 12 bước.
-- $\alpha=0.25$: khoảng cách tới 2 giảm một nửa sau mỗi bước.
-- $\alpha=1$: tham số luân phiên $5,-1,5,-1,\ldots$, loss luôn bằng 9.
-- $\alpha=1.1$: nhảy qua nghiệm và ngày càng xa, loss tăng.
+---
 
-Để tự kiểm chứng, đặt $e_t=w_t-2$ là khoảng cách có dấu tới nghiệm. Thay vào công thức cập nhật:
+## 7. Áp dụng vào thực tế: Mô hình hai tham số $(w, b)$
 
-$$
-e_{t+1}=(1-2\alpha)e_t
-$$
-
-Muốn độ lớn khoảng cách giảm, cần $|1-2\alpha|<1$, tương đương $0<\alpha<1$. Điều kiện này dành cho **hàm một biến cụ thể đang xét**, với điểm khởi đầu khác nghiệm. Không dùng nó làm ngưỡng chung cho hồi quy hoặc mạng neural. Riêng $\alpha=0.5$ đưa hàm này tới nghiệm chỉ sau một bước; điều đó cũng không tạo ra một learning rate tối ưu cho mọi bài toán.
-
-Learning rate là **hyperparameter — siêu tham số** do người thiết kế cấu hình, khác $w,b$ được cập nhật trong huấn luyện. Vai trò và đánh đổi này được đối chiếu với [Google: Hyperparameters](https://developers.google.com/machine-learning/crash-course/linear-regression/hyperparameters). Giá trị phù hợp phụ thuộc hàm loss và thang đo dữ liệu.
-
-## 7. Từ đạo hàm sang đạo hàm riêng và gradient
-
-Quay về dữ liệu của bài 1: `(1, 3), (2, 5), (3, 7)`; $x$ là số lô và $y$ là latency giả định, ms.
+Bây giờ ta quay lại bài toán hồi quy backend ở Bài 1 với dữ liệu mẫu: `(1, 3), (2, 5), (3, 7)`:
 
 $$
-\hat y_i=wx_i+b,\qquad
-L(w,b)=\frac{1}{n}\sum_{i=1}^{n}(wx_i+b-y_i)^2
+\hat y_i = w x_i + b, \qquad L(w, b) = \frac{1}{n}\sum_{i=1}^{n}(w x_i + b - y_i)^2
 $$
 
-Loss phụ thuộc **hai biến $w,b$**. Ta cần trả lời riêng:
+Hàm Loss lúc này không còn là một đường cong một chiều nữa, mà là một **mặt hõm lòng chảo 2 chiều** phụ thuộc vào cả $w$ và $b$. Ta có 2 núm vặn:
+- **$\frac{\partial L}{\partial w}$ (Đạo hàm riêng theo $w$)**: Giữ nguyên núm $b$, nhích nhẹ núm $w$ xem Loss phản hồi thế nào?
+- **$\frac{\partial L}{\partial b}$ (Đạo hàm riêng theo $b$)**: Giữ nguyên núm $w$, nhích nhẹ núm $b$ xem Loss phản hồi thế nào?
 
-- Nếu thay đổi nhẹ $w$ và giữ $b$ cố định, loss thay đổi thế nào?
-- Nếu thay đổi nhẹ $b$ và giữ $w$ cố định, loss thay đổi thế nào?
-
-Đó là hai **đạo hàm riêng**, viết $\partial L/\partial w$ và $\partial L/\partial b$. Ký hiệu $\partial$ dùng ở đây để nhấn mạnh việc chỉ đổi một biến.
-
-Gộp chúng thành một vector là **gradient**:
+Gộp hai đạo hàm riêng này lại thành một vector chỉ hướng 2 chiều, gọi là **Gradient**:
 
 $$
-\nabla L=\left(\frac{\partial L}{\partial w},\frac{\partial L}{\partial b}\right)
+\nabla L = \left(\frac{\partial L}{\partial w}, \frac{\partial L}{\partial b}\right)
 $$
 
-Đọc $\nabla L$ là “gradient của L”. Về mặt hình học trong hệ tọa độ đang dùng, gradient chỉ hướng tăng cục bộ nhanh nhất theo chuẩn Euclid; ta dùng hướng ngược lại để giảm loss khi bước đủ nhỏ.
+### Công thức Gradient của hàm MSE
 
-### Tự suy ra gradient của MSE
-
-Đặt $r_i=wx_i+b-y_i$ là sai số của mẫu $i$. Chỉ tăng $w$ thêm $h$ sẽ làm sai số thành $r_i+hx_i$. Bình phương sai số thay đổi:
+Ký hiệu $r_i = \hat y_i - y_i = (w x_i + b - y_i)$ là sai số của mẫu thứ $i$:
 
 $$
-\frac{(r_i+hx_i)^2-r_i^2}{h}=2r_ix_i+hx_i^2
+\frac{\partial L}{\partial w} = \frac{2}{n}\sum_{i=1}^{n} r_i \cdot x_i, \qquad \frac{\partial L}{\partial b} = \frac{2}{n}\sum_{i=1}^{n} r_i
 $$
 
-Khi $h\to0$, ta được $2r_ix_i$. Tương tự, chỉ tăng $b$ thêm $h$ sẽ làm sai số thành $r_i+h$, cho đạo hàm $2r_i$. Lấy trung bình các mẫu:
+### Tại sao công thức của $w$ lại nhân thêm $x_i$ trong khi $b$ thì không?
+
+Đây là một câu hỏi trực giác rất hay của dân kỹ thuật:
+- Trong công thức $\hat y = w \cdot x + b$, hệ số $w$ gắn liền với đầu vào $x$. Nếu một request có kích thước rất lớn ($x = 100$), chỉ cần nhích nhẹ núm $w$ một chút xíu là kết quả dự đoán $\hat y$ đã thay đổi dữ dội! Do đó, mức độ nhạy của $w$ phải được nhân với độ lớn của $x_i$.
+- Ngược lại, $b$ là chi phí nền cố định, không phụ thuộc vào $x$. Dù request lớn hay nhỏ, $b$ đều tác động như nhau lên mọi mẫu, nên đạo hàm theo $b$ chỉ đơn thuần là cộng tổng sai số $r_i$ mà không nhân với $x_i$.
+
+---
+
+## 8. Tự tính tay trọn vẹn một bước cho cả w và b
+
+Giả sử ta xuất phát từ cùng điểm với Bài 1: $w_0 = 1.0, b_0 = 0.0$ và chọn learning rate $\alpha = 0.1$.
+Số lượng mẫu $n = 3$.
+
+Bảng tính sai số của từng mẫu:
+
+| Mẫu ($i$) | Đầu vào $x_i$ | Đích thực tế $y_i$ | Máy đoán $\hat y_i = 1 \cdot x_i + 0$ | Sai số $r_i = \hat y_i - y_i$ | Tích $r_i \cdot x_i$ |
+|---:|---:|---:|---:|---:|---:|
+| 1 | 1 | 3 ms | 1 ms | $1 - 3 = \mathbf{-2}$ | $(-2) \times 1 = \mathbf{-2}$ |
+| 2 | 2 | 5 ms | 2 ms | $2 - 5 = \mathbf{-3}$ | $(-3) \times 2 = \mathbf{-6}$ |
+| 3 | 3 | 7 ms | 3 ms | $3 - 7 = \mathbf{-4}$ | $(-4) \times 3 = \mathbf{-12}$ |
+| **Tổng ($\sum$)** | | | | $\sum r_i = \mathbf{-9}$ | $\sum r_i x_i = \mathbf{-20}$ |
+
+Loss ban đầu: $\text{MSE}_0 = \frac{(-2)^2 + (-3)^2 + (-4)^2}{3} = \frac{4 + 9 + 16}{3} = \frac{29}{3} \approx 9.6667\text{ ms}^2$.
+
+### Tính 2 đạo hàm riêng:
 
 $$
-\frac{\partial L}{\partial w}=\frac{2}{n}\sum_{i=1}^{n}r_ix_i,
-\qquad
-\frac{\partial L}{\partial b}=\frac{2}{n}\sum_{i=1}^{n}r_i
-$$
-
-Hệ số $x_i$ xuất hiện ở gradient của $w$ vì thay $w$ một lượng nhỏ làm dự đoán đổi theo $x_i$; thay $b$ cùng lượng ấy chỉ dịch mọi dự đoán như nhau. Bài về chain rule/backpropagation sẽ tổng quát hóa cách truyền thay đổi này.
-
-Một số tài liệu dùng loss $\frac{1}{2n}\sum r_i^2$ nên công thức gradient không có hệ số 2. Phải đối chiếu **định nghĩa loss** trước khi so công thức hoặc learning rate. Bài này luôn dùng MSE chia cho $n$.
-
-## 8. Tính tay một bước cho cả w và b
-
-Khởi đầu như ứng viên đầu bài 1: $w_0=1,b_0=0$, learning rate $\alpha=0.1$.
-
-| $x_i$ | $y_i$ | Dự đoán | $r_i$ | $r_ix_i$ |
-|---:|---:|---:|---:|---:|
-| 1 | 3 | 1 | −2 | −2 |
-| 2 | 5 | 2 | −3 | −6 |
-| 3 | 7 | 3 | −4 | −12 |
-| Tổng | | | −9 | −20 |
-
-Loss ban đầu là $29/3\approx9.666667$ ms². Hai đạo hàm riêng:
-
-$$
-g_w=\frac{2}{3}(-20)=-\frac{40}{3},\qquad
-g_b=\frac{2}{3}(-9)=-6
-$$
-
-Cập nhật từ cùng điểm $(1,0)$:
-
-$$
-w_1=1-0.1\left(-\frac{40}{3}\right)=\frac{7}{3}\approx2.333333
+\frac{\partial L}{\partial w} = \frac{2}{3} \times (-20) = -\frac{40}{3} \approx -13.3333
 $$
 
 $$
-b_1=0-0.1(-6)=0.6
+\frac{\partial L}{\partial b} = \frac{2}{3} \times (-9) = -6.0
 $$
 
-Cả hai tăng lên vì cả hai gradient đều âm. Dấu trừ trong công thức không có nghĩa luôn giảm giá trị tham số.
-
-Tại điểm mới, dự đoán là $44/15,79/15,114/15$; sai số là $-1/15,4/15,9/15$. Vì vậy:
+### Cập nhật đồng thời cả hai tham số:
 
 $$
-L(w_1,b_1)=\frac{1+16+81}{225\times3}=\frac{98}{675}\approx0.145185\text{ ms}^2
+w_1 = w_0 - \alpha \cdot \frac{\partial L}{\partial w} = 1.0 - 0.1 \times \left(-\frac{40}{3}\right) = 1.0 + \frac{4}{3} = \frac{7}{3} \approx \mathbf{2.3333}
 $$
 
-Loss giảm mạnh, nhưng chưa bằng 0. $w_1$ vượt quá nghiệm 2 cũng không có nghĩa bước cập nhật sai: cả $w$ lẫn $b$ đang cùng thay đổi; phải xét loss tại **cặp tham số**.
+$$
+b_1 = b_0 - \alpha \cdot \frac{\partial L}{\partial b} = 0.0 - 0.1 \times (-6.0) = 0.0 + 0.6 = \mathbf{0.6}
+$$
 
-### Cập nhật đồng thời, không tính lại gradient giữa chừng
+> [!NOTE]
+> Nhìn xem điều kỳ diệu: Cả hai tham số $w$ và $b$ đều **tự động tăng lên** ($w$ từ $1 \to 2.333$, $b$ từ $0 \to 0.6$) vì cả hai đạo hàm đều âm! Dấu trừ trong công thức gặp dấu âm của đạo hàm đã biến thành dấu cộng. Mô hình tự động hiểu rằng nó đang đoán thiếu so với thực tế, nên phải tăng cả hai núm vặn lên.
 
-Đúng với thuật toán đang học:
+Loss tại điểm mới $(w_1 \approx 2.3333, b_1 = 0.6)$ lập tức tụt từ **$9.6667\text{ ms}^2$** xuống chỉ còn **$0.1452\text{ ms}^2$** ngay sau đúng một bước chân duy nhất!
+
+### Quy tắc bất di bất dịch: Cập nhật đồng thời (Simultaneous Update)
+
+Trong code, bạn **bắt buộc** phải tính toán xong cả hai đạo hàm `dw` và `db` từ cùng một trạng thái cũ trước khi gán giá trị mới:
 
 ```python
+# ĐÚNG: Tính toán gradient từ cùng trạng thái (w, b) rồi mới cập nhật
 dw, db = gradients(data, w, b)
-w, b = w - lr * dw, b - lr * db
+w = w - lr * dw
+b = b - lr * db
 ```
 
-Nếu đổi `w` rồi tính lại `db` bằng `w` mới, hai gradient không còn thuộc cùng điểm. Khi đó bạn đang thực hiện quy tắc cập nhật khác. Chỉ viết hai phép gán ở hai dòng vẫn đúng nếu `dw, db` đã được tính từ cùng trạng thái cũ.
+Nếu bạn làm sai: cập nhật `w` trước, rồi mới dùng `w_mới` để tính `db`, bạn đã vô tình làm lệch hướng của vector gradient (hiện tượng cập nhật xen kẽ / Gauss-Seidel), làm sai lệch thuật toán Gradient Descent chuẩn.
 
-## 9. Code thực hành và kết quả mong đợi
+---
 
-Mã đầy đủ: [lab.py](lab.py). Đã chạy bằng **Python 3.14.6**, chỉ dùng thư viện chuẩn. Hàm lõi:
+## 9. Thực hành Python và Đọc hiểu biểu đồ
 
-```python
-def gradients(data, w, b):
-    n = len(data)
-    dw = 2.0 / n * sum((w * x + b - y) * x for x, y in data)
-    db = 2.0 / n * sum(w * x + b - y for x, y in data)
-    return dw, db
-```
+Mã nguồn đầy đủ nằm trong tệp [lab.py](lab.py). Mở terminal tại thư mục bài 2 và chạy các chế độ sau:
 
-Mỗi lần cập nhật sử dụng toàn bộ tập huấn luyện, gọi là **full-batch gradient descent**. Vì thế trong ví dụ này một lần cập nhật cũng tương ứng một lượt qua toàn bộ dữ liệu; điều đó không còn đúng khi dùng mini-batch.
-
-### A. Quan sát hàm một biến
-
-Từ thư mục bài 2:
-
-```bash
-python3 lab.py --mode toy --lr 0.1 --steps 5
-python3 lab.py --mode compare
-```
-
-Lệnh đầu tái hiện bảng ở phần 5. Lệnh `compare` luôn so bốn learning rate cố định trong 12 bước; không dùng `--lr` và `--steps` để thay bảng này.
-
-### B. Huấn luyện mô hình của bài 1
+### Chạy huấn luyện mô hình 2 tham số:
 
 ```bash
 python3 lab.py --mode linear --lr 0.1 --steps 1000
 ```
 
-Nếu terminal ở gốc bộ tài liệu, thay `lab.py` bằng `02-dao-ham-gradient-descent/lab.py`. Chương trình chỉ in trạng thái 0–5 và trạng thái cuối, vẫn tính đủ mọi bước ở giữa.
+Kết quả in ra màn hình:
 
-| Bước | $w$ | $b$ | Train MSE, ms² |
-|---:|---:|---:|---:|
-| 0 | 1.000000 | 0.000000 | 9.666667 |
-| 1 | 2.333333 | 0.600000 | 0.145185 |
-| 2 | 2.182222 | 0.546667 | 0.030038 |
-| 3 | 2.193481 | 0.564444 | 0.027318 |
-| 5 | 2.182810 | 0.584482 | 0.024769 |
-| 1000 | ≈2 | ≈1 | ≈$2.31\times10^{-23}$ |
+```text
+step          w            b           train_mse
+   0     1.000000     0.000000     9.666667e+00
+   1     2.333333     0.600000     1.451852e-01
+   2     2.182222     0.546667     3.003786e-02
+   3     2.193481     0.564444     2.731796e-02
+   5     2.182810     0.584482     2.476946e-02
+1000     2.000000     1.000000     2.311749e-23
+Held-out prediction at x=4: 9.000000 ms
+Held-out MSE: 0.000000e+00
+```
 
-Kết quả cuối gần nghiệm của grid search bài 1, nhưng được tìm bằng các bước gradient. Train loss rất nhỏ là sai số số học và sai số hội tụ còn lại, không cần đúng bằng 0. Chương trình này chạy số bước cố định; chưa có cơ chế tự dừng theo ngưỡng hội tụ.
+### Đọc hiểu trực quan qua Hình 3:
 
 ![Đường cập nhật hai tham số và đường loss giảm qua các bước](figures/03-hoi-quy.png)
 
-*Hình 3. Trái: mỗi đường đồng mức nối các cặp $(w,b)$ có cùng MSE; số trên đường là MSE, ms². Đường xanh là hành trình tham số, ngôi sao là nghiệm $(2,1)$. Phải: MSE theo bước cập nhật, trục đứng logarit. Hai hình cùng dùng dữ liệu và thuật toán trong lab.*
+*Hình 3. Biểu đồ đường đồng mức (Contour Plot) bên trái và đồ thị giảm Loss bên phải.*
 
-Mẫu giữ riêng `(4, 9)` chỉ dùng **sau huấn luyện**. Nó không tham gia tính gradient. Kết quả dự đoán xấp xỉ 9 ms không thay thế một phép đánh giá thực tế với nhiều dữ liệu.
+- **Biểu đồ bên trái (Bản đồ địa hình tham số)**:
+  - Trục hoành là $w$, trục tung là $b$.
+  - Các đường elip là các đường đồng mức: mọi điểm nằm trên cùng một đường elip đều có giá trị Loss bằng nhau.
+  - Điểm sao vàng ở tâm chính là đáy thung lũng: nghiệm tối ưu $(w=2, b=1)$ với Loss = 0.
+  - Vạch màu xanh thể hiện hành trình cập nhật: xuất phát từ $(1, 0)$, bước chân đầu tiên nhảy vọt sang $(2.33, 0.6)$, sau đó uốn lượn nhịp nhàng tiến thẳng vào tâm ngôi sao.
+- **Biểu đồ bên phải (Hành trình tụt dốc của Loss)**:
+  - Trục đứng là Loss theo thang logarit. Chỉ sau vài bước đầu tiên, Loss đã rơi tự do từ $9.66$ xuống dưới $0.03$, và dần tiệm cận về $0$.
 
-### C. Thử learning rate quá lớn cho hồi quy
+---
 
-```bash
-python3 lab.py --mode linear --lr 0.2 --steps 20
-```
+## 10. Gradient Checking: Unit-test kiểm tra đạo hàm
 
-Với dữ liệu và khởi tạo này, loss tăng mạnh. Trong khi đó $\alpha=0.2$ vẫn làm hàm một biến ở phần 3 hội tụ. Đây là ví dụ trực tiếp rằng cùng learning rate không đảm bảo cùng hành vi giữa hai bài toán.
+Khi xây dựng các mô hình AI phức tạp, việc tính đạo hàm bằng tay trên giấy rất dễ bị nhầm lẫn (quên dấu trừ, thiếu hệ số 2, nhân nhầm biến). Làm sao kỹ sư AI chắc chắn rằng code tính đạo hàm của mình hoàn toàn chính xác?
 
-## 10. Kiểm tra gradient bằng sai phân số
+Họ dùng kỹ thuật **Gradient Checking (Kiểm tra bằng sai phân số)**:
+- Đo Loss tại $(w + h)$ và $(w - h)$ với khoảng cách cực nhỏ $h = 10^{-5}$.
+- Tính độ dốc xấp xỉ bằng thước kẻ số học (sai phân trung tâm):
+  $$g_w^{\text{số}} \approx \frac{L(w + h, b) - L(w - h, b)}{2h}$$
+- So sánh kết quả của công thức giải tích với kết quả số học này. Nếu độ lệch nhỏ hơn $10^{-7}$, ta tự tin rằng công thức giải tích là chính xác!
 
-Có thể kiểm tra công thức đạo hàm bằng cách đo thay đổi loss qua hai điểm gần nhau. Với $h>0$ nhỏ:
-
-$$
-g_w^{\text{số}}\approx\frac{L(w+h,b)-L(w-h,b)}{2h}
-$$
-
-Tương tự cho $b$, giữ nguyên $w$. Đây là **central difference — sai phân trung tâm**, khác công thức một phía dùng để giới thiệu đạo hàm ở phần 3.
+Chạy lệnh kiểm tra trong `lab.py`:
 
 ```bash
 python3 lab.py --mode check
 ```
 
-Tại $(w,b)=(1,0)$, cả công thức giải tích lẫn sai phân đều cho xấp xỉ `dw=-13.33333333`, `db=-6.00000000`; sai khác tuyệt đối ở môi trường đã kiểm tra nhỏ hơn $10^{-8}$. Đây là kiểm tra số hữu ích, không phải chứng minh công thức đúng ở mọi điểm.
+Kết quả:
 
-Không chọn $h$ nhỏ vô hạn trong máy tính: trừ hai số rất gần nhau có thể làm sai số dấu phẩy động nổi bật. `h=1e-5` chỉ là giá trị thực hành phù hợp cho ví dụ này. Sai phân cũng phải đánh giá loss thêm theo từng tham số nên không phải cách ta sẽ huấn luyện mạng lớn; sau này dùng đạo hàm tự động.
-
-## 11. Giới hạn và các hiểu nhầm cần tránh
-
-| Hiểu nhầm | Cách hiểu đúng |
-|---|---|
-| Gradient descent luôn giảm loss | Chỉ có bảo đảm dưới điều kiện phù hợp; learning rate lớn có thể làm loss tăng |
-| Gradient bằng 0 nghĩa là mô hình tốt | Có thể là cực đại, điểm yên ngựa hoặc cực tiểu của mục tiêu chưa phù hợp |
-| Loss nhỏ nghĩa là tổng quát hóa tốt | Đang tối ưu train loss; vẫn cần đánh giá trên dữ liệu mới |
-| 1000 bước ở đây là mặc định cho mọi mô hình | Chỉ là cấu hình để quan sát ví dụ này |
-| Gradient lớn luôn có nghĩa lỗi lớn | Độ lớn còn phụ thuộc thang đo đặc trưng và cách định nghĩa loss |
-| Mọi mạng có thể khởi tạo giống ví dụ này | Khởi tạo mạng nhiều neuron có vấn đề đối xứng; sẽ học riêng |
-
-MSE của hồi quy tuyến tính là hàm lồi theo các tham số. Với bộ dữ liệu này có nghiệm tối ưu duy nhất $(2,1)$. Tính lồi không cứu được một learning rate gây phân kỳ; còn mạng neural nói chung không có hình dạng loss đơn giản như vậy.
-
-Nếu đổi đầu vào từ số lô sang số bản ghi, giá trị số của $x$ tăng 100 lần, trọng số biểu diễn cùng hàm dự đoán phải đổi và gradient theo trọng số cũng đổi. Đó là một lý do cần học chuẩn hóa đặc trưng. Code đang dùng các giá trị số theo đơn vị đã quy ước; không chuyển learning rate sang hệ đơn vị khác một cách máy móc.
-
-## 12. Tự học, tái tạo hình và bước tiếp theo
-
-Làm [bài tập](exercises.md), sau đó đối chiếu [lời giải](solutions.md). Có thể chuyển tiếp khi tự tính được một bước cập nhật, giải thích được dấu của đạo hàm, nhận ra lỗi cập nhật không đồng thời và đọc được đường loss.
-
-Hình đã được lưu sẵn dạng PNG và SVG nên đọc tài liệu không cần cài thư viện vẽ. Nếu muốn tự tái tạo hình, dùng môi trường ảo; chỉ bước này cần tải thư viện:
-
-```bash
-# Chạy từ thư mục bài 2. Không cần làm bước này để chạy lab.py.
-python3 -m venv .venv
-.venv/bin/python -m pip install -r requirements-figures.txt
-.venv/bin/python make_figures.py
+```text
+point (w=1, b=0)
+dw: analytic=-13.33333333; numerical=-13.33333333; abs_diff=1.47e-12
+db: analytic=-6.00000000; numerical=-6.00000000; abs_diff=4.95e-11
 ```
 
-Các lệnh trên dùng cú pháp macOS/Linux; trên Windows dùng Python trong `.venv\Scripts`. Phiên bản vẽ đã kiểm tra: Matplotlib 3.11.2, NumPy 2.5.4; cần môi trường Python có gói tương thích. Mã vẽ: [make_figures.py](make_figures.py), phụ thuộc: [requirements-figures.txt](requirements-figures.txt). SVG có thể dùng khi xuất bản cần hình co giãn không vỡ nét.
+Sai lệch tuyệt đối chỉ ở mức $10^{-11} \sim 10^{-12}$ (do giới hạn số thực dấu phẩy động của máy tính). Điều này chứng minh công thức đạo hàm bằng code hoàn toàn trùng khớp với định nghĩa toán học!
 
-**Học tiếp:** [Bài 3 — Vector, ma trận và tensor](../03-vector-ma-tran-tensor/README.md), biểu diễn phép dự đoán và gradient cho nhiều mẫu, nhiều đặc trưng. Có tính tay, code NumPy và hình minh họa.
+---
 
-Nguồn và phạm vi đối chiếu: [danh mục nguồn](../SOURCES.md). Các suy diễn đại số, số liệu và hình của bài này có thể tái kiểm tra từ code đi kèm.
+## 11. Các ứng dụng và cạm bẫy thực tế của AI Engineer
+
+### Ứng dụng 1: Chiến lược điều chỉnh Learning Rate khi huấn luyện LLM
+
+Trong thực tế huấn luyện các mô hình lớn (pre-training hoặc fine-tuning):
+- Kỹ sư AI **không bao giờ** dùng một learning rate cố định từ đầu đến cuối.
+- Họ dùng **Learning Rate Scheduler**:
+  1. *Warmup*: Trong vài nghìn bước đầu, mô hình chưa ổn định nên dùng learning rate rất nhỏ rồi tăng dần lên, tránh làm xáo trộn các trọng số ban đầu.
+  2. *Cosine Decay / Annealing*: Sau giai đoạn đỉnh cao, hạ dần learning rate xuống cực nhỏ về cuối quá trình để mô hình từ từ lắng đọng vào đáy thung lũng tối ưu sâu nhất.
+
+### Ứng dụng 2: Phát hiện và xử lý lỗi Exploding Gradient (Loss = NaN)
+
+Thử chạy lệnh với learning rate quá lớn $\alpha = 0.2$:
+
+```bash
+python3 lab.py --mode linear --lr 0.2 --steps 20
+```
+
+Bạn sẽ thấy Loss nhảy vọt từ $9.66 \to 14.3 \to 31.5 \to \dots \to 26,189$!
+- Trong các hệ thống huấn luyện thực tế, khi Loss nhảy vọt bất thường hoặc xuất hiện `NaN`, nguyên nhân hàng đầu là Learning Rate quá lớn. Kỹ thuật phổ biến để khắc phục là giảm learning rate hoặc áp dụng **Gradient Clipping** (cắt bớt chiều dài vector gradient nếu nó vượt quá ngưỡng an toàn).
+
+### Ứng dụng 3: Vì sao phải chuẩn hóa dữ liệu (Feature Scaling / Normalization)?
+
+- Hãy tưởng tượng nếu bài toán có 2 đặc trưng: $x_1$ là số lô ($1 \sim 10$) và $x_2$ là chi phí tính bằng VNĐ ($1.000.000 \sim 100.000.000$).
+- Vì $x_2$ quá khổng lồ, đạo hàm theo $w_2$ sẽ lớn gấp hàng triệu lần đạo hàm theo $w_1$.
+- Mặt địa hình Loss sẽ bị biến dạng thành một khe núi hẹp và dốc đứng một chiều. Thuật toán Gradient Descent sẽ bị đập liên tục qua lại giữa hai vách đá thay vì đi dọc theo lòng suối. Chuẩn hóa dữ liệu về cùng thang đo (ví dụ đưa về khoảng $0 \sim 1$) là bước bắt buộc để Gradient Descent hội tụ nhanh.
+
+---
+
+## 12. Tổng kết và bước tiếp theo
+
+| Khái niệm | Ý nghĩa cốt lõi |
+|---|---|
+| **Đạo hàm ($f'$)** | Độ nhạy cục bộ: Nhích nhẹ tham số thì Loss tăng hay giảm bao nhiêu? |
+| **Gradient ($\nabla L$)** | Vector la bàn tổng hợp đạo hàm riêng của tất cả tham số. |
+| **Dấu trừ ($-$)** | Bước ngược hướng dốc để kéo giảm Loss. |
+| **Learning rate ($\alpha$)** | Sải bước chân: quá ngắn thì chậm, quá dài thì bay khỏi quỹ đạo (phân kỳ). |
+| **Gradient Checking** | Unit-test kiểm tra độ chính xác của code tính đạo hàm bằng sai phân số. |
+
+**Tự kiểm tra kiến thức:**
+1. Hãy mở [exercises.md](exercises.md) và tự giải các bài tập tính tay (bài 1, 2, 4) và bài kiểm tra code (bài 3, 5, 6).
+2. Đối chiếu lập luận chi tiết với [solutions.md](solutions.md).
+
+**Học tiếp:**
+[Bài 3 — Vector, ma trận và tensor](../03-vector-ma-tran-tensor/README.md). Bạn sẽ học cách gom hàng nghìn phép tính đạo hàm và dự đoán riêng lẻ thành các phép nhân ma trận siêu nhanh trên thư viện NumPy, đặt nền tảng cho việc tăng tốc tính toán trên GPU.
+
+---
+
+*Tài liệu tham khảo đối chiếu chuẩn:*
+- [Google Machine Learning Crash Course: Gradient Descent](https://developers.google.com/machine-learning/crash-course/linear-regression/gradient-descent)
+- [Google Machine Learning Crash Course: Hyperparameters](https://developers.google.com/machine-learning/crash-course/linear-regression/hyperparameters)

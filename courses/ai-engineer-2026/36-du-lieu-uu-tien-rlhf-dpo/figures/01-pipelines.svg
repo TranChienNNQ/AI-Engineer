@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="684pt" height="357.25025pt" viewBox="0 0 684 357.25025" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:date>2026-11-06T22:36:32.600026</dc:date>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 357.25025 
+L 684 357.25025 
+L 684 0 
+L 0 0 
+z
+" style="fill: #ffffff"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 27.288 158.804426 
+L 134.424 158.804426 
+Q 143.7984 158.804426 143.7984 154.45793 
+L 143.7984 92.36513 
+Q 143.7984 88.018634 134.424 88.018634 
+L 27.288 88.018634 
+Q 17.9136 88.018634 17.9136 92.36513 
+L 17.9136 154.45793 
+Q 17.9136 158.804426 27.288 158.804426 
+z
+" clip-path="url(#p4ced77aae9)" style="fill: #245ca6; fill-opacity: 0.078431; stroke: #245ca6; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 201.384 158.804426 
+L 308.52 158.804426 
+Q 317.8944 158.804426 317.8944 154.45793 
+L 317.8944 92.36513 
+Q 317.8944 88.018634 308.52 88.018634 
+L 201.384 88.018634 
+Q 192.0096 88.018634 192.0096 92.36513 
+L 192.0096 154.45793 
+Q 192.0096 158.804426 201.384 158.804426 
+z
+" clip-path="url(#p4ced77aae9)" style="fill: #245ca6; fill-opacity: 0.078431; stroke: #245ca6; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_4">
+    <path d="M 375.48 158.804426 
+L 482.616 158.804426 
+Q 491.9904 158.804426 491.9904 154.45793 
+L 491.9904 92.36513 
+Q 491.9904 88.018634 482.616 88.018634 
+L 375.48 88.018634 
+Q 366.1056 88.018634 366.1056 92.36513 
+L 366.1056 154.45793 
+Q 366.1056 158.804426 375.48 158.804426 
+z
+" clip-path="url(#p4ced77aae9)" style="fill: #245ca6; fill-opacity: 0.078431; stroke: #245ca6; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_5">
+    <path d="M 549.576 158.804426 
+L 656.712 158.804426 
+Q 666.0864 158.804426 666.0864 154.45793 
+L 666.0864 92.36513 
+Q 666.0864 88.018634 656.712 88.018634 
+L 549.576 88.018634 
+Q 540.2016 88.018634 540.2016 92.36513 
+L 540.2016 154.45793 
+Q 540.2016 158.804426 549.576 158.804426 
+z
+" clip-path="url(#p4ced77aae9)" style="fill: #245ca6; fill-opacity: 0.078431; stroke: #245ca6; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_6">
+    <path d="M 27.288 282.990026 
+L 174.6 282.990026 
+Q 183.9744 282.990026 183.9744 278.64353 
+L 183.9744 216.55073 
+Q 183.9744 212.204234 174.6 212.204234 
+L 27.288 212.204234 
+Q 17.9136 212.204234 17.9136 216.55073 
+L 17.9136 278.64353 
+Q 17.9136 282.990026 27.288 282.990026 
+z
+" clip-path="url(#p4ced77aae9)" style="fill: #25836a; fill-opacity: 0.078431; stroke: #25836a; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_7">
+    <path d="M 268.344 282.990026 
+L 415.656 282.990026 
+Q 425.0304 282.990026 425.0304 278.64353 
+L 425.0304 216.55073 
+Q 425.0304 212.204234 415.656 212.204234 
+L 268.344 212.204234 
+Q 258.9696 212.204234 258.9696 216.55073 
+L 258.9696 278.64353 
+Q 258.9696 282.990026 268.344 282.990026 
+z
+" clip-path="url(#p4ced77aae9)" style="fill: #25836a; fill-opacity: 0.078431; stroke: #25836a; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="patch_8">
+    <path d="M 509.4 282.990026 
+L 656.712 282.990026 
+Q 666.0864 282.990026 666.0864 278.64353 
+L 666.0864 216.55073 
+Q 666.0864 212.204234 656.712 212.204234 
+L 509.4 212.204234 
+Q 500.0256 212.204234 500.0256 216.55073 
+L 500.0256 278.64353 
+Q 500.0256 282.990026 509.4 282.990026 
+z
+" clip-path="url(#p4ced77aae9)" style="fill: #25836a; fill-opacity: 0.078431; stroke: #25836a; stroke-width: 1.5; stroke-linejoin: miter"/>
+   </g>
+   <g id="text_1">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="80.856" y="126.269382" transform="rotate(-0 80.856 126.269382)">SFT policy</text>
+   </g>
+   <g id="text_2">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(223.228172 119.887878)">Cặp ưu tiên</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(207.50075 133.090885)">chosen / rejected</text>
+   </g>
+   <g id="text_3">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(389.689484 119.668307)">Reward model</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(408.860422 132.870456)">rφ(x, y)</text>
+   </g>
+   <g id="text_4">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(568.231891 120.108737)">Tối ưu policy</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(564.061344 133.380495)">reward − β KL</text>
+   </g>
+   <g id="patch_9">
+    <path d="M 136.422501 123.41153 
+Q 167.902104 123.41153 197.48105 123.41153 
+" style="fill: none; stroke: #48576b; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 193.08105 121.21153 
+L 197.48105 123.41153 
+L 193.08105 125.61153 
+" style="fill: none; stroke: #48576b; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_10">
+    <path d="M 310.518501 123.41153 
+Q 341.998104 123.41153 371.57705 123.41153 
+" style="fill: none; stroke: #48576b; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 367.17705 121.21153 
+L 371.57705 123.41153 
+L 367.17705 125.61153 
+" style="fill: none; stroke: #48576b; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_11">
+    <path d="M 484.614501 123.41153 
+Q 516.094104 123.41153 545.67305 123.41153 
+" style="fill: none; stroke: #48576b; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 541.27305 121.21153 
+L 545.67305 123.41153 
+L 541.27305 125.61153 
+" style="fill: none; stroke: #48576b; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_5">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle; fill: #245ca6" x="342" y="64.42337" transform="rotate(-0 342 64.42337)">Nhánh RM + tối ưu reward (InstructGPT dùng PPO)</text>
+   </g>
+   <g id="text_6">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(68.133922 243.853478)">SFT → clone</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(50.384391 257.056485)">policy + reference</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(288.399922 244.328712)">Cặp ưu tiên cố định</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(291.406016 257.53172)">+ log-probabilities</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(535.428578 243.57504)">DPO sigmoid loss</text>
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'" transform="translate(531.197875 257.334923)">chỉ cập nhật policy</text>
+   </g>
+   <g id="patch_12">
+    <path d="M 176.599727 247.59713 
+Q 221.47093 247.59713 264.441476 247.59713 
+" style="fill: none; stroke: #48576b; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 260.041476 245.39713 
+L 264.441476 247.59713 
+L 260.041476 249.79713 
+" style="fill: none; stroke: #48576b; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="patch_13">
+    <path d="M 417.655727 247.59713 
+Q 462.52693 247.59713 505.497476 247.59713 
+" style="fill: none; stroke: #48576b; stroke-width: 1.7; stroke-linecap: round"/>
+    <path d="M 501.097476 245.39713 
+L 505.497476 247.59713 
+L 501.097476 249.79713 
+" style="fill: none; stroke: #48576b; stroke-width: 1.7; stroke-linecap: round"/>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 11px; font-family: 'DejaVu Sans'; text-anchor: middle" x="342" y="328.31777" transform="rotate(-0 342 328.31777)">Lab: bandit liệt kê 3 hành động + TinyLM DPO; chưa chạy PPO hay thu nhãn người thật.</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 17px; font-family: 'DejaVu Sans'; text-anchor: middle" x="342" y="21.58625" transform="rotate(-0 342 21.58625)">Từ SFT đến học từ dữ liệu ưu tiên</text>
+   </g>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="p4ced77aae9">
+   <rect x="7.2" y="39.58625" width="669.6" height="310.464"/>
+  </clipPath>
+ </defs>
+</svg>
