@@ -272,4 +272,4 @@ Mỗi case có world.sqlite cho dữ liệu ticket, state.sqlite cho journal, pr
 
 ![Các lớp kiểm khi resume](figures/07-resume-gates.png)
 
-Làm [16 bài tập](exercises.md), rồi đối chiếu [lời giải](solutions.md) và [đào sâu](deep-dive.md). Tự giải thích được: pending có thể che giấu những gì; vì sao retry giữ op_id nhưng tăng attempt; checkpoint nào ngăn gọi lại tool; và epoch đang fence ở đâu. Bài 52 về context engineering và memory cho agent hiện mới đề cương trong [nhánh AI Agent](../AGENT-TRACK.md). [Nguồn/phạm vi](../SOURCES.md) · [Đề cương](../ROADMAP.md).
+Làm [16 bài tập](exercises.md), rồi đối chiếu [lời giải](solutions.md) và [đào sâu](deep-dive.md). Tự giải thích được: pending có thể che giấu những gì; vì sao retry giữ op_id nhưng tăng attempt; checkpoint nào ngăn gọi lại tool; và epoch đang fence ở đâu. Tiếp theo: [Bài 52 — Context engineering và memory cho agent](../52-context-engineering-memory-agent/README.md), với context projection/budget và SQLite memory có nguồn/lifecycle; planner vẫn scripted. [Nguồn/phạm vi](../SOURCES.md) · [Đề cương](../ROADMAP.md).

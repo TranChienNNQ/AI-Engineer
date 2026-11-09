@@ -987,6 +987,73 @@ Experiment `dbca2d574b6fc999`; base50 `4ce6ec8147885411aa892ce5851e7b9c47b75a150
 
 60 kiểm tra mới + 349 hồi quy = 409 predicates. 13 Python snippets độc lập, 16 cặp bài tập/lời giải, 7 hình đã chạy/xem. Independent audit không import runtime/scorer: raw SQLite 238 checkpoints/head/hash chains, monotonic counters/history, literal outcomes, bindings/source lineage, raw probe/observation provenance và 13 business world seed/effects. ZIP kiểm CRC/source bytes/local links, fresh extraction full report/409 checks/five modes/guards/snippets/audit và tái tạo 7 PNG byte-for-byte/SVG. Không DB/config/report/cache/venv runtime trong ZIP. Bài 52–57 vẫn đề cương.
 
+## Bài 52 — Context engineering và memory cho agent
+
+Ngày đọc/đối chiếu: 08/11/2026. Các tài liệu hiện hành được đọc qua HTML/phần liên quan; paper Lost in the Middle chỉ abstract/metadata, không toàn văn/tái hiện benchmark. Không dùng các giới hạn trên model cũ như kết luận phổ quát cho model năm 2026.
+
+| Nguồn đã đọc | Nội dung dùng | Giới hạn |
+|---|---|---|
+| [Anthropic — Effective context engineering for AI agents](https://www.anthropic.com/research/effective-context-engineering-for-ai-agents) | Bài 29/09/2025: quản lý context qua lượt, retrieval đúng lúc, compaction/note-taking | Góc nhìn nhà cung cấp, không optimality/quality guarantee; engineering URL redirect về research |
+| [LangGraph — Memory overview](https://docs.langchain.com/oss/python/langgraph/memory) | Short/long-term, semantic/episodic/procedural và phân biệt semantic memory với semantic search | Không cài/chạy framework hoặc embedding API |
+| [LangGraph — Persistence](https://docs.langchain.com/oss/python/langgraph/persistence) | Checkpointer theo thread và store qua nhiều thread | Dùng khái niệm, lab tự viết SQLite store |
+| [Lost in the Middle — Liu và cộng sự](https://arxiv.org/abs/2307.03172) | Abstract/metadata v3, 20/11/2023: vị trí thông tin ảnh hưởng các tác vụ/model đã thử | Không số liệu benchmark hoặc claim mọi model hiện tại giống nhau |
+| [Lab 51](51-trang-thai-ben-vung-checkpoint-khoi-phuc/README.md) | Đọc/tái dùng State/Journal/restore/durable/final/MCP gates và chạy 409 hồi quy | Loop 52 mới chọn explicit packet; không monkeypatch hoặc coi nguyên loop 51 đã có memory |
+| [Bài 26](26-context-engineering-phan-quyen-prompt-injection/README.md) | Đọc phần mở đầu để nối nền context/data-authority với store/durable loop mới | Không thêm claim đã chạy lại toàn lab 26 |
+
+Memory schema hẹp: hint(trigger/query), preference(language), episode(old timestamp/status, root_cause unknown). Chỉ hint tác động trực tiếp query của script; preference/episode chỉ được serialize vào context. Source registry và reviewer là trusted fixture/controller, không human annotations/consent study hoặc automatic semantic learning. Alias-symptom mapping synthetic; source equality/hash chưa chứng minh source truth.
+
+Sources gắn tenant/owner/service/origin/version/hash. Stage kiểm refs/payload/TTL/tombstone; candidate chưa recall, reviewer role mới approve. Recall scope trước ranking, kiểm TTL/status/source/current conflict; priority 100/50/20 do code đặt, không confidence. Time now tiêm vào kiểm boundary, không ticking TTL scheduler. Source registry/API nhận principal do trusted host cung cấp, chưa OAuth/multi-tenant service hardening.
+
+Working summary là extractive field projection, giữ empty/unknown/negative quote và raw observation hash. Full raw state giữ ở checkpoint/host gates; scripted consumer chỉ nhận packet. validate_bundle phát hiện packet bị đổi theo projection đã định, chưa semantic omission verifier hoặc LLM summarizer. Tool descriptions dùng curated 52 wording; không dùng mô tả search-stop cũ làm instruction cho policy repair mới.
+
+20 cases + demo hai run: 16 answered, 2 failed theo guard và 2 error exports bị chặn (state planning/paused vẫn nằm trong journal). Expected reject/fail là pass, không 100% LLM success. Cross-run run A có 5 turns/4 attempts, run B có 4/3 sau controller promote hint; cùng task/corpus, planner scripted. MCP memory thật trong worker; 23 worker subprocess launches trong study, 2 callback cases chạy trong process controller, 1 os._exit crash. Không provider/LLM/embedding/judge, vector DB hoặc LangGraph runtime.
+
+Default teaching budget 14.000 JSON UTF-8 bytes trừ 2.000 reserve = 12.000 input; không model-token/wire bound. Mandatory không vừa thì fail, optional memory bỏ theo budget. Warm compact bytes 5189/6106/6750/7034, tổng 25079; full 5186/6289/7064/7667, tổng 26206: giảm 1127 bytes, khoảng 4,30% theo full, cùng scripted actions/final. Lượt đầu compact lớn hơn 3 bytes; không token/cost/latency/quality benchmark.
+
+Store epoch/selection fingerprint pin vào run binding, check trước consume/dispatch/export. Forget sau compose chặn memory_snapshot_changed; resume checkpoint cũ chặn binding mismatch. Epoch toàn store nên update không liên quan cũng invalid run; chưa dependency-selective invalidation, automatic migration/reconciliation hoặc atomic remote transmission/revocation. Logical forget clear row payload/refs và tombstone key, chưa semantic aliases/secure erase nguồn/checkpoint/log/backup.
+
+20 case world DB + một cross-run world giữ seed hash, hai tickets version 1, không business runs/proposals/receipts/audit effects sau trusted setup. Memory/journal/probe có ghi đĩa thật. Sources vẫn có thể chứa instruction-shaped text trong schema hợp lệ: untrusted_query chỉ trở thành read query, không quyền/tool ghi; không lấy scripted boundary test làm bằng chứng LLM injection/poison resistance.
+
+Môi trường: Python 3.14.6, SQLite 3.53.3, mcp/mcp-types 2.3.0, Pydantic 2.14.2, AnyIO 4.16.0, jsonschema 4.26.0, HTTPX 0.28.1, FastAPI 0.162.0, Matplotlib 3.11.2, macOS arm64 CPU. Dependencies có sẵn local, chưa claim fresh install từ mạng hoặc mọi OS. Mười Python modules, bốn Markdown, hai requirements và bảy cặp PNG/SVG; giữ source 45–46–48–49–50–51–52, process sạch.
+
+Experiment `0eab5c393dbc43ae`; base51 `dec0e27be40867c8e8774f2ce7501e501d328931119803db02bebe1291e307d9`; core52 `29f6a3891a4b340a6a53a80316d32b84b5473eb7bfacf09bf8e8f9ffa5170027`; experiment source `90de726dc7763fa75e294b566f62633ba1f959d578df2f86b4e8752bc3e0cdb3`; case snapshot `69ae8ea386bae858c510eebc4a2a5023e31b0849d0da776c06e2e0244f3f314e`. Manifest/binding gắn source/config/tool/packet/memory snapshot identity; không mọi tài liệu/environment/lockfile/chữ ký hoặc deterministic LLM generation.
+
+67 checks mới + 409 hồi quy = 476 predicates. 13 Python snippets độc lập, 16 cặp bài tập/lời giải, 7 hình đã chạy/xem. Independent stdlib audit không import runtime/scorer: raw SQL 22 run chains/366 checkpoints, monotonic counters/history, head/source hashes, literal outcomes, scoped memory/source refs/lifecycle, 87 context receipts/budgets/measured bytes và 69 acknowledged reads/citation provenance, 21 business world seeds/no effects. Receipts không persist raw context payload, nên audit không claim rehash lại mọi full packet chỉ từ receipt. ZIP kiểm CRC/source bytes/local links, fresh extraction full report/476 checks/five modes/guards/snippets/audit và tái tạo 7 PNG byte-for-byte/SVG. Không runtime DB/config/report/cache/venv trong ZIP. Bài 53–57 vẫn đề cương.
+
+## Bài 53 — Human-in-the-loop và hành động ghi có kiểm soát
+
+Ngày đọc/đối chiếu: 08/11/2026. Đọc HTML/Markdown các phần liên quan của nguồn chính thức dưới đây. Không cài/chạy LangGraph/Stripe, không gọi ticket SaaS hoặc LLM; Python docs nhánh 3.14 hiển thị 3.14.10, lab thực chạy 3.14.6.
+
+| Nguồn đã đọc | Nội dung dùng | Giới hạn |
+|---|---|---|
+| [LangGraph — Interrupts](https://docs.langchain.com/oss/python/langgraph/interrupts) | Pause/external input/durable resume và phần side effects trước interrupt có thể bị chạy lại | Dùng ý tưởng, lab tự viết workflow, không framework API acceptance |
+| [LangGraph — Fault tolerance](https://docs.langchain.com/oss/python/langgraph/fault-tolerance) | Stable durable key, external dedup và missing acknowledgement là unknown/status reconciliation | Không thử framework timeout/retry hoặc suy guarantee cho mọi API |
+| [SQLite — Transaction](https://www.sqlite.org/lang_transaction.html) | BEGIN/COMMIT, one writer và atomicity trong boundary local | Không distributed transaction giữa approval DB và target DB |
+| [HTTPX — ASGI Transport](https://www.python-httpx.org/advanced/transports/#asgi-transport) | AsyncClient/ASGITransport gọi app trực tiếp trong process | Không TCP/TLS hoặc measured network timeout; faults tiêm riêng |
+| [Python 3.14 — hmac](https://docs.python.org/3.14/library/hmac.html) | HMAC-SHA256 message binding và compare_digest | Key demo công khai, không production credential isolation hoặc PKI |
+| [Stripe — Idempotent requests](https://docs.stripe.com/api/idempotent_requests) | Ví dụ contract idempotency phụ thuộc API/version, v1/v2 có semantics khác | Chỉ đọc phần trang trả về; không Stripe integration hoặc claim retention cụ thể |
+| [Lab 52](52-context-engineering-memory-agent/README.md) | Tái dùng actual investigation/source/current-memory gates và 476 hồi quy | MCP registry vẫn read-only; write connector/subsystem 53 mới, chưa model-chosen write live |
+
+Target action duy nhất append_internal_note, ticket vẫn open, source caveat root cause/remediation chưa verified. Draft script lấy quote/health từ một investigation MCP bài 52 (5 planning turns/4 read attempts). 26 cases copy snapshot đã đóng connections bằng SQLite backup; không 26 model samples độc lập. Review decisions là controller/fixture, có readonly HTML artifact và command approve/reject/edit, chưa authenticated interactive UI hoặc human usability/consent study.
+
+Review view bind exact body/target/expected version/source/release/expiry bằng draft/view hash và local revision. Reviewer role cùng tenant, agent không self-approve; edit trước attempt đổi draft version/hash, xóa approval. Attempted payload freeze. Source gate kiểm clock command hiện tại: memory TTL 150 có thể chặn write 151 dù approval còn tới 160. Business clocks injected, chưa ticking TTL scheduler/hard elapsed deadline.
+
+Local workflow/events và target effect DB tách nhau. Target FastAPI/HTTPX-ASGI kiểm actor/scope/permit/current version; note+version+dedup receipt trong một transaction. Local reserve trước POST và result commit sau response. Hai subprocess exit 83 kiểm trước-send/sau-response; chưa power loss hoặc multi-node workflow engine. Fault before_send/after_commit/status_missing/status_unavailable/bad_receipt là test hooks, không real network latency/cancellation.
+
+Permit bind payload hash và op/actor/tenant/reviewer/expiry, kiểm HMAC; tutorial dùng PUBLIC demo key, không bảo vệ khỏi người có source/key. Host/control plane dùng synthetic identity registry cùng target để thử revoke, chưa OAuth/OIDC/distributed revocation hoặc atomic authorization với remote transmission. Current source là fixture mirror của investigation; target version do target authoritative CAS kiểm, chưa automatic refresh/re-investigate sau stale version.
+
+26 expected outcomes: 11 confirmed, 1 rejected, 1 cancelled, 4 awaiting_review, 5 approved nhưng chưa gửi, 1 failed target precondition, 3 unknown. Tổng 20 write reservations/11 status checks/16 authenticated POST log events/13 target note effects và 13 target receipts. Reject/unknown cũng là pass nếu đúng contract, không 100% LLM/human success. Default 2 write attempts/3 status checks per operation persist; source investigation có budget riêng.
+
+Lost ack có effect nhưng local chưa biết; status applied xác nhận không POST mới. status_not_found vẫn unknown; explicit retry sau reconcile giữ cùng key/body, current approval/source còn hợp lệ. Case status_missing_retry có 2 POST/1 effect, target dedup trước version CAS; cùng key khác payload conflict. Dedup không expiry trong fixture, chưa end-to-end exactly-once cho API khác. Cancel sau unknown bị chặn, chưa compensation/outbox/broker.
+
+Approval expiry/source revoke chặn fresh write nhưng không xóa effect cũ; status chỉ trả receipt metadata cho owner active/đúng tenant. Không export lại note/source body như thể được cấp quyền mới. Raw source/checkpoint/approval/review HTML có thể còn trên đĩa; chưa secure deletion. 26 source world backups giữ seed hash, không business effects; target DB có internal notes thật trên synthetic tickets, không gửi email/customer notification.
+
+Môi trường: Python 3.14.6, SQLite 3.53.3, mcp/mcp-types 2.3.0, Pydantic 2.14.2, AnyIO 4.16.0, jsonschema 4.26.0, HTTPX 0.28.1, FastAPI 0.162.0, Matplotlib 3.11.2, macOS arm64 CPU. Dependencies sẵn local, chưa fresh install từ mạng/mọi OS. Mười Python modules, bốn Markdown, hai requirements và bảy cặp PNG/SVG; source 45–46–48–49–50–51–52–53, process sạch.
+
+Experiment `8443f013433509c9`; base52 `b948ae465efb01793cc2179f709ba86d8861daa371761a619b4fa874e10571b6`; core53 `db9ab72443531f45fe42a4ce7079f90ce76702b9a1eb8af0ab1be5b9f8c7c175`; release `9613ee3cde06c7f28cb9cb52936ecfe73df660b2777f08d662721ade9ceb9245`; experiment source `56058149cc0dd842cec0f7140b57f9c50d2b8012e6081bb21428094b36cfb251`; case snapshot `14a03fe093a6139a3b36cdf2581767efb41f84bf395b778ba1892f038db1aa49`. Identity gắn source/config/payload/protocol bindings, không mọi Markdown/environment/lockfile/chữ ký tác giả hoặc deterministic LLM output.
+
+70 checks mới + 476 hồi quy = 546 predicates. 13 Python snippets độc lập/16 cặp bài tập-lời giải/7 hình đã chạy/xem. Independent stdlib audit không import runtime/scorer: raw SQL 113 local events/head/hash chains, approval-draft/version binding, target CAS/effect/receipt/dedup, review HTML/view digests, 26 source world seeds/no effects, counters và source lineage. ZIP kiểm CRC/selected source bytes/local links, fresh extraction full report/546 checks/five modes/guards/snippets/audit và tái tạo 7 PNG byte-for-byte/SVG. Không DB/config/report/review HTML/cache/venv runtime trong ZIP. Bài 54–57 vẫn đề cương.
+
 ## Nguồn định hướng đề cương
 
 | Nguồn                                                                                                           | Phần đã đọc / mục đích                                          | Tính thời điểm và giới hạn                                                            |

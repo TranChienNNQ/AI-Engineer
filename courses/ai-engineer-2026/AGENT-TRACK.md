@@ -2,7 +2,7 @@
 
 [← Mục lục](README.md) · [Đề cương tổng thể](ROADMAP.md) · [Bài 47: đánh giá chất lượng](47-danh-gia-chat-luong-llm-tro-ly-ho-tro/README.md)
 
-Cập nhật: 08/11/2026. Nhánh mở rộng gồm bài 48–57: [bài 48](48-tu-tro-ly-rag-den-ai-agent/README.md) đã có tài liệu/lab kiểm offline; bài 49 đã có MCP memory/stdio lab, bài 50 đã có planning/replanning lab với planner scripted; bài 51 đã có SQLite checkpoint/crash-resume lab; bài 52–57 còn là đề cương. Bài 1–51 đã có, chưa có bằng chứng triển khai agent live thành công. Không suy từ việc giáo trình có tài liệu rằng người học đã thành thạo.
+Cập nhật: 08/11/2026. Nhánh mở rộng gồm bài 48–57: [bài 48](48-tu-tro-ly-rag-den-ai-agent/README.md) đã có tài liệu/lab kiểm offline; bài 49 đã có MCP memory/stdio lab, bài 50 đã có planning/replanning lab với planner scripted; bài 51 đã có SQLite checkpoint/crash-resume lab; bài 52 đã có context/memory lifecycle lab; bài 53 đã có review/write/unknown recovery lab; bài 54–57 còn là đề cương. Bài 1–53 đã có, chưa có bằng chứng triển khai agent live thành công. Không suy từ việc giáo trình có tài liệu rằng người học đã thành thạo.
 
 ## 1. Nâng cấp năng lực gì?
 
@@ -35,7 +35,7 @@ Nhánh này nâng độ sâu tích hợp và bằng chứng thực nghiệm. Kh�
 
 ## 3. Thứ tự bài 48–57
 
-Bài 48–51 đã biên soạn và kiểm lab; MCP thật, planner scripted; bài 51 có durable loop và worker crash/resume thật. Các số 52–57 là kế hoạch, chưa có thư mục/lab tương ứng. Mỗi bài khi viết vẫn cần giải thích nền tảng, ví dụ thực tế, code, bài tập, lời giải, hình và nguồn/giới hạn đã kiểm.
+Bài 48–53 đã biên soạn và kiểm lab; MCP/SQLite/HTTP-ASGI target thật trên synthetic data, planner/reviewer fixture. Các số 54–57 là kế hoạch, chưa có thư mục/lab tương ứng. Mỗi bài khi viết vẫn cần giải thích nền tảng, ví dụ thực tế, code, bài tập, lời giải, hình và nguồn/giới hạn đã kiểm.
 
 | Bài dự kiến | Nội dung và năng lực mới | Sản phẩm / tiêu chí chuyển chặng |
 |---|---|---|
@@ -43,8 +43,8 @@ Bài 48–51 đã biên soạn và kiểm lab; MCP thật, planner scripted; bà
 | [**49. Thiết kế tool và tích hợp MCP cho agent** — đã có lab](49-thiet-ke-tool-tich-hop-mcp/README.md) | Tool schema/mô tả/error taxonomy, discovery/capability, chuyển tool MCP vào action space có quyền | Agent gọi đúng công cụ/args, xử lý tool lạ hoặc unavailable; kiểm scope ở backend |
 | [**50. Lập kế hoạch, kiểm chứng và đổi kế hoạch** — đã có lab](50-lap-ke-hoach-kiem-chung-doi-ke-hoach/README.md) | Plan ngắn có cấu trúc, dependency, kiểm giả thuyết, observation thiếu/mâu thuẫn, yêu cầu thêm thông tin | Agent đổi bước khi dữ liệu bác bỏ giả thuyết, không tiếp tục máy móc; phân tích vòng lặp lãng phí |
 | [**51. Agent chạy dài: state, checkpoint và khôi phục** — đã có lab](51-trang-thai-ben-vung-checkpoint-khoi-phuc/README.md) | Event/state transitions, run/sample/tool IDs, pause/resume, crash boundaries và unknown effects | Khôi phục không reset budget/quyền; phân biệt việc có thể chạy lại với effect cần status/idempotency |
-| **52. Context engineering và memory cho agent** | Chọn context theo task, summary/source lineage, working/long-term memory, TTL/revoke/forget và dữ liệu không đáng tin | Tái sử dụng thông tin có nguồn/quyền, tránh memory poison và dữ kiện đã hết hiệu lực |
-| **53. Human-in-the-loop và hành động ghi có kiểm soát** | Approve đúng args/draft, scope/version/expiry, remote adapter và timeout unknown | Agent đề xuất cập nhật ticket, người duyệt thấy payload thực; retry không tự tạo effect mới |
+| [**52. Context engineering và memory cho agent** — đã có lab](52-context-engineering-memory-agent/README.md) | Chọn context theo task, summary/source lineage, working/long-term memory, TTL/revoke/forget và dữ liệu không đáng tin | Tái sử dụng thông tin có nguồn/quyền, tránh memory poison và dữ kiện đã hết hiệu lực |
+| [**53. Human-in-the-loop và hành động ghi có kiểm soát** — đã có lab](53-human-in-the-loop-hanh-dong-ghi/README.md) | Approve đúng args/draft, scope/version/expiry, remote adapter và timeout unknown | Agent đề xuất cập nhật ticket, người duyệt thấy payload thực; retry không tự tạo effect mới |
 | **54. Đánh giá agent end-to-end** | Outcome/trajectory/tool selection/stop/recovery, injection cases, repeats, judge audit và so baseline | Có bộ task nhiều bước, lỗi critical theo slice, cost/latency toàn run và kết luận không chọn ứng viên nếu chưa đủ |
 | **55. Điều phối bằng LangGraph và đối chiếu runtime tự viết** | Chuyển state/control flow sang graph; persistence, interrupts và streaming theo phiên bản được kiểm | Tái chạy cùng task/fault suite để giải thích điều framework quản lý và phần backend vẫn phải giữ |
 | **56. Multi-agent có mục đích** *(nhánh tùy chọn)* | Phân vai, delegation/handoff, scope từng worker, shared state và aggregation/conflict | So với single-agent cùng dataset/ngân sách; chỉ giữ nếu lợi ích đo được bù thêm chi phí và failure modes |
@@ -97,8 +97,8 @@ Bước tự chuẩn bị: lấy một case 504 trong bài 47, tự viết **th�
 
 ## 6. Trạng thái và nguồn
 
-Bài 48–51 đã có lab theo nhánh này; MCP thật, planner scripted; bài 51 kiểm checkpoint và crash/resume qua process. Bài 52–57 còn là kế hoạch. Chưa có tuyên bố đã nâng app lên agent production. Các nguyên tắc về quyền/review/effect của bài trước tiếp tục áp dụng; các phiên bản API/SDK/MCP/framework sẽ được kiểm khi viết từng bài.
+Bài 48–53 đã có lab theo nhánh này; MCP/SQLite/HTTP-ASGI target thật trên synthetic data, planner/reviewer fixture. Bài 54–57 còn là kế hoạch. Chưa có tuyên bố đã nâng app lên agent production. Các nguyên tắc về quyền/review/effect của bài trước tiếp tục áp dụng; các phiên bản API/SDK/MCP/framework sẽ được kiểm khi viết từng bài.
 
 Nguồn đối chiếu ngày 08/11/2026: bài Anthropic đọc phần phân biệt workflow/agent và Agents; LangGraph đọc overview/capabilities; ReAct chỉ abstract/metadata. Chi tiết phạm vi trong [SOURCES.md](SOURCES.md). Không gọi provider, cài framework, tạo multi-agent runtime hoặc triển khai dịch vụ trong bước lập lộ trình này.
 
-Cập nhật sau bài 49: [thiết kế tool và tích hợp MCP](49-thiet-ke-tool-tich-hop-mcp/README.md) đã biên soạn/kiểm; không dùng mode live của bài 48 làm bằng chứng LLM đã chạy qua MCP49. [Bài 50](50-lap-ke-hoach-kiem-chung-doi-ke-hoach/README.md) đã có lab; [Bài 51](51-trang-thai-ben-vung-checkpoint-khoi-phuc/README.md) đã có lab; bước tiếp dự kiến là bài 52 về context engineering và memory.
+Cập nhật sau bài 49: [thiết kế tool và tích hợp MCP](49-thiet-ke-tool-tich-hop-mcp/README.md) đã biên soạn/kiểm; không dùng mode live của bài 48 làm bằng chứng LLM đã chạy qua MCP49. [Bài 50](50-lap-ke-hoach-kiem-chung-doi-ke-hoach/README.md) đã có lab; [Bài 51](51-trang-thai-ben-vung-checkpoint-khoi-phuc/README.md) đã có lab; [Bài 52](52-context-engineering-memory-agent/README.md) đã có lab; [Bài 53](53-human-in-the-loop-hanh-dong-ghi/README.md) đã có lab; bước tiếp dự kiến là bài 54 về đánh giá agent end-to-end.
